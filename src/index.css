@@ -1,13 +1,210 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: #8dfde1;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: grid;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  max-width: 920px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.navbar {
+  font-size: 20px;
+  height: 3rem;
+  background-color: #a2b9bc;
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 35px;
+  width: 100%;
+  opacity: 75%;
+  display: flex;
+}
+
+.nav-logo {
+  cursor: pointer;
+  background: transparent;
+  font-size: 16px;
+  border-radius: 3px;
+  color: .2f436b;
+}
+/* Rules */
+.rules-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.rules-table-container {
+  border-collapse: collapse;
+  margin: 35px 0;
+  font-size: 0.85em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.rules-table-container caption {
+  caption-side: top;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: .000;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.rules-table-container thead tr {
+  background-color: #980072;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.rules-table-container th,
+.rules-table-container td {
+  padding: 12px 15px;
+}
+
+.rules-table-container tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.rules-table-container tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.rules-table-container tbody tr:last-of-type {
+  border-bottom: 2px solid .009879;
+}
+
+.rules-table-container tbody tr.active-row {
+  font-weight: bold;
+  color: .009879;
+}
+
+/* Matches sivu */
+.matchPage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.matchPage-table-container {
+  border-collapse: collapse;
+  margin: 35px 0;
+  font-size: 0.85em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.matchPage-table-container caption {
+  caption-side: top;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: .000;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.matchPage-table-container thead tr {
+  background-color: #980072;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.matchPage-table-container th,
+.matchPage-table-container td {
+  padding: 12px 15px;
+}
+
+.matchPage-table-container tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.matchPage-table-container tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.matchPage-table-container tbody tr:last-of-type {
+  border-bottom: 2px solid .009879;
+}
+
+.matchPage-table-container tbody tr.active-row {
+  font-weight: bold;
+  color: .009879;
+}
+
+/* Standings sivu */
+.standings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.standings-table-container {
+  border-collapse: collapse;
+  margin: 35px 0;
+  font-size: 0.85em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.standings-table-container caption {
+  caption-side: top;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: .000;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.standings-table-container thead tr {
+  background-color: #980072;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.standings-table-container th,
+.standings-table-container td {
+  padding: 12px 15px;
+}
+
+.standings-table-container tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.standings-table-container tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.standings-table-container tbody tr:last-of-type {
+  border-bottom: 2px solid .009879;
+}
+
+.standings-table-container tbody tr.active-row {
+  font-weight: bold;
+  color: .009879;
 }
