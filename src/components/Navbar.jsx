@@ -21,6 +21,7 @@ const Navbar = () => {
 		<div className='navbar-container'>
 			<div className='navbar'>
 			<button className='nav-button' onClick={() => navigate('/')}>Etusivu</button>
+			<button className='nav-button' onClick={() => navigate('/points')}>Pistetaulukko</button>
 			<button className='nav-button' onClick={() => navigate('/matches')}>Ottelut</button>
 			<button className='nav-button' onClick={() => navigate('/standings')}>Sarjataulukko</button>
 			{user.role === 'admin'

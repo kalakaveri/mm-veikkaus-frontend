@@ -15,6 +15,7 @@ import MatchPage from './components/MatchPage';
 import Navbar from './components/Navbar'
 import NotFound from './components/NotFound'
 import Notification from './components/Notification'
+import Points from './components/Points';
 import Register from './components/Register'
 import Standings from './components/Standings';
 import Team from './components/Team';
@@ -43,6 +44,9 @@ const App = () => {
   
   return (
     <div className='container'>
+      <div className='img-wrapper'>
+        <img src='https://wallpaperaccess.com/full/7068215.jpg' alt='logo' />
+      </div>
       <Navbar />
       <Notification />
       
@@ -54,6 +58,7 @@ const App = () => {
         </Route>
 
         <Route element={<Auth authRoles={['guest', 'regular', 'admin']} />}>
+          <Route path='/points' element={<Points />} />
           <Route path='/standings' element={<Standings />} />
           <Route path='/matches' element={<MatchPage />} />
           <Route path='/matches/:matchId' element={<Finder type='match' findHandler={getMatch} />} />
