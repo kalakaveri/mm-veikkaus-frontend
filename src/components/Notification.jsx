@@ -1,5 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Notification = () => {
   const notification = useSelector(state => state.notification);
@@ -9,13 +15,15 @@ const Notification = () => {
   }
 
   const notificationStyle = notification.type
-    ? { backgroundColor: 'green' }
-    : { backgroundColor: 'red' };
+    ? 'success'
+    : 'error'
 
   return (
-    <div id='notification-component' style={notificationStyle}>
-      {notification.message}
-    </div>
+    <Snackbar open={notification} autoHideDuration={6000}>
+        <Alert severity={notificationStyle} sx={{ width: '100%' }}>
+        {notification.message}
+        </Alert>
+      </Snackbar>
   );
 };
 

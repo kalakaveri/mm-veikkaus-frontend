@@ -44,7 +44,7 @@ const App = () => {
   
   
   return (
-    <Container className='app-container' maxWidth={false}>
+    <Container className='app-container'>
       {/* <div className='img-wrapper'>
         <img src='https://wallpaperaccess.com/full/7068215.jpg' alt='logo' />
       </div> */}

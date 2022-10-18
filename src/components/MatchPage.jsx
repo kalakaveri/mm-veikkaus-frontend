@@ -4,6 +4,7 @@ import { initMatches } from '../reducers/matchReducer'
 
 import Match from './Match'
 import AddMatch from './AddMatch'
+import { Button, Container, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 
 const MatchPage = () => {
   const [visible, setVisible] = useState(false)
@@ -21,41 +22,47 @@ const MatchPage = () => {
   }
 
   return (
-    <div className='matchPage-container'>
+    <Container className='matchPage-container'>
       {user.role === 'admin'
           ? 
             <div className='matchPage-add-form'>
               {visible
                 ? <AddMatch toggleVisibility={toggleVisibility} />
-                : <button className='addMatch-button' onClick={toggleVisibility}>Lisää ottelu</button>
+                : <Button 
+                    fullWidth 
+                    variant='contained' 
+                    onClick={toggleVisibility}
+                    sx={{ mb: 2, mt: 2, alignSelf: 'center', borderRadius: 2, position: 'top' }}
+                  >
+                    Lisää ottelu
+                  </Button>
               }
             </div>
           : null
       }
-      <table className='matchPage-table-container'>
-        <caption>Kisojen ottelut</caption>
-        <thead>
-          <tr key='header'>
-            <th>Päivämäärä</th>
-            <th>Aika</th>
-            <th colSpan="2">Kotijoukkue</th>
-            <th colSpan="2">Vierasjoukkue</th>
+      <Table className='matchPage-table-container'>
+        <TableHead>
+          <TableRow key='header'>
+            <TableCell>Päivämäärä</TableCell>
+            <TableCell>Aika</TableCell>
+            <TableCell colSpan="2">Kotijoukkue</TableCell>
+            <TableCell colSpan="2">Vierasjoukkue</TableCell>
             {user && user.role === 'admin'
-              ? <th>Muokkaa</th>
+              ? <TableCell>Muokkaa</TableCell>
               : null
             }
-          </tr>
-        </thead>
-        <tbody key='table-body' className='matchPage-table-tbody'>
+          </TableRow>
+        </TableHead>
+        <TableBody key='table-body' className='matchPage-table-tbody'>
           {matches && matches.length > 0
             ? matches.map(match => (
               <Match key={match.id} match={match} />
               ))
-              : <tr key='no-matches'><td>Ei otteluita</td></tr>
+              : <TableRow key='no-matches'><TableCell>Ei otteluita</TableCell></TableRow>
           }
-        </tbody>
-      </table>
-    </div>
+        </TableBody>
+      </Table>
+    </Container>
   )
 }
 

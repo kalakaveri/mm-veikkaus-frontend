@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteUser } from '../reducers/usersReducer';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Typography from '@mui/material/Typography';
+import { Box, Button, ListItem } from '@mui/material';
+
 const User = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,25 +36,28 @@ const User = ({ user }) => {
   };
 
   return (
-    <li id='user-container' key={user.id}>
+    <ListItem id='user-container' key={user.id}>
       {!userId ? <Link data-testid='inspect-link' to={`${user.id}/modify`} /> : null}
-      <h3 id='user-heading'>{user.username}</h3>
-      <div id='user-role'>role: {user.role}</div>
+      <Typography className='user-heading' variant='h5'>{user.username}</Typography>
+      <Typography variant='button'>role: {user.role}</Typography>
       {auth.id === user.id
         ? null
         : (
-          <>
-            <button
-              id={`user-modify-button`}
-              onClick={(e) => handleModify(e)}
-            >Modify</button>
-            <button
-              id={`user-delete-button`}
+          <Box sx={{ margin: 2 }}>
+            <Button
+              variant='outlined'
+              color='error'
+              startIcon={<DeleteIcon />}
               onClick={(e) => handleDelete(e)}
-            >Delete</button>
-          </>
+            >Delete</Button>
+            <Button
+              variant='contained'
+              onClick={(e) => handleModify(e)}
+              endIcon={<EditIcon />}
+            >Modify</Button>
+          </Box>
         )}
-    </li>
+    </ListItem>
   );
 }
 

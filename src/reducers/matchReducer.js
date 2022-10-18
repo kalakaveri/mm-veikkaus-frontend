@@ -35,7 +35,7 @@ export const createMatch = (match) => {
         type: 'CREATE_MATCH',
         data: newMatch
       })
-      dispatch(setNotification(`Match ${newMatch.homeTeam} - ${newMatch.awayTeam} created`, true))
+      dispatch(setNotification(`Ottelu lisätty`, true))
     } catch (error) {
       dispatch(setNotification('Jotain meni pieleen', false))
     }

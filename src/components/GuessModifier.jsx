@@ -1,16 +1,17 @@
+import { createTheme, ThemeProvider } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { deleteGuess, updateGuess } from '../reducers/guessReducer';
 
-const GuessModifier = ({ guess }) => {
+const GuessModifier = ({ guess, user }) => {
     const dispatch = useDispatch()
 
     const guesses = useSelector(state => state.guesses);
     const matches = useSelector(state => state.matches);
     const teams = useSelector(state => state.teams);
-
+    const theme = createTheme();
     const [homeTeamScore, setHomeTeamScore] = useState(guess.homeTeamScore);
     const [awayTeamScore, setAwayTeamScore] = useState(guess.awayTeamScore);
 
@@ -46,7 +47,14 @@ const GuessModifier = ({ guess }) => {
     }
 
     return (
-        <div className='match-modifier-container'>
+        <ThemeProvider theme={theme} className='match-modifier-container'>
+            {user && user.role === 'admin' 
+            ? (
+                <div className='match-modifier'>
+                </div>
+            )
+            : null
+            }
             <form className='match-modifier-form' key={guess.id}>
                 <label htmlFor='homeTeamScore'>{filterteam(guess, 'homeTeam')}</label>
                 <input
@@ -87,7 +95,7 @@ const GuessModifier = ({ guess }) => {
                 </button>
                 </>
             </form>
-        </div>
+        </ThemeProvider>
     );
 }
 

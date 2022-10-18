@@ -7,12 +7,6 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
 
 /* <ol>
@@ -58,7 +52,7 @@ const Rules = () => {
                 (
                 <>
                     <Container align='center'>
-                        <Typography className='homepage-header' variant='h3'>MM-kisaveikkaus</Typography>
+                        <Typography className='homepage-header' variant='h1' sx={{ mt: 5, mb: 5 }}>MM-kisaveikkaus</Typography>
                         <br />
                         <Typography className='rules-header' variant='h5'>Kilpailun säännöt</Typography>
                     </Container>
@@ -94,55 +88,51 @@ const Rules = () => {
                         <Typography variant='button' paragraph>Maksimipisteet per ottelu on siis 6.</Typography>
                         <br />
                         <Typography variant='h5'>Esimerkiksi:</Typography>
-                        <Typography variant='button' paragraph>Arvauksesi on otteluun Suomi - Malta  4-3</Typography>
-                        <Timeline position='alternate'>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot color="primary" />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                    A. Ottelu päättyy 3-1, saat 4 pistettä - +3 oikea voittajajoukkue, +1 Maltan maalimäärä
-                                </TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot color="primary" />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                B. Ottelu päättyy 2-2, saat -1 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1
-                                </TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot color="primary" />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                    C. Ottelu päättyy 1-1, saat -2 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on väärä
-                                </TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot color="primary" />
-                                    <TimelineConnector />
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                Ottelu päättyy 1-2, saat -4 pistettä. - Väärä voittaja -4, ei plussapisteitä.
-                                </TimelineContent>
-                            </TimelineItem>
-                            <TimelineItem>
-                                <TimelineSeparator>
-                                    <TimelineDot color="primary" />
-                                </TimelineSeparator>
-                                <TimelineContent>
-                                E. Ottelu päättyy 2-1, saat +6 pistettä. - Täysin oikea arvaus, täydet pisteet.
-                                </TimelineContent>
-                            </TimelineItem>
-                        </Timeline>
-
-                        <h3>Veikkauksen voittaja on EHDOTON MM-jalkapallotietäjä seuraaviin kisoihin saakka.</h3>
+                        <Typography variant='button' paragraph>Arvauksesi on otteluun Suomi - Malta 2-1</Typography>
+                        <Table className='timeline' position='alternate'>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>
+                                    A 
+                                    </TableCell>
+                                    <TableCell>
+                                    Ottelu päättyy 3-1, saat 4 pistettä - +3 oikea voittajajoukkue, +1 Maltan maalimäärä
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                    B
+                                    </TableCell>
+                                    <TableCell>
+                                    Ottelu päättyy 2-2, saat -1 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                    C
+                                    </TableCell>
+                                    <TableCell>
+                                    Ottelu päättyy 1-1, saat -2 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on väärä
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                    D
+                                    </TableCell>
+                                    <TableCell>
+                                    Ottelu päättyy 1-2, saat -4 pistettä. - Väärä voittaja -4, ei plussapisteitä.
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                    E
+                                    </TableCell>
+                                    <TableCell>
+                                    Ottelu päättyy 2-1, saat +6 pistettä. - Täysin oikea arvaus, täydet pisteet.
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </Box>
                 </>
                 )

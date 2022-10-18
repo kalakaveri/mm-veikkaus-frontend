@@ -4,6 +4,17 @@ import { createGuess, initGuesses } from "../reducers/guessReducer"
 import { useEffect } from "react"
 
 import GuessModifier from "./GuessModifier"
+import { 
+  Button, 
+  Container,
+  Grid, 
+  Table, 
+  TableBody, 
+  TableCell,
+  TableHead, 
+  TableRow,
+  Typography
+} from "@mui/material"
 
 const GuessPage = () => {
   const dispatch = useDispatch()
@@ -26,7 +37,7 @@ const GuessPage = () => {
     const table = document.getElementsByClassName('guessPage-table-tbody')[0]
     const rows = table.getElementsByTagName('tr')
     const modifiedGuesses = []
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.lengTableCell; i++) {
       const row = rows[i]
       const matchId = row.cells[0].innerText
       const homeTeamScore = row.getElementsByClassName('homeTeamScore')[0]
@@ -52,46 +63,59 @@ const GuessPage = () => {
   }
 
   return (
-    <div className='guessPage-container'>
-      <button className='cancel-button' type='button' onClick={toggleVisibility}>{visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}</button>
+    <Container className='guessPage-container'>
+      <Button 
+        fullwidTableCell
+        variant='contained' 
+        color='info' 
+        onClick={toggleVisibility}
+        sx={{ mt: '10px' }}
+      >
+        {visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}
+      </Button>
       {visible 
-        ? (<div>{guesses.filter(guess => guess.user.id === user.id).map(g => (<GuessModifier key={g.id} guess={g} />))}</div>)
+        ? (<Grid container>
+          {guesses.filter(guess => guess.user.id === user.id).map(g => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={g.id}>
+              <GuessModifier key={g.id} guess={g} user={user} />))
+            </Grid>))}
+          </Grid>)
         : (<div>
-          <table className="guessPage-table-container">
-          <caption>Syötä veikkaukset</caption>
-            <thead>
-              <tr key='header'>
-                <th hidden />
-                <th>Päivämäärä</th>
-                <th>Aika</th>
-                <th colSpan="2">Kotijoukkue</th>
-                <th colSpan="2">Vierasjoukkue</th>
-              </tr>
-            </thead>
-            <tbody key='table-body' className='guessPage-table-tbody'>
-              {matches && matches.length > 0
+          <Typography variant='h3' paragraph>Syötä veikkaukset</Typography>
+          <Table className="guessPage-table-container">
+            <TableHead>
+              <TableRow key='header'>
+                <TableCell hidden />
+                <TableCell>Päivämäärä</TableCell>
+                <TableCell>Aika</TableCell>
+                <TableCell colSpan="2">Kotijoukkue</TableCell>
+                <TableCell colSpan="2">Vierasjoukkue</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody key='table-body'>
+              {matches && matches.lengTableCell > 0
                 ? matches.map(match => (
                   user.guesses.find(guess => guess.matchId === match.id) === undefined
                     ?
-                      (<tr key={match.id}>
-                        <td className='matchId' hidden>{match.id}</td>
-                        <td>{match.date}</td>
-                        <td>{match.time}</td>
-                        <td><img src={match.homeTeam.url} alt='' width={'35px'} height={'20px'} />{match.homeTeam.name}</td>
-                        <td><input className='homeTeamScore' type="number" min={0} max={20} defaultValue={null}/></td>
-                        <td><input className='awayTeamScore' type="number" min={0} max={20} defaultValue={null} /></td>
-                        <td>{match.awayTeam.name}<img src={match.awayTeam.url} alt='' width={'35px'} height={'20px'} /></td>
-                      </tr>)
+                      (<TableRow key={match.id}>
+                        <TableCell className='matchId' hidden>{match.id}</TableCell>
+                        <TableCell>{match.date}</TableCell>
+                        <TableCell>{match.time}</TableCell>
+                        <TableCell><img src={match.homeTeam.url} alt='' widTableCell={'35px'} height={'20px'} />{match.homeTeam.name}</TableCell>
+                        <TableCell><input className='homeTeamScore' type="number" min={0} max={20} defaultValue={null}/></TableCell>
+                        <TableCell><input className='awayTeamScore' type="number" min={0} max={20} defaultValue={null} /></TableCell>
+                        <TableCell>{match.awayTeam.name}<img src={match.awayTeam.url} alt='' widTableCell={'35px'} height={'20px'} /></TableCell>
+                      </TableRow>)
                     : null
                 ))
-                : <tr key='no-matches'><td>Olet jo syöttänyt arvaukset</td></tr>
+                : <tr key='no-matches'><TableCell>Olet jo syöttänyt arvaukset</TableCell></tr>
               }
-            </tbody>
-          </table>
-          <button type='submit' onClick={submitGuesses}>Lähetä veikkaukset</button>
+            </TableBody>
+          </Table>
+          <Button type='submit' variant='success' onClick={submitGuesses}>Lähetä veikkaukset</Button>
           </div>)
       }
-    </div>
+    </Container>
   )
 }
 

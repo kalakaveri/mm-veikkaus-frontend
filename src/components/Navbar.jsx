@@ -40,7 +40,7 @@ const Navbar = () => {
   }
 
 	return (
-		<AppBar className='navbar-container' position='static' sx={{ background: '#fdcece' }}>
+		<AppBar className='navbar-container' position='static'>
 			<Toolbar className='navbar'>
 				<SportsSoccerIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 				<Typography
@@ -75,7 +75,11 @@ const Navbar = () => {
 							<Tab component={Link} label="Etusivu" to='/' />
 							<Tab component={Link} label='Pistetaulukko' to='/points' />
 							<Tab component={Link} label='Ottelut' to='/matches' />
-							<Tab component={Link} label='Sarjataulukko' to='/standings' />
+							<Tab component={Link} label='Lohkojako' to='/standings' />
+							{user && user.role !== 'guest' 
+							? 	<Tab component={Link} label='Arvaukset' to='/guesses' />
+							: 	null
+							}
 							{user.role === 'admin'
 								? (
 									<>
@@ -84,10 +88,6 @@ const Navbar = () => {
 									</>
 									)
 								: null}
-								{user && user.role !== 'guest' 
-								? 	<Tab component={Link} label='Arvaukset' to='/guesses' />
-								: 	null
-								}
 						</Tabs>
 						<ButtonGroup className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
 						{!user || user.role === 'guest'

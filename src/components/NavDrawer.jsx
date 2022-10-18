@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import MenuIcon from "@mui/icons-material/Menu";
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 
-const guestPages = [{nimi: 'Etusivu', url:  '/'}, {nimi:'Pistetaulukko', url: '/points'}, {nimi:'Ottelut', url: '/matches'}, {nimi: 'Sarjataulukko', url: '/standings'}]
+const guestPages = [{nimi: 'Etusivu', url:  '/'}, {nimi:'Pistetaulukko', url: '/points'}, {nimi:'Ottelut', url: '/matches'}, {nimi: 'Lohkojako', url: '/standings'}]
 const userPages = [{nimi:'Arvaukset', url:  '/guesses' }]
 const adminPages = [{nimi: 'Käyttäjät', url:  '/users'}]
 const logPages = [{nimi: 'Kirjaudu sisään', url: '/login'}, {nimi: 'Rekisteröidy', url: '/register'}]
