@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { updateGuess } from '../reducers/guessReducer';
 import { updateUser } from '../reducers/usersReducer';
 import GuessModifier from './GuessModifier';
 

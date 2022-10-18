@@ -31,6 +31,9 @@ import { initMatches, getMatch } from './reducers/matchReducer';
 import { initTeams, getTeam } from './reducers/teamReducer';
 import { getUser } from './reducers/usersReducer';
 
+import { Container } from '@mui/material';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
+
 
 const App = () => {
   const dispatch = useDispatch()
@@ -43,10 +46,11 @@ const App = () => {
   
   
   return (
-    <div className='container'>
-      <div className='img-wrapper'>
+    <Container className='app-container' maxWidth={false}>
+      {/* <div className='img-wrapper'>
         <img src='https://wallpaperaccess.com/full/7068215.jpg' alt='logo' />
-      </div>
+      </div> */}
+      {/* <Navbar /> */}
       <Navbar />
       <Notification />
       
@@ -88,7 +92,7 @@ const App = () => {
         <Route path='*' element={<NotFound />} />
       </Routes> 
       <Footer />
-    </div>
+    </Container>
   )
 }
 

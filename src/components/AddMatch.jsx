@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from "react"
+import React, { useState } from "react"
 
 import { createMatch } from '../reducers/matchReducer'
 
@@ -32,41 +32,41 @@ const AddMatch = ({ toggleVisibility }) => {
     <div className="add-match-form">
       	<h2>Add match</h2>
       	<form>
-          	<div>
-				<div className='input-manual'>
-					Syötä tiedot näkyvissä muodoissa, joukkueen nimet kirjoitetaan täsmälleen samalla tavalla kuin ne näkyvät joukkueiden listassa.
-				</div>
+          <div>
+						<div className='input-manual'>
+							Syötä tiedot näkyvissä muodoissa, joukkueen nimet kirjoitetaan täsmälleen samalla tavalla kuin ne näkyvät joukkueiden listassa.
+						</div>
             	<input 
-					type="text" 
-					name="match-date"
-					placeholder="DD-MM-YYYY"
-					value={date}
-					onChange={({target}) => setDate(target.value)}
-				/>
+								type="text" 
+								name="match-date"
+								placeholder="DD-MM-YYYY"
+								value={date}
+								onChange={({target}) => setDate(target.value)}
+							/>
             	<input 
-					type="text"
-					name="time"
-					value={time}
-					placeholder="18:15"
-					onChange={({target}) => setTime(target.value)}
-				/>
-			  	<input 
-					type="text"
-					name="homeTeam"
-					value={homeTeam}
-					placeholder="Kotijoukkue"
-					onChange={({target}) => setHomeTeam(target.value)}
-				/>
-			  	<input 
-					type="text"
-					name="awayTeam"
-					value={awayTeam}
-					placeholder="Vierasjoukkue"
-					onChange={({target}) => setAwayTeam(target.value)}
-				/>
-			<button className='cancel-button' type="button" onClick={toggleVisibility}>Peruuta</button>
-			<button className='submit-button' type="submit" onClick={handleSubmit}>Lisää ottelu</button>
-          	</div>
+								type="text"
+								name="time"
+								value={time}
+								placeholder="18:15"
+								onChange={({target}) => setTime(target.value)}
+							/>
+						  	<input 
+								type="text"
+								name="homeTeam"
+								value={homeTeam}
+								placeholder="Kotijoukkue"
+								onChange={({target}) => setHomeTeam(target.value)}
+							/>
+						  	<input 
+								type="text"
+								name="awayTeam"
+								value={awayTeam}
+								placeholder="Vierasjoukkue"
+								onChange={({target}) => setAwayTeam(target.value)}
+							/>
+						<button className='cancel-button' type="button" onClick={toggleVisibility}>Peruuta</button>
+						<button className='submit-button' type="submit" onClick={handleSubmit}>Lisää ottelu</button>
+      		</div>
         </form>
     </div>
   )

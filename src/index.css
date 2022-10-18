@@ -3,70 +3,39 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
+  background: url(./logos/logo-1-bw.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
-/* background images */
-:root {
-  --base:              #f7392b;
-  --bg-blend:          multiply;
-  --blur:              0px;
-  --fg-blend:          lighten;
-  --foreground:        #16006f;
-  --opacity:           1;
-  --spacing:           1%;
-}
-.img-wrapper {
-  background-color:    var(--base);
-  display:             flex;
-  flex:                1 1 100%;
-  height:              100%;
-  overflow:            hidden;
-  padding:             var(--spacing);
-  position:            relative;
+.app-container {
+  overflow-y: hidden;
+  width: 100vw;
 }
 
-.img-wrapper img {
-  filter:              grayscale(100%) contrast(1) blur(var(--blur));
-  flex:                1 0 100%;
-  height:              100%;
-  max-width:           100%;
-  mix-blend-mode:      var(--bg-blend);
-  object-fit:          cover;
-  opacity:             var(--opacity);
-  position:            relative;
-  width:               100%;
+.rules-container {
+  color: #fff;
+  text-shadow: 1px 0 0 rgb(0,0,0), 0 -1px 0 rgb(0,0,0), 0 1px 0 rgb(0,0,0), -1px 0 0 rgb(0,0,0);
 }
 
-.img-wrapper::before {
-  background-color:    var(--foreground);
-  bottom:              0;
-  content:             '';
-  height:              100%;
-  left:                0;
-  mix-blend-mode:      var(--fg-blend);
-  position:            absolute;
-  right:               0;
-  top:                 0;
-  width:               100%;
-  z-index:             1;
-}
-
-
-.container {
-  max-width: 920px;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin: auto;
-  border-radius: 10px;
-}
-
+/* Navbar */
 .navbar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 80px;
+  background: rgb(249, 146, 146);
+  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+  opacity: 75%;
 }
 
+.navbar-title {
+  color:rgb(249, 146, 146)
+}
+
+/*
 .navbar {
   font-size: 20px;
   height: 3rem;
@@ -84,26 +53,35 @@ body {
   font-size: 16px;
   border-radius: 3px;
   color: .2f436b;
-}
-
+} */
 table {
   border-collapse: collapse;
+  background-color: aliceblue;
+  color: #000;
+  text-shadow: none;
+  -khtml-opacity: .75;
+  -moz-opacity: .75;
+  -ms-filter: ”alpha(opacity=75)”;
+  filter: alpha(opacity=75);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.75);
+  opacity: .75;
   margin: 35px 0;
   font-size: 0.85em;
   min-width: 400px;
-  border-radius: 5px 5px 0 0;
+  border-radius: 15px 15px 15px 15px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px rgba(11, 11, 11, 0.55);
 }
 
 table caption {
-  caption-side: top;
+  /* caption-side: block-start; */
   font-size: 1.5em;
   font-weight: bold;
-  color: .000;
+  color: #fff;
   padding: 10px 15px;
   text-align: center;
 }
+/* 
 
 table thead tr {
   background-color: #980072;
@@ -132,7 +110,7 @@ table tbody tr:last-of-type {
 table tbody tr.active-row {
   font-weight: bold;
   color: .009879;
-}
+} */
 
 /* Matches sivu */
 .matchPage-container {
@@ -141,6 +119,19 @@ table tbody tr.active-row {
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
+  background: url(./logos/logo-2-bw.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.matchPage-table-container {
+  -khtml-opacity: .8;
+  -moz-opacity: .80;
+  -ms-filter: ”alpha(opacity=80)”;
+  filter: alpha(opacity=80);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.8);
+  opacity: 0.8;
 }
 
 /* Points */
@@ -168,4 +159,17 @@ table tbody tr.active-row {
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
+}
+
+/* Footer */
+.footer {
+  width:100%;
+  height: 55px;
+  position:sticky;
+  bottom:0;
+  left:0;
+  color: #fff;
+  border-radius: 15px 15px 15px 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(11, 11, 11, 0.55);
 }

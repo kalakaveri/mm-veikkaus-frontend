@@ -1,7 +1,8 @@
-import User from './User';
 import React, { useEffect } from 'react'
 import { getAll } from '../reducers/usersReducer';
 import { useDispatch, useSelector } from 'react-redux'
+
+import User from './User';
 
 const UsersPage = () => {
   const dispatch = useDispatch()

@@ -21,14 +21,13 @@ const MatchPage = () => {
   }
 
   return (
-    <div id='matchPage-container'>
+    <div className='matchPage-container'>
       {user.role === 'admin'
-
           ? 
             <div className='matchPage-add-form'>
               {visible
                 ? <AddMatch toggleVisibility={toggleVisibility} />
-                : <button id='addMatch-button' onClick={toggleVisibility}>Lisää ottelu</button>
+                : <button className='addMatch-button' onClick={toggleVisibility}>Lisää ottelu</button>
               }
             </div>
           : null

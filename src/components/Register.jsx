@@ -1,6 +1,5 @@
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setNotification } from "../reducers/notificationReducer"
 import { register } from '../reducers/usersReducer'

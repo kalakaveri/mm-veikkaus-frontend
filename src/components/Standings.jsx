@@ -1,4 +1,6 @@
+import React  from 'react';
 import { useSelector } from "react-redux"
+
 
 const Standings = () => {
     const groups = ['A','B','C','D','E','F','G','H']

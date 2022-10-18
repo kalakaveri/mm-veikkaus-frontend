@@ -1,4 +1,5 @@
 /** @format */
+import React from 'react'
 
 /**
  * @component
