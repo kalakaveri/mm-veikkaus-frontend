@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../reducers/authReducer'
+import { Container } from '@mui/material'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const LoginForm = () => {
   }
 
   return (
-  <div className='login-container'>
+  <Container className='login-container'>
     <form className='login-form' onSubmit={handleLogin}>
 
       <div id='login-form-content'>
@@ -48,7 +49,7 @@ const LoginForm = () => {
         <button className='submit-button' type='submit'>Kirjaudu</button>
       </div>
     </form>
-  </div>   
+  </Container>   
 )}
 
 export default LoginForm

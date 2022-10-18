@@ -7,14 +7,11 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/icons-material/PersonOutline';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
@@ -28,20 +25,12 @@ const adminPages = [{nimi: 'Käyttäjät', url:  '/users'}]
 const logPages = [{nimi: 'Kirjaudu sisään', url: '/login'}, {nimi: 'Rekisteröidy', url: '/register'}]
 
 const NavDrawer = ({ handleLogout }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const user = useSelector(state => state.auth)
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {

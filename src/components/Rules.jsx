@@ -15,14 +15,14 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
 
-{/* <ol>
+/* <ol>
 <li>A. Ottelu päättyy 3-1, saat +4 pistettä. - +3 oikea voittajajoukkue, +1 Maltan maalimäärä)</li>
 <li>B. Ottelu päättyy 2-2, saat -1 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1</li>
 <li>C. Ottelu päättyy 0-1, saat -3 pistettä. - Väärä voittaja -4, sekä Maltan maalimäärä +1</li>
 <li>D. Ottelu päättyy 1-2, saat -4 pistettä. - Väärä voittaja -4, ei plussapisteitä.</li>
 <li>E. Ottelu päättyy 2-1, saat +6 pistettä. - Täysin oikea arvaus, täydet pisteet.</li>
 </ol>
-<br /> */}
+<br /> */
 
 const createData = (id, rule, points) => {
     return { id, rule, points };

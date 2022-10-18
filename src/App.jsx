@@ -32,8 +32,6 @@ import { initTeams, getTeam } from './reducers/teamReducer';
 import { getUser } from './reducers/usersReducer';
 
 import { Container } from '@mui/material';
-import ResponsiveAppBar from './components/ResponsiveAppBar';
-
 
 const App = () => {
   const dispatch = useDispatch()
