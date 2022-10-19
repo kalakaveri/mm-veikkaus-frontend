@@ -34,7 +34,7 @@ const GuessModifier = ({ guess, user }) => {
           awayTeamScore: awayTeamScore
         }
         console.log('updatedGuess :>> ', updatedGuess);
-        dispatch(updateGuess(updatedGuess))
+        //dispatch(updateGuess(updatedGuess))
     }
 
     const filterteam = (guess, side) => {
@@ -47,7 +47,7 @@ const GuessModifier = ({ guess, user }) => {
     }
 
     return (
-        <ThemeProvider theme={theme} className='match-modifier-container'>
+        <ThemeProvider theme={theme}>
             {user && user.role === 'admin' 
             ? (
                 <div className='match-modifier'>

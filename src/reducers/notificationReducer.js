@@ -1,12 +1,12 @@
-export const setNotification = (message, isSuccess) => {
+export const setNotification = (message, style, timeout = 5) => {
   return async (dispatch) => {
     dispatch({
       type: 'NEW-NOTIFICATION',
-      data: { message: message, type: isSuccess }
+      data: { message: message, style: style }
     })
     setTimeout(() => {
       dispatch({ type: 'HIDE-NOTIFICATION', data: null })
-    }, 3000)
+    }, timeout * 1000)
   }
 }
 

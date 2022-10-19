@@ -12,12 +12,11 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Icon from '@mui/icons-material/HowToReg';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const LoginForm = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
@@ -32,7 +31,7 @@ const LoginForm = () => {
   return (
     <ThemeProvider theme={theme}>
       <Grid className='login-container' container component="main">
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Grid
           item
           xs={false}
@@ -56,7 +55,7 @@ const LoginForm = () => {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <Icon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Kirjaudu sisään
@@ -65,7 +64,7 @@ const LoginForm = () => {
               <TextField
                 margin="normal"
                 required
-                fullWidth
+                fullWidth={true}
                 id="username"
                 label="username"
                 name="username"
@@ -75,7 +74,7 @@ const LoginForm = () => {
               <TextField
                 margin="normal"
                 required
-                fullWidth
+                fullWidth={true}
                 name="password"
                 label="Password"
                 type="password"
@@ -84,49 +83,17 @@ const LoginForm = () => {
               />
               <Button
                 type="submit"
-                fullWidth
+                fullWidth={true}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Kirjaudu sisään
               </Button>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>
       </Grid>
     </ThemeProvider>
-  // return (
-  // <Container className='login-container'>
-  //   <form className='login-form' onSubmit={handleLogin}>
-
-  //     <div id='login-form-content'>
-  //       <h3 className='login-header'>Login</h3>
-  //       <div className='login-input-container'>
-  //         <input
-  //           type='text'
-  //           className='login-username-input'
-  //           placeholder='Username'
-  //           value={username}
-  //           name='Username'
-  //           onChange={({ target }) => setUsername(target.value)}
-  //         />
-  //       </div>
-  //       <div className='login-input-container'>
-  //         <input
-  //           type='password'
-  //           className='login-password-input'
-  //           placeholder='Password'
-  //           value={password}
-  //           name='Password'
-  //           onChange={({ target }) => setPassword(target.value)}
-  //         />
-  //       </div>
-  //       <button className='cancel-button' type='button' onClick={() => navigate('/')}>Peruuta</button>
-  //       <button className='submit-button' type='submit'>Kirjaudu</button>
-  //     </div>
-  //   </form>
-  // </Container>   
 )}
 
 export default LoginForm

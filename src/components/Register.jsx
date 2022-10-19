@@ -8,16 +8,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Image from '../logos/login-page-bw.png'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const LoginForm = () => {
@@ -45,31 +41,15 @@ const LoginForm = () => {
       username: data.get('username'),
       password: data.get('password'),
       password2: data.get('password2'),
-    });
+    })
 
     if (username.length < 3 && password.length < 3) {
       event.preventDefault()
-      dispatch(setNotification('Käyttäjätunnus ja salasana on oltava vähintään 3 merkkiä pitkä', 'error'))
+      dispatch(setNotification('Käyttäjätunnus ja salasana on oltava vähintään 3 merkkiä pitkä', 'info'))
     }
     else if (password !== password2) {
       event.preventDefault()
-      dispatch(setNotification('Salasanat eivät täsmää', 'error'))
-    }
-    else {
-      dispatch(register(username, password, password2))
-      clearInputs()
-      navigate('/')
-    }
-  };
-
-  const handleRegister = async (event) => {
-    if (username.length < 3 && password.length < 3) {
-      event.preventDefault()
-      dispatch(setNotification('Käyttäjätunnus ja salasana on oltava vähintään 3 merkkiä pitkä', 'error'))
-    }
-    else if (password !== password2) {
-      event.preventDefault()
-      dispatch(setNotification('Salasanat eivät täsmää', 'error'))
+      dispatch(setNotification('Salasanat eivät täsmää', 'info'))
     }
     else {
       dispatch(register(username, password, password2))
@@ -114,7 +94,7 @@ const LoginForm = () => {
               <TextField
                 margin="normal"
                 required
-                fullWidth
+                fullWidth={true}
                 id="username"
                 label="username"
                 name="username"
@@ -124,7 +104,7 @@ const LoginForm = () => {
               <TextField
                 margin="normal"
                 required
-                fullWidth
+                fullWidth={true}
                 name="password"
                 label="Password"
                 type="password"
@@ -134,7 +114,7 @@ const LoginForm = () => {
               <TextField
                 margin="normal"
                 required
-                fullWidth
+                fullWidth={true}
                 name="password2"
                 label="Password again"
                 type="password"
@@ -149,48 +129,11 @@ const LoginForm = () => {
               >
                 Rekisteröidy
               </Button>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
-  // <form className='register-form' onSubmit={handleRegister}>
-  //   <h2 className='register-header'>Rekisteröidy</h2>
-  //   <div className='register-username'>
-  //       <input
-  //         className='register-username-input'
-  //         type="text"
-  //         value={username}
-  //         name="Username"
-  //         placeholder="Username"
-  //         onChange={({ target }) => setUsername(target.value)}
-  //       />
-  //   </div>
-  //   <div className='register-password'>
-  //       <input
-  //         className='register-password-input'
-  //         type="password"
-  //         value={password}
-  //         name="Password"
-  //         placeholder="Password"
-  //         onChange={({ target }) => setPassword(target.value)}
-  //       />
-  //   </div>
-  //   <div className='register-password2'>
-  //       <input
-  //         className='register-password-input2'
-  //         type="password"
-  //         value={password2}
-  //         name="Password2"
-  //         placeholder="Password again"
-  //         onChange={({ target }) => setPassword2(target.value)}
-  //       />
-  //   </div>
-  //   <button className='cancel-button' type='button' onClick={() => navigate('/')}>Peruuta</button>
-  //   {/* <LoginButton type='register-login-button' onClick={() => navigate('/login')}>login</LoginButton> */}
-  //   <button className='submit-button' type='submit'>Luo tunnus</button>
-  // </form>      
+    </ThemeProvider> 
 )}
 
 export default LoginForm

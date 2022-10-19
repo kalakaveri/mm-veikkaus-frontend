@@ -65,11 +65,10 @@ const GuessPage = () => {
   return (
     <Container className='guessPage-container'>
       <Button 
-        fullwidTableCell
+        fullWidth
         variant='contained' 
         color='info' 
         onClick={toggleVisibility}
-        sx={{ mt: '10px' }}
       >
         {visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}
       </Button>

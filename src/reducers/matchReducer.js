@@ -35,9 +35,9 @@ export const createMatch = (match) => {
         type: 'CREATE_MATCH',
         data: newMatch
       })
-      dispatch(setNotification(`Ottelu lisätty`, true))
+      dispatch(setNotification(`Ottelun lisäys onnistui`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }
@@ -45,15 +45,15 @@ export const createMatch = (match) => {
 export const updateMatch = (match) => {
   return async dispatch => {
     try {
-      console.log('match @matchRedu :>> ', match);
+      console.log('match @matchReducer :>> ', match);
       const updatedMatch = await matchService.update(match)
       dispatch({
         type: 'UPDATE_MATCH',
         data: updatedMatch
       })
-      dispatch(setNotification(`Match ${updatedMatch.homeTeam} - ${updatedMatch.awayTeam} updated`, true))
+      dispatch(setNotification(`Ottelu päivitetty`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }

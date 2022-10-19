@@ -1,36 +1,67 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { getAll } from '../reducers/usersReducer';
+
+import {
+    Container, 
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography
+} from '@mui/material';
 
 const Points = () => {
+    const dispatch = useDispatch()
     const users = useSelector(state => state.users)
+
+
+    useEffect(() => {
+        if (!users || users.length === 0) {
+            dispatch(getAll())
+        }
+      }, [dispatch])
 
     const sortUsers = (x) => {
         return x.sort((a, b) => b.points - a.points)
     }
+
     return (
-        <div className='points-container'>
-            <div className='points-table-container'>
-                <table className='points-table'>
-                    <caption>Pistetaulukko</caption>
-                    <thead className='points-table-thead'>
-                        <tr>
-                            <th>Sija</th>
-                            <th>Nimi</th>
-                            <th>Pisteet</th>
-                        </tr>
-                    </thead>
-                    <tbody className='points-table-tbody'>
-                        {sortUsers(users).map((user, index) => (
-                            <tr key={user.id}>
-                                <td>{index + 1}</td>
-                                <td>{user.username}</td>
-                                <td>{user.points}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Container className='points-container'>
+            {users && users.length > 0
+                ? (
+                    <>
+                    <Table className='points-table' minwidth='none'>
+                        <TableHead align='center'>
+                            <TableRow>
+                                <TableCell colSpan={3} align='center'>
+                                    <Typography variant='h6' align='center' color='white'>
+                                        Pistetaulukko
+                                    </Typography>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell align='center'>Sija</TableCell>
+                                <TableCell align='center'>Nimi</TableCell>
+                                <TableCell align='center'>Pisteet</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {sortUsers(users).map((user, index) => (
+                                <TableRow key={user.id}>
+                                    <TableCell align='center'>{index + 1}</TableCell>
+                                    <TableCell align='center'>{user.username}</TableCell>
+                                    <TableCell align='center'>{user.points}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                    </>
+                )
+                : 'Ei löytynyt käyttäjiä'
+            }
+        </Container>
     )
 }
 

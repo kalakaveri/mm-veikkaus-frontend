@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Outlet } from 'react-router-dom';
+import { setNotification } from '../reducers/notificationReducer';
 import { initUser } from '../services/auth';
 
 const Auth = ({ authRoles }) => {
@@ -19,9 +20,11 @@ const Auth = ({ authRoles }) => {
 
   useEffect(() => {
     if ((!user || user.role === 'guest') && !authRoles.includes(user.role)) {
+      dispatch(setNotification('Kirjaudu ensin sisään', 'error', 3));
       navigate('/login')
     }
     else if (!authRoles.includes(user.role)) {
+      dispatch(setNotification('Sinulla ei ole oikeuksia tälle sivulle', 'error', 3));
       navigate('/')
     }
   }, [authRoles, navigate, user]);

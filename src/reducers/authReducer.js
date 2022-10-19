@@ -15,9 +15,9 @@ export const login = ({ username, password }) => {
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       authService.setToken(user.token)
       dispatch({ type: 'LOGIN', user: user })
-      dispatch(setNotification(`Lykkyä pyttyyn ${user.username}!`, true))
+      dispatch(setNotification(`Lykkyä pyttyyn ${user.username}!`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Käyttäjä tai salasana oli väärin', error))
+      dispatch(setNotification('Käyttäjä tai salasana oli väärin', 'error'))
     }
   }
 }
@@ -27,9 +27,9 @@ export const logout = () => {
     try {
       const data = await authService.logout()
       dispatch({ type: 'LOGOUT', user: data })
-      dispatch(setNotification('logged out', true))
+      dispatch(setNotification('logged out', 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'success'))
     }
   }
 }

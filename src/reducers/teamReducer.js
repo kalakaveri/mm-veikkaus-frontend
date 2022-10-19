@@ -30,9 +30,9 @@ export const createTeam = (team) => {
         type: 'CREATE_TEAM',
         data: newTeam
       })
-      dispatch(setNotification(`Team ${newTeam.name} created`, true))
+      dispatch(setNotification(`Luotiin joukkue`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }
@@ -46,9 +46,9 @@ export const updateTeam = (team) => {
         data: updatedTeam
       })
 
-      dispatch(setNotification(`Team ${updatedTeam.name} updated`, true))
+      dispatch(setNotification(`Joukkueen tiedon päivitettiin`, 'success'))
     } catch (error) { 
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }
@@ -61,9 +61,9 @@ export const deleteTeam = (id) => {
         type: 'DELETE_TEAM',
         data: id
       })
-      dispatch(setNotification('Team deleted', true))
+      dispatch(setNotification('Joukkue poistettiin', 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }

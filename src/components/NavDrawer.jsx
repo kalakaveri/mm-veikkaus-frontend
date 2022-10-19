@@ -14,7 +14,7 @@ import Icon from '@mui/icons-material/PersonOutline';
 import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import MenuIcon from "@mui/icons-material/Menu";
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
@@ -28,6 +28,7 @@ const NavDrawer = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const user = useSelector(state => state.auth)
+  const navigate = useNavigate()
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -44,7 +45,7 @@ const NavDrawer = ({ handleLogout }) => {
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
       >
-        <SportsSoccerIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+        <SportsSoccerIcon className='svg_icons' sx={{ size: 'small', display: { xs: 'flex', md: 'flex' }, ml: 10, mt: 5, mb: 3, }} />
 				<Typography
 						className='navbar-title'
             variant="h8"
@@ -52,8 +53,9 @@ const NavDrawer = ({ handleLogout }) => {
             component="a"
             href="/"
             sx={{
-              mr: 1,
-              display: { xs: 'none', md: 'flex' },
+              ml: 5,
+              mb: 5,
+              display: { xs: 'flex', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.1rem',
@@ -103,55 +105,96 @@ const NavDrawer = ({ handleLogout }) => {
                 </List>
                 : null
               }
-            <ListItemButton onClick={() => {
-              setOpenDrawer(!openDrawer)
-              handleLogout()}
-              } 
-              key='logout'
-            >
-              <ListItemIcon>
-                <ListItemText>Kirjaudu ulos</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
+            {user && user.role !== 'guest'
+              ? 
+                <ListItemButton onClick={() => {
+                  setOpenDrawer(!openDrawer)
+                  handleLogout()}
+                  } 
+                  key='logout'
+                >
+                  <ListItemIcon>
+                    <ListItemText>Kirjaudu ulos</ListItemText>
+                  </ListItemIcon>
+                </ListItemButton>
+            : 
+              <>
+              <ListItemButton onClick={() => {
+                setOpenDrawer(!openDrawer)
+                navigate('/login')}
+              }
+                key='login'
+              >
+                <ListItemIcon>
+                  <ListItemText>Kirjaudu sisään</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+              <ListItemButton onClick={() => {
+                setOpenDrawer(!openDrawer)
+                navigate('/register')}
+              }
+                key='register'
+              >
+                <ListItemIcon>
+                  <ListItemText>Rekisteröidy</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+              </>
+          }
           </List>
         }
       </Drawer>
       <IconButton
-        sx={{ color: "white", marginLeft: "auto" }}
+        sx={{ color: "white", marginLeft: "15px" }}
         onClick={() => setOpenDrawer(!openDrawer)}
       >
         <MenuIcon color="white" />
       </IconButton>
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Icon />
-          </IconButton>
-        </Tooltip>
-        <Menu
-          sx={{ mt: '45px' }}
-          id="menu-appbar"
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
-          {user
-          ?<MenuItem key={user.id} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">
-              {user.username} - {isNaN(parseInt(user.points)) ? 0 : parseInt(user.points)} pistettä
-            </Typography>
-          </MenuItem>
-          : null}
-        </Menu>
+          {user && user.role !== 'guest'
+          ? 
+          <>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Icon />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem key={user.id} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  {user.username} - {isNaN(parseInt(user.points)) ? 0 : parseInt(user.points)} pistettä
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={() => {
+                handleCloseUserMenu()
+                handleLogout()}
+                } 
+                key='logout'
+              >
+                <Typography variant='button' color='success' textAlign="center">
+                  Kirjaudu ulos
+                </Typography>
+              </MenuItem>
+            </Menu>
+            </>
+          : 
+            null
+          }
       </Box>
     </Toolbar>
   );

@@ -4,7 +4,16 @@ import { initMatches } from '../reducers/matchReducer'
 
 import Match from './Match'
 import AddMatch from './AddMatch'
-import { Button, Container, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import { 
+  Button, 
+  Container, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableRow, 
+  Typography
+} from '@mui/material'
 
 const MatchPage = () => {
   const [visible, setVisible] = useState(false)
@@ -22,7 +31,7 @@ const MatchPage = () => {
   }
 
   return (
-    <Container className='matchPage-container'>
+    <Container className='matchPage-container' sx={{ mt: 8 }}>
       {user.role === 'admin'
           ? 
             <div className='matchPage-add-form'>
@@ -42,11 +51,34 @@ const MatchPage = () => {
       }
       <Table className='matchPage-table-container'>
         <TableHead>
-          <TableRow key='header'>
-            <TableCell>Päivämäärä</TableCell>
-            <TableCell>Aika</TableCell>
-            <TableCell colSpan="2">Kotijoukkue</TableCell>
-            <TableCell colSpan="2">Vierasjoukkue</TableCell>
+            <TableRow>
+                <TableCell colSpan={7} align='center' background-color='white'>
+                    <Typography variant='h6' align='center' color='white'>
+                        Turnauksen ottelut
+                    </Typography>
+                </TableCell>
+            </TableRow>
+            <TableRow key='header'>
+                <TableCell align='center'>
+                    <Typography variant='button' align='center' color='white'>
+                        Päivämäärä
+                    </Typography>
+                </TableCell>
+                <TableCell>
+                    <Typography variant='button' align='center' color='white'>
+                    Aika
+                    </Typography>
+                </TableCell>
+                <TableCell colSpan="2">
+                    <Typography variant='button' align='center' color='white'>
+                        Kotijoukkue
+                    </Typography>
+                </TableCell>
+                <TableCell colSpan="2">
+                    <Typography variant='button' align='center' color='white'>
+                        Vierasjoukkue
+                    </Typography>
+                </TableCell>
             {user && user.role === 'admin'
               ? <TableCell>Muokkaa</TableCell>
               : null

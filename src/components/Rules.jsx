@@ -33,9 +33,8 @@ const rules = [
 ]
 
 const Rules = () => {
-    // ability to easily switch component to be togglable
-
     const [visible] = useState(true)
+    // ability to easily switch component to be togglable
     // const [buttonText, setButtonText] = useState('Show rules')
     
     // const toggleVisibility = (e) => {
@@ -45,14 +44,14 @@ const Rules = () => {
     // }
 
     return (
-        <Container className="rules-container">
+        <Container className="rules-container" sx={{ mt: 10 }}>
             {/* <Button className='rules-button' variant='contained' onClick={toggleVisibility}>{buttonText}</Button> */}
             {visible
             ? 
                 (
                 <>
                     <Container align='center'>
-                        <Typography className='homepage-header' variant='h1' sx={{ mt: 5, mb: 5 }}>MM-kisaveikkaus</Typography>
+                        <Typography className='homepage-header' variant='button' size='large' sx={{ mt: 5, mb: 5 }}>MM-kisaveikkaus</Typography>
                         <br />
                         <Typography className='rules-header' variant='h5'>Kilpailun säännöt</Typography>
                     </Container>
@@ -62,17 +61,38 @@ const Rules = () => {
                         padding={5}
                         align='center'
                         justify='left'
+                        fontWeight='bold'
                     >
-                        <Typography variant='h6' paragraph>Mikäli useampi arvaaja päätyy tasapisteisiin, määräytyy parempi arvaaja seuraavasti:</Typography>
+                        <Typography variant='h6' paragraph>Tasapisteissä määräytyy parempi veikkaaja seuraavasti:</Typography>
                         <Typography variant='subtitle1' align='inherit' ml={2}>A. Enemmän täysin oikein arvattuja ottelutuloksia</Typography>
                         <Typography variant='subtitle1' align='inherit' ml={2}>B. Vähemmän väärin arvattuja otteluiden voittajia</Typography>
-                        <Typography variant='button' paragraph mt={2}>Kilpailun pisteet määräytyvät seuraavalla tavalla:</Typography>
-                        <Table className='rules-table-container' aria-label="caption table">
+                        <br />
+                        <br />
+                        <Table className='rules-table-container'>
                             <TableHead className='rules-table-TableCellead'>
                                 <TableRow>
-                                    <TableCell>#</TableCell>
-                                    <TableCell>Selite</TableCell>
-                                    <TableCell>Pisteansio</TableCell>
+                                    <TableCell colSpan={3} align='center' background-color='white'>
+                                        <Typography variant='h6' align='center' color='white'>
+                                            Kilpailun pisteet määräytyvät seuraavalla tavalla
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            #
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            Selite
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            Pisteansio
+                                        </Typography>
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody className='rules-table-tbody'>
@@ -83,52 +103,119 @@ const Rules = () => {
                                         <TableCell>{row.points}</TableCell>
                                     </TableRow>
                                 ))}
+                                <TableRow>
+                                    <TableCell colSpan={3} align='center' background-color='white'>
+                                        <Typography variant='button' align='center' color='black'>
+                                            Maksimipisteet per ottelu on siis 6
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
                             </TableBody>
                         </Table>
-                        <Typography variant='button' paragraph>Maksimipisteet per ottelu on siis 6.</Typography>
                         <br />
                         <Typography variant='h5'>Esimerkiksi:</Typography>
                         <Typography variant='button' paragraph>Arvauksesi on otteluun Suomi - Malta 2-1</Typography>
-                        <Table className='timeline' position='alternate'>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell colSpan={4} align='center' background-color='white'>
+                                        <Typography variant='h6' align='center' color='white'>
+                                            Arvauksesi on otteluun Suomi - Malta 2-1
+                                        </Typography>
+                                        </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            #
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            Hypoteettinen lopputulos
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            Selite
+                                        </Typography>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Typography variant='button' align='center' color='white'>
+                                            Pisteansio
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                                </TableHead>
                             <TableBody>
                                 <TableRow>
                                     <TableCell>
                                     A 
                                     </TableCell>
                                     <TableCell>
-                                    Ottelu päättyy 3-1, saat 4 pistettä - +3 oikea voittajajoukkue, +1 Maltan maalimäärä
+                                        Ottelu päättyy 3-1
+                                    </TableCell>
+                                    <TableCell>
+                                        +3 oikea voittajajoukkue, +1 Maltan maalimäärä
+                                    </TableCell>
+                                    <TableCell>
+                                        +4
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                    B
+                                        B
                                     </TableCell>
                                     <TableCell>
-                                    Ottelu päättyy 2-2, saat -1 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                    C
+                                        Ottelu päättyy 2-2
                                     </TableCell>
                                     <TableCell>
-                                    Ottelu päättyy 1-1, saat -2 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on väärä
+                                        Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1
+                                    </TableCell>
+                                    <TableCell>
+                                        -1
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                    D
+                                        C
                                     </TableCell>
                                     <TableCell>
-                                    Ottelu päättyy 1-2, saat -4 pistettä. - Väärä voittaja -4, ei plussapisteitä.
+                                        Ottelu päättyy 1-1
+                                    </TableCell>
+                                    <TableCell>
+                                        Veikkasit Suomen voittoa -2, Suomen maalimäärä on väärä
+                                    </TableCell>
+                                    <TableCell>
+                                        -2
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                    E
+                                        D
                                     </TableCell>
                                     <TableCell>
-                                    Ottelu päättyy 2-1, saat +6 pistettä. - Täysin oikea arvaus, täydet pisteet.
+                                        Ottelu päättyy 1-2
+                                    </TableCell>
+                                    <TableCell>
+                                        Väärä voittaja -4, ei plussapisteitä.
+                                    </TableCell>
+                                    <TableCell>
+                                        -4
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                        E
+                                    </TableCell>
+                                    <TableCell>
+                                        Ottelu päättyy 2-1
+                                    </TableCell>
+                                    <TableCell>
+                                        Täysin oikea arvaus, täydet pisteet.
+                                    </TableCell>
+                                    <TableCell>
+                                        +6
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

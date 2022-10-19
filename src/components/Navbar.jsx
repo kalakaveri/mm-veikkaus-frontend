@@ -25,12 +25,12 @@ const Navbar = () => {
 
 	const [value, setValue] = useState(0);
 	const [matches, setMatches] = useState(
-    window.matchMedia("(min-width: 768px)").matches
+    	window.matchMedia("(min-width: 1177px)").matches
   )
 
   useEffect(() => {
     window
-    .matchMedia("(min-width: 768px)")
+    .matchMedia("(min-width: 1177px)")
     .addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
@@ -40,37 +40,36 @@ const Navbar = () => {
   }
 
 	return (
-		<AppBar className='navbar-container' position='static'>
+		<AppBar className='navbar-container'>
 			<Toolbar className='navbar'>
-				<SportsSoccerIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+				<SportsSoccerIcon sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }} />
 				<Typography
 						className='navbar-title'
-            variant="h8"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 1,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none',
-							pr: 5,
-            }}
-          >
-            MM-VEIKKAUS
-        </Typography>
+            			variant="h8"
+            			noWrap
+            			component="a"
+            			href="/"
+            			sx={{
+            			  	display: { xs: 'flex', md: 'flex' },
+            			  	fontFamily: 'monospace',
+            			  	fontWeight: 700,
+            			  	letterSpacing: '.1rem',
+            			  	color: 'inherit',
+            			  	textDecoration: 'none',
+							pr: 15,
+            			}}
+          		>
+            		MM-VEIKKAUS
+        		</Typography>
 				{matches 
 					? (
 						<>
 						<Tabs
 						  sx={{ marginLeft: "auto" }}
-              indicatorColor="secondary"
-              textColor="inherit"
-              value={value}
-              onChange={(e, value) => setValue(value)}
+              				indicatorColor="secondary"
+              				textColor="inherit"
+              				value={value}
+              				onChange={(e, value) => setValue(value)}
 						>
 							<Tab component={Link} label="Etusivu" to='/' />
 							<Tab component={Link} label='Pistetaulukko' to='/points' />
@@ -89,7 +88,7 @@ const Navbar = () => {
 									)
 								: null}
 						</Tabs>
-						<ButtonGroup className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
+						<ButtonGroup sx={{ ml: 10 }} className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
 						{!user || user.role === 'guest'
 							? 
 								(<>
@@ -105,11 +104,7 @@ const Navbar = () => {
 						</ButtonGroup>
 						</>
 						)
-					: (
-						<>
-						<NavDrawer handleLogout={handleLogout} />
-						</>
-					)
+					: <NavDrawer handleLogout={handleLogout} />
 				}
 					
 			</Toolbar>

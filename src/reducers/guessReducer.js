@@ -30,8 +30,9 @@ export const createGuess = (guess) => {
             type: 'CREATE_GUESS',
             data: newGuess
         })
+        dispatch(setNotification(`Lisäys onnistui`, 'success'))
         } catch (error) {
-        dispatch(setNotification('Jotain meni pieleen', false))
+        dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
     }
 }
@@ -44,8 +45,9 @@ export const updateGuess = (guess) => {
             type: 'UPDATE_GUESS',
             data: updatedGuess
         })
+        dispatch(setNotification('Arvaus muutettu', 'success'))
         } catch (error) {
-        dispatch(setNotification('Jotain meni pieleen', false))
+        dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
     }
 }
@@ -58,9 +60,9 @@ export const deleteGuess = (id) => {
             type: 'DELETE_GUESS',
             data: id
         })
-        dispatch(setNotification('Guess poistettiin', true))
+        dispatch(setNotification('Guess poistettiin', 'success'))
         } catch (error) {
-        dispatch(setNotification('Jotain meni pieleen', false))
+        dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
     }
 }

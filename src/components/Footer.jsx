@@ -1,7 +1,7 @@
 import React  from 'react';
 
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+import { Paper } from '@mui/material';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 
@@ -20,30 +20,14 @@ function Copyright() {
 
 const Footer = () => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minWidth: '100vw',
-      }}
-    >
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          px: 2,
-          mt: 'auto',
-          align: 'left',
-        }}
-      >
-        <Container maxWidth="sm">
-          <Typography variant="body1">
-            Toteutettu MM 2022 Qatarin jalkapallokisojen veikkaussovellukseksi.
-          </Typography>
-          <Copyright />
-        </Container>
-      </Box>
-    </Box>
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: '50px' }} direction="column" justifyContent="center">
+	    	<Toolbar className='footer'>
+                <Copyright />
+                <Typography variant="body1" marginLeft={25}>
+                    World Cup 2022 Qatar
+                </Typography>
+            </Toolbar>
+    </Paper>
   )
 }
 

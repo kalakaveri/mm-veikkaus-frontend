@@ -2,6 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import {
+  TableCell,
+  TableRow,
+} from '@mui/material';
+
 const Match = ({ match }) => {
   const navigate = useNavigate()
 
@@ -15,7 +20,7 @@ const Match = ({ match }) => {
   }
   
   const handleModify = (e) => {
-    e.preventDefault();
+    e.prevenTableCellefault();
     if (matchId) {
       navigate('modify');
     }
@@ -25,39 +30,39 @@ const Match = ({ match }) => {
   }
 
   return (
-    <tr key={match.id}>
-        <td>{match.date}</td>
-        <td>{match.time}</td>
-        <td>
-          <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" />
+    <TableRow key={match.id}>
+        <TableCell>{match.date}</TableCell>
+        <TableCell>{match.time}</TableCell>
+        <TableCell align='right'>
+          <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" align='left' />
           {match.homeTeam.name}
-        </td>
+        </TableCell>
         {match.finished 
           ? (
             <>
-            <td>{match.homeGoals}</td>
-            <td>{match.awayGoals}</td>
+            <TableCell>{match.homeGoals}</TableCell>
+            <TableCell>{match.awayGoals}</TableCell>
             </>
           ) 
           : (
             <>
-            <td> </td>
-            <td> </td>
+            <TableCell> </TableCell>
+            <TableCell> </TableCell>
             </>
           )}
-        <td>
+        <TableCell>
           {match.awayTeam.name}
-          <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" />
-        </td>
+          <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" margin-left='30px' align='right' />
+        </TableCell>
         {auth && auth.role === 'admin' 
           ? (
             <>
-            <td>
+            <TableCell>
               <button onClick={handleModify}>Lisää lopputulos</button>
-            </td>
+            </TableCell>
             </>) 
           : null}
-    </tr>
+    </TableRow>
   );
 };
 

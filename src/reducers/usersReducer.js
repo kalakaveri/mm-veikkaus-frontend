@@ -28,9 +28,9 @@ export const register = (username, password, password2) => {
     try {
       const user = await userService.register({ username, password, password2 })
       dispatch({ type: 'REGISTER', user: user })
-      dispatch(setNotification(`Käyttäjä luotu onnistuneesti!`, true))
+      dispatch(setNotification(`Luotiin käyttäjä`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }    
@@ -44,9 +44,9 @@ export const updateUser = (id, user) => {
         type: 'UPDATE_USER',
         data: updatedUser
       })
-      dispatch(setNotification(`User ${updatedUser.username} updated`, true))
+      dispatch(setNotification(`Käyttäjän tiedot päivitettiin`, 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }
@@ -59,9 +59,9 @@ export const deleteUser = (id) => {
         type: 'DELETE_USER',
         data: id
       })
-      dispatch(setNotification('User deleted', true))
+      dispatch(setNotification('Käyttäjä poistettiin', 'success'))
     } catch (error) {
-      dispatch(setNotification('Jotain meni pieleen', false))
+      dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }
 }

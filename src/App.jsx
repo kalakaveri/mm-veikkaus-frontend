@@ -75,7 +75,7 @@ const App = () => {
             <Route path='/teams/:teamId/modify' element={<TeamModifier />} />
         </Route>
 
-        <Route element={<Auth authRoles={['admin', 'regular']} />}>
+        <Route element={<Auth authRoles={['admin', 'guesser']} />}>
           <Route path='/guesses' element={<GuessPage />} />
           <Route path='/guesses/:guessId' element={<Finder type='guess' findHandler={getGuess} />} />
             <Route index element={<GuessModifier />} />
