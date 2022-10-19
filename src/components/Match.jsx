@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
+  Button,
   TableCell,
   TableRow,
 } from '@mui/material';
@@ -18,7 +19,7 @@ const Match = ({ match }) => {
   if (matchId) {
     match = matches.find(m => m.id === matchId);
   }
-  
+
   const handleModify = (e) => {
     e.preventDefault();
     if (matchId) {
@@ -58,7 +59,12 @@ const Match = ({ match }) => {
           ? (
             <>
             <TableCell>
-              <button onClick={handleModify}>Lisää lopputulos</button>
+              <Button variant='contained' onClick={handleModify}>
+                {match.finished
+                  ? 'Muokkaa'
+                  : 'Lisää lopputulos'
+                }  
+              </Button>
             </TableCell>
             </>) 
           : null}

@@ -42,11 +42,10 @@ export const createMatch = (match) => {
   }
 }
 
-export const updateMatch = (match) => {
+export const updateMatch = (id, newMatch) => {
   return async dispatch => {
     try {
-      console.log('match @matchReducer :>> ', match);
-      const updatedMatch = await matchService.update(match)
+      const updatedMatch = await matchService.update(id, newMatch)
       dispatch({
         type: 'UPDATE_MATCH',
         data: updatedMatch

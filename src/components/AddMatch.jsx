@@ -120,26 +120,6 @@ const AddMatch = ({ toggleVisibility }) => {
                   {teams.map(team => <MenuItem key={team.id} value={team.name}>{team.name}</MenuItem>)}
                 </Select>
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="homeTeam"
-                  label="Kotijoukkue"
-                  name="homeTeam"
-                  autoComplete="homeTeam"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="awayTeam"
-                  label="Vierasjoukkue"
-                  id="awayTeam"
-                  autoComplete="awayTeam"
-                />
-              </Grid> */}
             </Grid>
 						<Button
 							fullWidth
