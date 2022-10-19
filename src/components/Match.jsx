@@ -20,7 +20,7 @@ const Match = ({ match }) => {
   }
   
   const handleModify = (e) => {
-    e.prevenTableCellefault();
+    e.preventDefault();
     if (matchId) {
       navigate('modify');
     }

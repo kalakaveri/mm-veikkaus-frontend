@@ -28,11 +28,11 @@ const Points = () => {
     }
 
     return (
-        <Container className='points-container'>
+        <Container className='points-container' sx={{ mt: 10 }}>
             {users && users.length > 0
                 ? (
                     <>
-                    <Table className='points-table' minwidth='none'>
+                    <Table className='points-table'>
                         <TableHead align='center'>
                             <TableRow>
                                 <TableCell colSpan={3} align='center'>

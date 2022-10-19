@@ -35,9 +35,7 @@ table {
   filter: alpha(opacity=85);
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.85);
   opacity: .85;
-  /* margin: 5px; */
   font-size: 0.85em;
-  /* min-width: 400px; */
   border-radius: 25px;
   -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
   -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
@@ -111,22 +109,6 @@ table img {
   opacity: 0.8;
 }
 
-/* Points */
-.points-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Standings sivu */
-/* .standings-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
-} */
-
 .group-item {
   display: flex;
   flex-direction: column;
@@ -146,22 +128,6 @@ table img {
 /* Footer */
  .footer {
   background-color: #1976d2;
-  /* height: calc(100% - 10px); */
-  /* width:100%;
-  z-index: 500;
-  position: sticky;
-  width: 100%;
-  left:0;
-  bottom:0;
-  right:0;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  vertical-align: middle;
-  justify-content: center;
-  align-items: center;
-  height: 50px; */
   box-shadow:  6px 6px 32px #fff,
              -6px -6px 12px #0e0d0d; 
 } 
