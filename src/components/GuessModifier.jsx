@@ -34,7 +34,7 @@ const GuessModifier = ({ guess, user }) => {
           awayTeamScore: awayTeamScore
         }
         console.log('updatedGuess :>> ', updatedGuess);
-        //dispatch(updateGuess(updatedGuess))
+        dispatch(updateGuess(updatedGuess))
     }
 
     const filterteam = (guess, side) => {

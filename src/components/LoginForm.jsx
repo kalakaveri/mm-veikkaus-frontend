@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../reducers/authReducer'
@@ -7,7 +6,6 @@ import Image from '../logos/login-page-bw.png'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -31,7 +29,6 @@ const LoginForm = () => {
   return (
     <ThemeProvider theme={theme}>
       <Grid className='login-container' container component="main">
-        {/* <CssBaseline /> */}
         <Grid
           item
           xs={false}

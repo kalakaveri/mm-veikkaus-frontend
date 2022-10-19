@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { setNotification } from "../reducers/notificationReducer"
@@ -21,15 +21,6 @@ const LoginForm = () => {
   const dispatch = useDispatch()
   const theme = createTheme();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
-
-  const clearInputs = () => {
-    setUsername('')
-    setPassword('')
-    setPassword2('')
-  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -53,7 +44,6 @@ const LoginForm = () => {
     }
     else {
       dispatch(register(username, password, password2))
-      clearInputs()
       navigate('/')
     }
   }
