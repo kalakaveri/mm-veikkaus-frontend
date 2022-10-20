@@ -26,14 +26,14 @@ const Standings = () => {
                     <img key={`${team.name}-flag`} src={team.url} alt={team.name} width="35" height="20" align='left' />
                     {team.name}
                 </TableCell>
-                <TableCell align='center'>{team.games}</TableCell>
+                <TableCell align='center'>{(team.wins + team.draws + team.losses)}</TableCell>
                 {/* <TableCell>{team.wins}</TableCell>
                 <TableCell>{team.draws}</TableCell>
                 <TableCell>{team.losses}</TableCell>
                 <TableCell>{team.goalsFor}</TableCell>
                 <TableCell>{team.goalsAgainst}</TableCell>
                 <TableCell>{team.goalsFor - team.goalsAgainst}</TableCell>*/}
-                <TableCell align='center'>{team.points}</TableCell> 
+                <TableCell align='center'>{(team.wins * 3 + team.draws) }</TableCell> 
             </TableRow>
             )
         })

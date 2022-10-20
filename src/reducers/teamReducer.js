@@ -1,3 +1,4 @@
+import teams from '../services/teams'
 import teamService from '../services/teams'
 import { setNotification } from './notificationReducer'
 
@@ -45,7 +46,7 @@ export const updateTeam = (team) => {
         type: 'UPDATE_TEAM',
         data: updatedTeam
       })
-
+      teams = teams.filter(t => t.name === team.name ? updatedTeam : t)
       dispatch(setNotification(`Joukkueen tiedon päivitettiin`, 'success'))
     } catch (error) { 
       dispatch(setNotification('Jotain meni pieleen', 'error'))
