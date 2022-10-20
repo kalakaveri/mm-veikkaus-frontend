@@ -3,6 +3,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { initTeams } from '../reducers/teamReducer'
+import {
+    Container,
+    Typography,
+    Box,
+    List,
+}   from '@mui/material'
 
 const GROUPS = ['A','B','C','D','E','F','G','H']
 
@@ -15,19 +21,34 @@ const TeamsPage = () => {
   }, [dispatch])
 
   return (
-    <div id='teams-container'>
-      <h1 id='teams-header'>Teams</h1>
-      {GROUPS.map(group => (
-        <div id='team-group-container' key={group}>
-          <h2 id='group-header'>Group {group}</h2>
-          <div id='group-teamlist-container'>
-            {teams.filter(team => team.group === group).map(team => (
-              <Team key={team.id} team={team} />
-            ))}
-          </div>
-        </div>)
-      )}
-    </div>
+    <Container className='page-container' align='center'>
+        <Typography variant='button' align='center' sx={{ mb: 5 }}>
+          Teams
+        </Typography>
+        {GROUPS.map(group => (
+            <Box
+                width={{ xs: '75%', sm: '50%', md: '33%', lg: '25%' }}
+                key={group}
+                sx={{
+                    borderRadius: 8,
+                    boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                    background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+                    border: '1px solid rgba(255,255,255,0,75)',
+                    backdropFilter: 'blur(5px)',
+                    ml: 2,
+                    mr: 2,
+                    mt: 2,
+                }}
+            >
+                <List>
+                    <Typography variant='h6' align='center'>Lohko {group}</Typography>
+                    {teams.filter(team => team.group === group).map(team => (
+                        <Team key={team.id} team={team} />
+                    ))}
+                </List>
+            </Box>)
+        )}
+    </Container>
   )
 }
 

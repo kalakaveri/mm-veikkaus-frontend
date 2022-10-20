@@ -5,7 +5,7 @@ import Rules from "./Rules";
 
 const Homepage = () => {
   return (
-    <Container className='homepage'>
+    <Container className='page-container'>
       <Rules />
     </Container>
   );

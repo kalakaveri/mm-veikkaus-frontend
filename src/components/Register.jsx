@@ -50,7 +50,7 @@ const LoginForm = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid className='login-container' container component="main">
+      <Grid className='page-container' container component="main">
         <CssBaseline />
         <Grid
           item

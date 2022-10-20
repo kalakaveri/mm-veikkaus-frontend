@@ -8,10 +8,8 @@ import {
   Button, 
   Container,
   Grid, 
-  Table, 
-  TableBody, 
+  Box, 
   TableCell,
-  TableHead, 
   TableRow,
   Typography
 } from "@mui/material"
@@ -21,7 +19,7 @@ const GuessPage = () => {
   const user = useSelector(state => state.auth)
   const guesses = useSelector(state => state.guesses)
   const matches = useSelector(state => state.matches)
-
+  const [guessableMatches, setGuessableMatches] = useState([])
   const [visible, setVisible] = useState(false)
 
   const toggleVisibility = (e) => {
@@ -29,8 +27,20 @@ const GuessPage = () => {
     setVisible(!visible)
   }
 
+  const notGuessedMatches = () => {
+    matches.map(m => {
+      console.log('etsitään matsia :>> ', m.id);
+      const e = user.guesses.find(g => g.matchId === m.id)
+      if (!e) {
+        setGuessableMatches([ ...guessableMatches, m ])
+      }
+    })
+  }
+  console.log('guessableMatches :>> ', guessableMatches);
+
   useEffect(() => {
     dispatch(initGuesses())
+    setGuessableMatches(notGuessedMatches())
   }, [])
 
   const submitGuesses = () => {
@@ -56,63 +66,89 @@ const GuessPage = () => {
       }
     }
     console.log('@GuessPage:: ', modifiedGuesses)
-    modifiedGuesses.forEach(guess => {
-      dispatch(createGuess(guess))
-      console.log('guess @GuessPage loop :>> ', guess);
-    })
   }
 
   return (
-    <Container className='guessPage-container'>
-      <Button 
-        fullWidth
-        variant='contained' 
-        color='info' 
-        onClick={toggleVisibility}
-      >
-        {visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}
-      </Button>
+    <Container sx={{ mt: '1px', mb: 8 }}>
+      {user && user.guesses.length > 0
+        ? <Button 
+            fullWidth
+            variant='contained' 
+            color={visible === true ? 'error' : 'success'}
+            nClick={toggleVisibility}
+          >
+            {visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}
+          </Button>
+        : null
+      }
       {visible 
-        ? (<Grid container>
+        ? (<Grid container className='page-container'>
           {guesses.filter(guess => guess.user.id === user.id).map(g => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={g.id}>
               <GuessModifier key={g.id} guess={g} user={user} />))
             </Grid>))}
           </Grid>)
-        : (<div>
-          <Typography variant='h3' paragraph>Syötä veikkaukset</Typography>
-          <Table className="guessPage-table-container">
-            <TableHead>
-              <TableRow key='header'>
-                <TableCell hidden />
-                <TableCell>Päivämäärä</TableCell>
-                <TableCell>Aika</TableCell>
-                <TableCell colSpan="2">Kotijoukkue</TableCell>
-                <TableCell colSpan="2">Vierasjoukkue</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody key='table-body'>
-              {matches && matches.lengTableCell > 0
+        : (
+        <div>
+          <Typography variant='h3' align='center' color='white' paragraph>Syötä veikkaukset</Typography>
+          <Box
+            component='form'
+            noValidate
+            onSubmit={submitGuesses}
+            sx={{
+              borderRadius: 8,
+              boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+              background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+              border: '1px solid rgba(255,255,255,0,75)',
+              backdropFilter: 'blur(5px)',
+              ml: 2,
+              mr: 2,
+              mt: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              
+            }}
+          >
+            {/* <Typography sx={{ mr: 2 }} variant='button' align='center' color='white' >Päivämäärä</Typography>
+            <Typography sx={{ mr: 2 }} variant='button' align='center' color='white'>Aika</Typography>
+            <Typography sx={{ mr: 2 }} variant='button' align='center' color='white'>Kotijoukkue</Typography>
+            <Typography sx={{ mr: 2 }} variant='button' align='center' color='white'>Vierasjoukkue</Typography> */}
+              {matches && matches.length > 0
                 ? matches.map(match => (
-                  user.guesses.find(guess => guess.matchId === match.id) === undefined
-                    ?
-                      (<TableRow key={match.id}>
-                        <TableCell className='matchId' hidden>{match.id}</TableCell>
-                        <TableCell>{match.date}</TableCell>
-                        <TableCell>{match.time}</TableCell>
-                        <TableCell><img src={match.homeTeam.url} alt='' widTableCell={'35px'} height={'20px'} />{match.homeTeam.name}</TableCell>
-                        <TableCell><input className='homeTeamScore' type="number" min={0} max={20} defaultValue={null}/></TableCell>
-                        <TableCell><input className='awayTeamScore' type="number" min={0} max={20} defaultValue={null} /></TableCell>
-                        <TableCell>{match.awayTeam.name}<img src={match.awayTeam.url} alt='' widTableCell={'35px'} height={'20px'} /></TableCell>
-                      </TableRow>)
-                    : null
+                  <Box align='left' sx={{ ml: 5, display: 'inline' , padding: '5px', width: '100%', }} key={match.id}>
+                      <Typography sx={{ ml: 3 }} variant='button' align='center' color='white'>
+                        {match.date}
+                      </Typography>
+                      <Typography sx={{ ml: 3 }} variant='button' align='center' color='white'>
+                        {match.time}
+                      </Typography>
+                      <img src={match.homeTeam.url} alt='' widTableCell={'35px'} height={'20px'} />
+                      <Typography sx={{ ml: 3, mr: 3 }} variant='button' align='center' color='white'>
+                        {match.homeTeam.name}
+                      </Typography>
+                    <input className='homeTeamScore' type="number" min={0} max={20} defaultValue={null}/>
+                    <input className='awayTeamScore' type="number" min={0} max={20} defaultValue={null} />
+                      <Typography sx={{ ml: 3, mr: 3 }} variant='button' align='center' color='white'>
+                        {match.awayTeam.name}
+                        <img src={match.awayTeam.url} alt='' widTableCell={'35px'} height={'20px'} />
+                      </Typography>
+                  </Box>
                 ))
                 : <tr key='no-matches'><TableCell>Olet jo syöttänyt arvaukset</TableCell></tr>
               }
-            </TableBody>
-          </Table>
-          <Button type='submit' variant='success' onClick={submitGuesses}>Lähetä veikkaukset</Button>
-          </div>)
+          </Box>
+          <Button
+            type='submit' 
+            color='primary' 
+            variant='contained' 
+            onClick={submitGuesses}
+            fullWidth
+          >
+            Lähetä veikkaukset
+          </Button>
+          </div>
+        )
       }
     </Container>
   )

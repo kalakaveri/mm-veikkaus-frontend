@@ -2,6 +2,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+    Box,
+    Button,
+    ListItem,
+    Typography,
+}   from '@mui/material'
+
 
 const Team = ({ team }) => {
   const navigate = useNavigate();
@@ -25,21 +32,38 @@ const Team = ({ team }) => {
   };
 
   return (
-    <li id='team-component' key={team.id}>
-      <div className='team-heading'>
-        <img src={team.url} alt={team.name} width="35" height="20" />
-        {team.name}
-        {auth.role !== 'admin'
-          ? null
-          : 
-            <button
-              className={`team-modify-button`}
-              onClick={(e) => handleModify(e)}
-              >Modify team
-            </button>
-        }
-      </div>
-    </li>
+    <ListItem key={team.id}>
+        <Box
+            fullwidth='true'
+            sx={{
+                width: '100%',
+                padding: 0.25,
+            }}>
+            <img src={team.url} alt={team.name} width="35" height="20" />
+            <Typography variant='button' sx={{ ml: 2 }}>
+              {team.name}
+            </Typography>
+            {auth.role !== 'admin'
+              ? null
+              : 
+                <Button
+                    className='team-modify-button'
+                    size='small'
+                    sx={{ ml: 5,
+                        // align button right
+                        position: 'absolute',
+                        top: 10,
+                        right: 15
+                    }}
+                    variant='contained'
+                    color='success'
+                    onClick={(e) => handleModify(e)}
+                >
+                    Muokkaa
+                </Button>
+            }
+        </Box>
+    </ListItem>
   );
 }
 

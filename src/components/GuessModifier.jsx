@@ -27,14 +27,14 @@ const GuessModifier = ({ guess, user }) => {
 
     const handleGuessUpdate = (e) => {
         e.preventDefault()
-
-        const updatedGuess = {
-          ...guess,
-          homeTeamScore: homeTeamScore,
-          awayTeamScore: awayTeamScore
-        }
-        console.log('updatedGuess :>> ', updatedGuess);
-        dispatch(updateGuess(updatedGuess))
+        const userGuesses = [ ...user.guesses ]
+        // get all the data from the form
+        // get data from all the input fields using ids 'match.id' + '-homeTeamScore' and 'match.id' + '-awayTeamScore'
+        // create a new guess object with gathered data
+        // append the new guess object to the userGuesses array, replace the old guess object with the new one if exists
+        // dispatch updateGuess action with the new guess array containing all the guess data
+        
+        dispatch(updateGuess(userGuesses))
     }
 
     const filterteam = (guess, side) => {

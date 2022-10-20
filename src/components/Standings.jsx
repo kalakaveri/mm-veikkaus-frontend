@@ -1,4 +1,5 @@
 import { 
+    Container,
     Grid,
     Table,
     TableBody,
@@ -40,13 +41,13 @@ const Standings = () => {
     }
     
     return (
-        <div className='standings-container'>
-            <h2 align='center' className='standings-header'>Lohkovaiheen sarjataulukot</h2>
+        <Container>
+            <Typography variant='h5' color='white' align='center' sx={{ mb: 1 }}>Lohkovaiheen sarjataulukot</Typography>
             <Grid container spacing={3} justifyContent='center'>
             {groups.map(group => (
-                <Grid className='group-item' sx={{ padding: '5px' }} item xs={12} sm={8} md={5} key={group} container>
-                <TableContainer>
-                    <Table>
+                <Grid sx={{ padding: '5px' }} item xs={12} sm={8} md={5} key={group} container>
+                <TableContainer className='page-container'>
+                    <Table sx={{ mb: 0 }}>
                         <TableHead key='table-header'>
                             <TableRow>
                                 <TableCell colSpan={3} align='center' background-color='white'>
@@ -87,7 +88,7 @@ const Standings = () => {
                 </Grid>
             ))}
             </Grid>
-        </div>
+        </Container>
     )
 }
 

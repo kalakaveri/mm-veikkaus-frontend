@@ -20,7 +20,18 @@ function Copyright() {
 
 const Footer = () => {
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, height: '50px' }} direction="column">
+    <Paper 
+      sx={{
+        position: 'fixed', 
+        bottom: 0, 
+        left: 0, 
+        right: 0, 
+        height: '55px',
+        boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+        background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+        backdropFilter: 'blur(5px)', 
+      }} 
+      direction="column">
 	    	<Toolbar className='footer'>
                 <Copyright />
                 <Typography variant="body1" marginLeft={25}>

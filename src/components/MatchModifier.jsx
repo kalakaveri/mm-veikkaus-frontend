@@ -47,7 +47,7 @@ const MatchModifier = ({ match }) => {
   }
 
   return (
-    <Container component='main' maxWidth="xs">
+    <Container className='page-container' component='main' maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{

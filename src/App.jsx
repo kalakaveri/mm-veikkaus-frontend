@@ -49,6 +49,7 @@ const App = () => {
         <img src='https://wallpaperaccess.com/full/7068215.jpg' alt='logo' />
       </div> */}
       {/* <Navbar /> */}
+      <div className='background'></div>
       <Navbar />
       <Notification />
       
@@ -88,7 +89,7 @@ const App = () => {
             <Route path='/users/:userId/modify' element={<UserModifier />} />
         </Route>
         <Route path='*' element={<NotFound />} />
-      </Routes> 
+      </Routes>
       <Footer />
     </Container>
   )

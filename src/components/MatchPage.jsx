@@ -31,7 +31,7 @@ const MatchPage = () => {
   }
 
   return (
-    <Container className='matchPage-container' sx={{ mt: 8 }}>
+    <Container>
       {user.role === 'admin'
           ? 
             <div className='matchPage-add-form'>
@@ -49,7 +49,7 @@ const MatchPage = () => {
             </div>
           : null
       }
-      <Table className='matchPage-table-container'>
+      <Table>
         <TableHead>
             <TableRow>
                 <TableCell colSpan={7} align='center' background-color='white'>

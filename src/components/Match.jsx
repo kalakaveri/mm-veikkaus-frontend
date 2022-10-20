@@ -6,6 +6,7 @@ import {
   Button,
   TableCell,
   TableRow,
+  Typography
 } from '@mui/material';
 
 const Match = ({ match }) => {
@@ -32,17 +33,19 @@ const Match = ({ match }) => {
 
   return (
     <TableRow key={match.id}>
-        <TableCell>{match.date}</TableCell>
-        <TableCell>{match.time}</TableCell>
+        <TableCell><Typography variant='button' align='center' color='white'>{match.date}</Typography></TableCell>
+        <TableCell><Typography variant='button' align='center' color='white'>{match.time}</Typography></TableCell>
         <TableCell align='right'>
-          <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" align='left' />
-          {match.homeTeam.name}
+          <Typography variant='button' align='center' color='white'>
+            <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" align='left' />
+            {match.homeTeam.name}
+          </Typography>
         </TableCell>
         {match.finished 
           ? (
             <>
-            <TableCell>{match.homeGoals}</TableCell>
-            <TableCell>{match.awayGoals}</TableCell>
+            <TableCell><Typography variant='button' align='center' color='white'>{match.homeGoals}</Typography></TableCell>
+            <TableCell><Typography variant='button' align='center' color='white'>{match.awayGoals}</Typography></TableCell>
             </>
           ) 
           : (
@@ -52,8 +55,10 @@ const Match = ({ match }) => {
             </>
           )}
         <TableCell>
-          {match.awayTeam.name}
-          <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" margin-left='30px' align='right' />
+          <Typography variant='button' align='center' color='white'>
+            {match.awayTeam.name}
+            <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" margin-left='30px' align='right' />
+          </Typography>
         </TableCell>
         {auth && auth.role === 'admin' 
           ? (

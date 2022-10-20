@@ -28,7 +28,7 @@ const Points = () => {
     }
 
     return (
-        <Container className='points-container' sx={{ mt: 10 }}>
+        <Container className='page-container'>
             {users && users.length > 0
                 ? (
                     <>
@@ -42,17 +42,17 @@ const Points = () => {
                                 </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell align='center'>Sija</TableCell>
-                                <TableCell align='center'>Nimi</TableCell>
-                                <TableCell align='center'>Pisteet</TableCell>
+                                <TableCell align='center'><Typography variant='button' align='center' color='white'>Sija</Typography></TableCell>
+                                <TableCell align='center'><Typography variant='button' align='center' color='white'>Nimi</Typography></TableCell>
+                                <TableCell align='center'><Typography variant='button' align='center' color='white'>Pisteet</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {sortUsers(users).map((user, index) => (
                                 <TableRow key={user.id}>
-                                    <TableCell align='center'>{index + 1}</TableCell>
-                                    <TableCell align='center'>{user.username}</TableCell>
-                                    <TableCell align='center'>{user.points}</TableCell>
+                                    <TableCell align='center'><Typography variant='button' align='center' color='white'>{index + 1}</Typography></TableCell>
+                                    <TableCell align='center'><Typography variant='button' align='center' color='white'>{user.username}</Typography></TableCell>
+                                    <TableCell align='center'><Typography variant='button' align='center' color='white'>{user.points}</Typography></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
