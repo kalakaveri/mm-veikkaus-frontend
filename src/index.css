@@ -56,10 +56,10 @@ table {
   color: #fff;
   border-radius: 25px;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-  background: linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2));
+  background: linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.6));
   border: 1px solid rgba(255,255,255,0,75);
   margin-bottom: 10px;
-  /* backdrop-filter: blur(1px); */
+  /* backdrop-filter: blur(px); */
 }
 
 /* Navbar */

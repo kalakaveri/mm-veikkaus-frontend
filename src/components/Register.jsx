@@ -28,12 +28,6 @@ const LoginForm = () => {
     const password = data.get('password')
     const password2 = data.get('password2')
 
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-      password2: data.get('password2'),
-    })
-
     if (username.length < 3 && password.length < 3) {
       event.preventDefault()
       dispatch(setNotification('Käyttäjätunnus ja salasana on oltava vähintään 3 merkkiä pitkä', 'info'))

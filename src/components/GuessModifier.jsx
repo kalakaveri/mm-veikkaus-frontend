@@ -33,7 +33,13 @@ const GuessModifier = ({ guess, user }) => {
         // create a new guess object with gathered data
         // append the new guess object to the userGuesses array, replace the old guess object with the new one if exists
         // dispatch updateGuess action with the new guess array containing all the guess data
-        
+        const updatedGuess = {
+            ...guess,
+            homeTeamScore: homeTeamScore,
+            awayTeamScore: awayTeamScore,
+        }
+
+        console.log('userGuesses :', userGuesses)
         dispatch(updateGuess(userGuesses))
     }
 

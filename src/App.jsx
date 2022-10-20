@@ -45,10 +45,6 @@ const App = () => {
   
   return (
     <Container className='app-container'>
-      {/* <div className='img-wrapper'>
-        <img src='https://wallpaperaccess.com/full/7068215.jpg' alt='logo' />
-      </div> */}
-      {/* <Navbar /> */}
       <div className='background'></div>
       <Navbar />
       <Notification />
@@ -60,7 +56,7 @@ const App = () => {
           <Route path='/login' element={<LoginForm />} />
         </Route>
 
-        <Route element={<Auth authRoles={['guest', 'regular', 'admin']} />}>
+        <Route element={<Auth authRoles={['guest', 'guesser', 'admin']} />}>
           <Route path='/points' element={<Points />} />
           <Route path='/standings' element={<Standings />} />
           <Route path='/matches' element={<MatchPage />} />

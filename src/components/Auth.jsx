@@ -23,6 +23,7 @@ const Auth = ({ authRoles }) => {
       dispatch(setNotification('Kirjaudu ensin sisään', 'error', 3));
       navigate('/login')
     }
+
     else if (!authRoles.includes(user.role)) {
       dispatch(setNotification('Sinulla ei ole oikeuksia tälle sivulle', 'error', 3));
       navigate('/')

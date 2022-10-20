@@ -1,4 +1,3 @@
-import { Box } from '@mui/system';
 import React from 'react';
 
 const Guess = ({ guess, onGuessClick }) => {
@@ -25,12 +24,13 @@ const Guess = ({ guess, onGuessClick }) => {
 
 
     return (
-        <TableRow  sx={{ margin: '5px' }}>
-            {/* // create input number fields, set values with useState and save values to inputid: 'match.id' + '-homeTeamScore' and 'match.id' + '-awayTeamScore' */}
+        // <TableRow sx={{ margin: '5px' }}>
+        //     {/* // create input number fields, set values with useState and save values to inputid: 'match.id' + '-homeTeamScore' and 'match.id' + '-awayTeamScore' */}
             
             
-            </TableRow>
-            {guess}
-        </div>
-    );
+        //     </TableRow>
+        //     {guess}
+        // </div>
+        <div></div>
+        )
     }
