@@ -26,6 +26,7 @@ const GuessPage = () => {
   const matches = useSelector(state => state.matches)
   const user = useSelector(state => state.auth)
   const [guessableMatches, setGuessableMatches] = useState([])
+  const [guessedMatches, setGuessedMatches] = useState([])
   const [visible, setVisible] = useState(false)
 
   const toggleVisibility = (e) => {
@@ -40,8 +41,9 @@ const GuessPage = () => {
         compareFunction(leftValue, rightValue)));
   
   useEffect(() => {
+    setGuessedMatches(guesses.filter(g => g.user.id === user.id))
     dispatch(initGuesses())
-    setGuessableMatches(onlyInLeft(matches, guesses, isSameMatch))
+    setGuessableMatches(onlyInLeft(matches, guessedMatches, isSameMatch))
   }, [])
 
   const submitGuesses = (e) => {
@@ -67,8 +69,8 @@ const GuessPage = () => {
       }
     })
   }
-  console.log('user :', user)
-  console.log('user.guesses.length :', user.guesses.length)
+  console.log('guessedMatches :', guessedMatches)
+  console.log('guessableMatches :', guessableMatches)
   return (
     <Container sx={{ mt: '1px', mb: 8 }}>
       {user && user.guesses.length > 0
@@ -84,7 +86,7 @@ const GuessPage = () => {
       }
       {visible 
         ? (<Grid container className='page-container'>
-          {guesses.filter(guess => guess.user.id === user.id).map(g => (
+          {guessedMatches.map(g => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={g.id}>
               <GuessModifier key={g.id} guess={g} user={user} />))
             </Grid>))}
