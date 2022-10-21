@@ -32,17 +32,9 @@ const GuessPage = () => {
   useEffect(() => {
     if (!guesses || guesses.length === 0) {
       dispatch(initGuesses())
+      filterGuessableMatches()
     }
-    filterGuessableMatches()
-    // if (!guessedMatches || guessedMatches.length === 0) {
-    //   setGuessedMatches(guesses.filter(g => g.user.id === user.id))
-    //   console.log('guessedMatches use :', guessedMatches)
-    // }
-    // if (guessableMatches.length === 0) {
-    //   setGuessableMatches(filterGuessableMatches())
-    //   console.log('guessableMatches use :', guessableMatches)
-    // }
-  }, [])
+  }, [dispatch, guesses])
 
   const toggleVisibility = (e) => {
     e.preventDefault()
@@ -65,14 +57,12 @@ const GuessPage = () => {
   }
 
   const filterGuessableMatches = () => {
+    console.log('guesses :>> ', guesses);
+    // gather all matches from array matches that are not in array user.guesses
+    const guessableMatches = matches.filter(m => !user.guesses.includes(m.id))
+    setGuessableMatches(guessableMatches)
     setGuessedMatches(guesses.filter(g => g.user.username === user.username))
-    console.log('guessedMatches :', guessedMatches)
-    const notGuessed = matches.filter(m => !user.guesses.includes(m.id))
-    setGuessableMatches(notGuessed)
-    console.log('notGuessed :>> ', notGuessed);
-    if (user.guesses || user.guesses.length > 0) {
-      console.log('user.guesses :', user.guesses)
-    }
+    console.log('guessableMatches :', guessableMatches)
   }
 
   const submitGuesses = (e) => {
@@ -99,7 +89,7 @@ const GuessPage = () => {
     })
   }
   return (
-    <Container sx={{ mt: '1px', mb: 8 }}>
+    <Container className='page-container' sx={{ mt: '1px', mb: 8 }} >
       {(guessedMatches.length > 0) || user.role === 'admin'
         ? <Button 
             fullWidth
@@ -113,31 +103,26 @@ const GuessPage = () => {
       }
       {visible 
         ? (
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            background: 'white', 
-            opacity: '0.75',
-            borderRadius: '10px',
-            padding: '20px',
-          }}
-        >
+        <>
           {user && user.role === 'admin'
             ? 
-            <>
-              {guesses.map(g => (<GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />))}
+            <Box direction='column' sm='auto'>
+              {guesses.map(g => (
+                <>
+                <GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />
+                </>
+              ))}
               <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
-            </>
+            </Box>
             : 
-            <>
-              {guessedMatches.map(g => (<GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />))}
+            <Box>
+              {guessedMatches.map(g => (
+                <GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />
+              ))}
               <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
-            </>
+            </Box>
             }
-            </Box>)
+            </>)
         : (
         <div className='page-container'>
           <Typography variant='h3' align='center' color='white' paragraph>Syötä veikkaukset</Typography>

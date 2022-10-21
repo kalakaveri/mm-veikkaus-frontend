@@ -16,7 +16,7 @@ const Auth = ({ authRoles }) => {
     if (!user.role || user === null) {
       dispatch(initUser());
     }
-  }, [dispatch, user])
+  }, [user, dispatch])
 
   useEffect(() => {
     if ((!user || user.role === 'guest') && !authRoles.includes(user.role)) {
@@ -28,7 +28,7 @@ const Auth = ({ authRoles }) => {
       dispatch(setNotification('Sinulla ei ole oikeuksia tälle sivulle', 'error', 3));
       navigate('/')
     }
-  }, [authRoles, navigate, user]);
+  }, [user, authRoles, dispatch, navigate])
 
   return (
     <div data-testid='auth-success-component'>

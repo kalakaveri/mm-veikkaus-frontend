@@ -22,8 +22,10 @@ const MatchPage = () => {
   const user = useSelector(state => state.auth)
 
   useEffect(() => {
-    dispatch(initMatches())
-  }, [dispatch])
+    if (!matches || matches.length === 0) {
+      dispatch(initMatches())
+    }
+  }, [dispatch, matches])
 
   const toggleVisibility = (e) => {
     e.preventDefault()

@@ -9,8 +9,10 @@ const UsersPage = () => {
   const users = useSelector(state => state.users)
 
   useEffect(() => {
-    dispatch(getAll())
-  }, [dispatch])
+    if (!users || users.length === 0) {
+      dispatch(getAll())
+    }
+  }, [dispatch, users])
 
   return (
     <div id='usersPage-container'>

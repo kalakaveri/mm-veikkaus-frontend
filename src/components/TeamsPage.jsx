@@ -17,8 +17,10 @@ const TeamsPage = () => {
   const teams = useSelector(state => state.teams)
   
   useEffect(() => {
-    dispatch(initTeams())
-  }, [dispatch])
+    if (!teams || teams.length === 0) {
+        dispatch(initTeams())
+    }
+  }, [dispatch, teams])
 
   return (
     <Container align='center' sx={{ mb: 7,  }} minWidth='400px'>

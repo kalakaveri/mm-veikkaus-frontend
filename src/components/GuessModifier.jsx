@@ -1,6 +1,7 @@
 import {
     Box,
     Button,
+    Container,
     Grid,
     TextField,
     Typography 
@@ -25,6 +26,8 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
     }
 
     const handleDelete = (e) => {
+        e.preventDefault()
+        console.log('guess delete :>> ', guess);
         dispatch(deleteGuess(guess.id));
     }
 
@@ -58,7 +61,7 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
                 />
                 <TextField
                     required
-                    sx={{ width: '160px', ml: 1 }}
+                    sx={{ width: '160px', ml: 2 }}
                     id='awayGoals'
                     type='number'
                     label={<img src={match.awayTeam.url} alt='awayteam-flag' width="35" height="20" />}
@@ -75,59 +78,70 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
     const filterTeamGrid = (guess, side) => {
         const match = matches.find(m => m.id === guess.match.id)
         return (
+            <>
             <Grid item>
                 <img src={match[`${side}`].url} alt={match[`${side}`].name} width={'35px'} height={'20px'} />
                 <Typography variant='h6' sx={{ ml: 1 }}>
                     {match[[`${side}`]].name}
                 </Typography>
             </Grid>
+            
+            </>
         )
     }
 
     return (
-        <Box 
+        <Container component='main' maxWidth="xs" className='page-container'>
+        <Box className='item-container'
+            minWidth={'380px'}
             sx={{
-                marginTop: 8,
+                mt: 3,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                background: 'white', 
-                opacity: '0.9',
                 borderRadius: '10px',
-                padding: '20px'
+                padding: '20px',
             }}
         >
             <Grid 
                 container 
-                xm={6}
+                columns={2}
                 sx={{
-                    border: '1px solid black',
-                    mt: 3,
                     '& .MuiTypography-root': {
                         textAlign: 'center'
                     },
                     '& .MuiGrid-root': {
                         display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center'
-                    }
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    },
                 }}
             >
-                {filterTeamGrid(guess, 'homeTeam')}
-                {filterTeamGrid(guess, 'awayTeam')}
-                <Typography variant='button' fullwidth="true" align='center' marginLeft={15}>Syötä päivitetty arvaus</Typography>
+                <Grid item align='center' sx={{ ml: 4 }}>
+                    {filterTeamGrid(guess, 'homeTeam')}
+                </Grid>
+                <Grid item align='center' sx={{ ml: 8 }}>
+                    {filterTeamGrid(guess, 'awayTeam')}
+                </Grid>
+                <Grid item sx={{ mb: 1, ml: 1 }}>
+                    <Typography variant='button' fullwidth="true" align='center' marginLeft={8}>Syötä päivitetty arvaus</Typography>
+                </Grid>
+                <Grid item sx={{ mb: 1, ml: 1 }}>
+                    <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
+                </Grid>
             </Grid>
             <Box 
                 component="form" 
                 align='center'
                 noValidate
-                onSubmit={updateGuess} 
             >
                 {filterTeamData(guess)}
                 <Button
                     variant='contained'
                     color='error'
-                    onClick={e => handleDelete}
+                    type='button'
+                    onClick={e => handleDelete(e)}
                 >
                     Poista arvaus
                 </Button>
@@ -135,12 +149,13 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
                     variant='contained'
                     color='success'
                     type='submit'
-                    onSubmit={e => handleGuessUpdate}
+                    onSubmit={e => handleGuessUpdate(e)}
                 >
                     Päivitä arvaus
                 </Button>
             </Box>
         </Box>
+        </Container>
     );
 }
 

@@ -35,21 +35,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.auth)
-  const users = useSelector(state => state.users)
+  const matches = useSelector(state => state.matches)
   
   useEffect (() => {
-    if (user === null) {
-      dispatch(initUser());
-    }
-    if (!users || users.length === 0) {
+    dispatch(initUser());
+    if (!matches || matches.length === 0) {
       dispatch(initTeams());
       dispatch(initMatches());
       dispatch(initGuesses());
       dispatch(getAll());
     }
   }
-  , [dispatch, user, users]);
+  , [dispatch, matches]);
   
   
   return (
