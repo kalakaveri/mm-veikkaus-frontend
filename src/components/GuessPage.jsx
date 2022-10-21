@@ -76,7 +76,6 @@ const GuessPage = () => {
       const homeTeamScore = document.getElementById(`${m.id}-homeTeamScore`).value
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
       const userId = user.id
-      console.log(m.date, '-', m.time, ': ', m.homeTeam.name, ' - ', m.awayTeam.name, ' ', homeTeamScore, ' - ', awayTeamScore);
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
           const guess = {
@@ -85,7 +84,6 @@ const GuessPage = () => {
             matchId: m.id,
             userId: userId
           }
-          console.log('guess :', guess)
           dispatch(createGuess(guess))
           navigate('/')
         }
