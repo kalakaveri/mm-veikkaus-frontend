@@ -35,11 +35,11 @@ export const register = (username, password, password2) => {
   }
 }    
 
-export const updateUser = (id, user) => {
+export const updateUser = (user) => {
   return async dispatch => {
+    console.log('user :>> ', user);
     try {
-
-      const updatedUser = await userService.update(id, user)
+      const updatedUser = await userService.update(user.id, user)
       dispatch({
         type: 'UPDATE_USER',
         data: updatedUser

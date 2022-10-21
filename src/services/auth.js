@@ -11,7 +11,6 @@ const setToken = newToken => {
 export const initUser = () => {
   const loggedUserJSON = window.localStorage.getItem('loggedUser')
   if (loggedUserJSON) {
-    console.log('loggedUserJson :>> ', loggedUserJSON);
     const user = JSON.parse(loggedUserJSON)
 
     setToken(user.token)

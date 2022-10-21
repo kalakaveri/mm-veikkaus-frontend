@@ -1,43 +1,41 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { updateUser } from '../reducers/usersReducer';
-import GuessModifier from './GuessModifier';
+import { deleteGuess } from '../reducers/guessReducer';
+
+import {
+  Button,
+} from '@mui/material';
 
 const UserModifier = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector(state => state.users);
-  const guesses = useSelector(state => state.guesses);
-  const matches = useSelector(state => state.matches);
-  const teams = useSelector(state => state.teams);
   
   const { userId } = useParams();
   const user = users.find(u => u.id === userId);
-  
   const [role, setRole] = useState(user.role);
-  const [visible, setVisible] = useState(false)
+  
 
-  const toggleVisibility = (e) => {
+  const handleDeleteAll = (e) => {
     e.preventDefault()
-    setVisible(!visible)
+    user.guesses.forEach(guess => {
+      dispatch(deleteGuess(guess.id))
+    })
   }
 
   const handleUserUpdate = (e) => {
     e.preventDefault();
     navigate('/users');
-    dispatch(updateUser({ ...user, role: role }));
-  };
-
-  const filterteam = (id, side) => {
-    const match = matches.find(m => m.id === id)
-    const team = teams.find(t => t.id === match[`${side}`].id)
-    if (side === 'homeTeam') {
-      return (<><img src={team.url} alt={team.name} width={'35px'} height={'20px'} />{team.name}</>)
+    const updatedUser = {
+      id: user.id,
+      username: user.username,
+      role: role,
     }
-    return (<>{team.name}<img src={team.url} alt={team.name} width={'35px'} height={'20px'} /></>)
-  }
+    dispatch(updateUser(updatedUser));
+  };
   
   if (user) {
     return (
@@ -66,13 +64,7 @@ const UserModifier = () => {
         <div id='user-modifier-guesses-container'>
           <h3>Veikatut ottelut</h3>
           {user.guesses.length > 0
-            ? user.guesses.map(guess => (
-              <div key={guess.id} className='user-modifier-guess-modify'>
-                <Link key={guess.id} to={`/guesses/${guess.id}`}>
-                  <GuessModifier guess={guess}/>
-                </Link>
-              </div>
-            ))
+            ? <Button variant='contained' color='error' onClick={handleDeleteAll}>Poista käyttäjän arvaukset</Button>
             : <p>Ei vielä veikattuja otteluita</p>
           }
           </div>
