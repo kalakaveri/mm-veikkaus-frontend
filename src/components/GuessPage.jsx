@@ -8,7 +8,6 @@ import {
   Box,
   Button, 
   Container,
-  Grid, 
   TableCell,
   Table,
   TableBody,
@@ -66,26 +65,14 @@ const GuessPage = () => {
   }
 
   const filterGuessableMatches = () => {
-    setGuessedMatches(guesses.filter(g => g.user.id === user.id))
-    const notGuessed = matches.filter(m => guessedMatches.includes(m.id))
+    setGuessedMatches(guesses.filter(g => g.user.username === user.username))
+    console.log('guessedMatches :', guessedMatches)
+    const notGuessed = matches.filter(m => !user.guesses.includes(m.id))
     setGuessableMatches(notGuessed)
     console.log('notGuessed :>> ', notGuessed);
-    // guesses.filter(g => g.user.id !== user.id).map(g => g.match.id)
-    /*const guessedMatchIds = []
-    const filteredMatches = []
-    const arvatut = []
-    matches.forEach(match => {
-      if (!guessedMatchIds.includes(match.id) && !match.finished ) {
-        filteredMatches.push(match)
-      }
-      else {
-        arvatut.push(match)
-      }
-    })
-    console.log('arvatut :>> ', arvatut)
-    console.log('filteredMatches :>> ', filteredMatches);
-    return filteredMatches
-    */
+    if (user.guesses || user.guesses.length > 0) {
+      console.log('user.guesses :', user.guesses)
+    }
   }
 
   const submitGuesses = (e) => {
@@ -96,7 +83,6 @@ const GuessPage = () => {
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
       const userId = user.id
       console.log(m.date, '-', m.time, ': ', m.homeTeam.name, ' - ', m.awayTeam.name, ' ', homeTeamScore, ' - ', awayTeamScore);
-
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
           const guess = {
@@ -114,7 +100,7 @@ const GuessPage = () => {
   }
   return (
     <Container sx={{ mt: '1px', mb: 8 }}>
-      {(user && user.guesses.length > 0) || user.role === 'admin'
+      {(guessedMatches.length > 0) || user.role === 'admin'
         ? <Button 
             fullWidth
             variant='contained' 

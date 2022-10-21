@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router';
 
 import Auth from './components/Auth';
@@ -25,22 +24,32 @@ import UsersPage from './components/UsersPage';
 import User from './components/User';
 import UserModifier from './components/UserModifier';
 
-import { initUser } from './reducers/authReducer';
-import { getGuess } from './reducers/guessReducer';
+import { initUser } from './reducers/authReducer'
+import { initGuesses, getGuess } from './reducers/guessReducer';
 import { initMatches, getMatch } from './reducers/matchReducer';
 import { initTeams, getTeam } from './reducers/teamReducer';
-import { getUser } from './reducers/usersReducer';
+import { getAll, getUser } from './reducers/usersReducer';
 
 import { Container } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.auth)
+  const users = useSelector(state => state.users)
   
-  useEffect(() => {
-    dispatch(initUser())
-    dispatch(initMatches())
-    dispatch(initTeams())
-  }, [dispatch])
+  useEffect (() => {
+    if (user === null) {
+      dispatch(initUser());
+    }
+    if (!users || users.length === 0) {
+      dispatch(initTeams());
+      dispatch(initMatches());
+      dispatch(initGuesses());
+      dispatch(getAll());
+    }
+  }
+  , [dispatch, user, users]);
   
   
   return (
