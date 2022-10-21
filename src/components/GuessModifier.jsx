@@ -27,7 +27,6 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
 
     const handleDelete = (e) => {
         e.preventDefault()
-        console.log('guess delete :>> ', guess);
         dispatch(deleteGuess(guess.id));
     }
 
@@ -36,11 +35,12 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
 
         const updatedGuess = {
             ...guess,
+            match: guess.match.id,
+            user: guess.user.id,
             homeTeamScore: homeGoals,
             awayTeamScore: awayGoals,
         }
-        console.log('updatedGuess :>> ', updatedGuess);
-        //dispatch(updateGuess(updatedGuess.id, updatedGuess));
+        dispatch(updateGuess(updatedGuess.id, updatedGuess));
     }
 
     const filterTeamData = (guess) => {
@@ -135,6 +135,7 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
                 component="form" 
                 align='center'
                 noValidate
+                onSubmit={e => handleGuessUpdate(e)}
             >
                 {filterTeamData(guess)}
                 <Button
@@ -149,7 +150,6 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
                     variant='contained'
                     color='success'
                     type='submit'
-                    onSubmit={e => handleGuessUpdate(e)}
                 >
                     Päivitä arvaus
                 </Button>

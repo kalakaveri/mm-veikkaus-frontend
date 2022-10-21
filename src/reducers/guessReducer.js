@@ -37,10 +37,10 @@ export const createGuess = (guess) => {
     }
 }
 
-export const updateGuess = (guess) => {
+export const updateGuess = (id, guess) => {
     return async dispatch => {
         try {
-        const updatedGuess = await guessService.update(guess)
+        const updatedGuess = await guessService.update(id, guess)
         dispatch({
             type: 'UPDATE_GUESS',
             data: updatedGuess
