@@ -79,7 +79,7 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
         const match = matches.find(m => m.id === guess.match.id)
         return (
             <>
-            <Grid item>
+            <Grid item key={match[`${side}`].id}>
                 <img src={match[`${side}`].url} alt={match[`${side}`].name} width={'35px'} height={'20px'} />
                 <Typography variant='h6' sx={{ ml: 1 }}>
                     {match[[`${side}`]].name}

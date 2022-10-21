@@ -32,8 +32,8 @@ const GuessPage = () => {
   useEffect(() => {
     if (!guesses || guesses.length === 0) {
       dispatch(initGuesses())
-      filterGuessableMatches()
     }
+    setGuessableMatches(filterMatches())
   }, [dispatch, guesses])
 
   const toggleVisibility = (e) => {
@@ -56,13 +56,17 @@ const GuessPage = () => {
     setVisible(!visible)
   }
 
-  const filterGuessableMatches = () => {
-    console.log('guesses :>> ', guesses);
-    // gather all matches from array matches that are not in array user.guesses
-    const guessableMatches = matches.filter(m => !user.guesses.includes(m.id))
-    setGuessableMatches(guessableMatches)
-    setGuessedMatches(guesses.filter(g => g.user.username === user.username))
-    console.log('guessableMatches :', guessableMatches)
+  const filterMatches = () => {
+    const userGuessedIds = guesses.map(guess => guess.user.username === user.username ? guess.match.id : null)
+    const list = []
+    matches.forEach(match => {
+      if (!userGuessedIds.includes(match.id)) { 
+        list.push(match)
+      }
+    })
+    setGuessedMatches(guesses.filter(guess => guess.user.username === user.username))
+    console.log('guessableMatches :', list)
+    return list
   }
 
   const submitGuesses = (e) => {
