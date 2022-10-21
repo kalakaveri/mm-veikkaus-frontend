@@ -27,7 +27,7 @@ export const logout = () => {
     try {
       const data = await authService.logout()
       dispatch({ type: 'LOGOUT', user: data })
-      dispatch(setNotification('logged out', 'success'))
+      dispatch(setNotification('Kirjauduit ulos', 'success'))
     } catch (error) {
       dispatch(setNotification('Jotain meni pieleen', 'success'))
     }

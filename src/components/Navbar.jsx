@@ -3,7 +3,6 @@ import React, { useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../reducers/authReducer';
-import { setNotification } from '../reducers/notificationReducer';
 
 import {
   AppBar,
@@ -18,6 +17,10 @@ import { Link } from 'react-router-dom';
 import NavDrawer from './NavDrawer';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 
+const guestFlow = [{nimi: 'Etusivu', url: '/'}, {nimi: 'Pistetilanne', url: '/points'}, {nimi: 'Ottelut', url: '/matches'}, {nimi: 'Lohkojako', url: '/standings'}]
+const userFlow = [ ...guestFlow, {nimi: 'Arvaukset', url: '/guesses'} ]
+const adminFlow = [	...userFlow, {nimi: 'Käyttäjät', url: '/users'}, {nimi: 'Joukkueet', url: '/teams'}]
+
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -25,19 +28,29 @@ const Navbar = () => {
 
 	const [value, setValue] = useState(0);
 	const [matches, setMatches] = useState(
-    	window.matchMedia("(min-width: 1177px)").matches
+    	window.matchMedia("(min-width: 800px)").matches
   )
+
+  const buildUserFlow = (role) => {
+	switch (role){
+		case 'admin':
+			return (adminFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+		case 'guesser':
+			return (userFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+		default:
+			return (guestFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+		}
+	}
 
   useEffect(() => {
     window
-    .matchMedia("(min-width: 1177px)")
+    .matchMedia("(min-width: 800px)")
     .addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
 	const handleLogout = async (event) => {
     dispatch(logout())
 	dispatch(navigate('/'))
-    dispatch(setNotification('Kirjauduit ulos', 'success'))
   }
 
 	return (
@@ -45,7 +58,7 @@ const Navbar = () => {
 			<Toolbar className='navbar'>
 				<SportsSoccerIcon 
 					sx={{ 
-						display: { xs: 'flex', md: 'flex' },
+						display: { xs: 'none', md: 'flex' },
 						mr: 1,
 						position: "fixed", top: 12, left: 35, zIndex: 2000,
 					}} 
@@ -58,7 +71,7 @@ const Navbar = () => {
             			href="/"
             			sx={{
 							position: "fixed", top: 18, left: 80, zIndex: 2000,
-            			  	display: { xs: 'flex', md: 'flex' },
+            			  	display: { xs: 'none', md: 'flex' },
             			  	fontFamily: 'monospace',
             			  	fontWeight: 10,
             			  	letterSpacing: '.1rem',
@@ -73,38 +86,22 @@ const Navbar = () => {
 					? (
 						<>
 						<Tabs
-						  sx={{ marginLeft: "auto" }}
               				indicatorColor="secondary"
               				textColor="inherit"
               				value={value}
               				onChange={(e, value) => setValue(value)}
 						>
-							<Tab component={Link} label="Etusivu" to='/' />
-							<Tab component={Link} label='Pistetaulukko' to='/points' />
-							<Tab component={Link} label='Ottelut' to='/matches' />
-							<Tab component={Link} label='Lohkojako' to='/standings' />
-							{user && user.role !== 'guest' 
-							? 	<Tab component={Link} label='Arvaukset' to='/guesses' />
-							: 	null
-							}
-							{user.role === 'admin'
-								? (
-									<>
-									<Tab component={Link} label='Käyttäjät' to='/users' />
-									<Tab component={Link} label='Joukkueet' to='/teams' />
-									</>
-									)
-								: null}
+							{buildUserFlow(user.role)}
 						</Tabs>
-						<ButtonGroup sx={{ ml: 10 }} className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
+						<ButtonGroup sx={{ ml: 5 }} alignItems='right' className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
 						{!user || user.role === 'guest'
 							? 
 								(<>
-									<Button sx={{ marginLeft: 'auto' }} onClick={() => navigate('/login')}>Kirjaudu sisään</Button>
-									<Button sx={{ marginLeft: '10px' }} onClick={() => navigate('/register')}>Rekisteröidy</Button>
+									<Button color='success' size='small' onClick={() => navigate('/login')}>Kirjaudu sisään</Button>
+									<Button color='info' size='small' onClick={() => navigate('/register')}>Rekisteröidy</Button>
 								</>)
 							:
-							<Button sx={{ marginLeft: 'auto' }} className='navbar-logout' onClick={() => {
+							<Button color='info' size='small' className='navbar-logout' onClick={() => {
 								handleLogout()
 								navigate('/');
 							}}>Kirjaudu ulos</Button>
