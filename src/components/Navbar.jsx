@@ -28,39 +28,40 @@ const Navbar = () => {
 
 	const [value, setValue] = useState(0);
 	const [matches, setMatches] = useState(
-    	window.matchMedia("(min-width: 800px)").matches
-  )
+    	window.matchMedia("(min-width: 960px)").matches
+    )
 
-  const buildUserFlow = (role) => {
-	switch (role){
-		case 'admin':
-			return (adminFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
-		case 'guesser':
-			return (userFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
-		default:
-			return (guestFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+    const buildUserFlow = (role) => {
+	    switch (role){
+		    case 'admin':
+			    return (adminFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+		    case 'guesser':
+			    return (userFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
+		    default:
+			    return (guestFlow.map(p => <Tab key={p.url} label={p.nimi} component={Link} to={p.url} />))
 		}
 	}
 
   useEffect(() => {
     window
-    .matchMedia("(min-width: 800px)")
+    .matchMedia("(min-width: 960px)")
     .addEventListener('change', e => setMatches( e.matches ));
   }, []);
 
 	const handleLogout = async (event) => {
     dispatch(logout())
-	dispatch(navigate('/'))
-  }
+		navigate('/')
+    }
 
 	return (
 		<AppBar className='navbar-container'>
 			<Toolbar className='navbar'>
 				<SportsSoccerIcon 
-					sx={{ 
-						display: { xs: 'none', md: 'flex' },
+					sx={{
+						display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex', xl: 'flex' },
 						mr: 1,
 						position: "fixed", top: 12, left: 35, zIndex: 2000,
+						overflow: 'hidden',
 					}} 
 				/>
 				<Typography
@@ -70,8 +71,9 @@ const Navbar = () => {
             			component="a"
             			href="/"
             			sx={{
-							position: "fixed", top: 18, left: 80, zIndex: 2000,
-            			  	display: { xs: 'none', md: 'flex' },
+							position: "fixed", top: 16, left: 80, zIndex: 2000,
+                            display: { xs: 'flex', sm: 'flex', md: 'none', lg: 'flex', xl: 'flex' },
+							overflow: 'hidden',
             			  	fontFamily: 'monospace',
             			  	fontWeight: 10,
             			  	letterSpacing: '.1rem',
@@ -93,7 +95,7 @@ const Navbar = () => {
 						>
 							{buildUserFlow(user.role)}
 						</Tabs>
-						<ButtonGroup sx={{ ml: 5 }} alignItems='right' className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
+						<ButtonGroup sx={{ ml: 5 }} className='nav-auth-container' variant='contained' aria-label='contained primary button group'>
 						{!user || user.role === 'guest'
 							? 
 								(<>

@@ -19,16 +19,47 @@ import { useSelector } from 'react-redux';
 import MenuIcon from "@mui/icons-material/Menu";
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 
-const guestPages = [{nimi: 'Etusivu', url:  '/'}, {nimi:'Pistetaulukko', url: '/points'}, {nimi:'Ottelut', url: '/matches'}, {nimi: 'Lohkojako', url: '/standings'}]
-const userPages = [{nimi:'Arvaukset', url:  '/guesses' }]
-const adminPages = [{nimi: 'Käyttäjät', url:  '/users', nimi: 'Joukkueet', url: '/teams'}]
-const logPages = [{nimi: 'Kirjaudu sisään', url: '/login'}, {nimi: 'Rekisteröidy', url: '/register'}]
+const guestFlow = [{nimi: 'Etusivu', url: '/'}, {nimi: 'Pistetilanne', url: '/points'}, {nimi: 'Ottelut', url: '/matches'}, {nimi: 'Lohkojako', url: '/standings'}]
+const userFlow = [ ...guestFlow, {nimi: 'Arvaukset', url: '/guesses'} ]
+const adminFlow = [	...userFlow, {nimi: 'Käyttäjät', url: '/users'}, {nimi: 'Joukkueet', url: '/teams'}]
 
 const NavDrawer = ({ handleLogout }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const user = useSelector(state => state.auth)
   const navigate = useNavigate()
+
+  const buildUserPages = (role) => {
+    switch (role){
+      case 'admin':
+        return (
+          adminFlow.map(p => (
+          <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
+              <ListItemIcon>
+                <ListItemText>{p.nimi}</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          )))
+      case 'guesser':
+        return (
+          userFlow.map(p => (
+            <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
+              <ListItemIcon>
+                <ListItemText>{p.nimi}</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          )))
+      default:
+        return (
+          guestFlow.map(p => (
+            <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
+              <ListItemIcon>
+                <ListItemText>{p.nimi}</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          )))
+    }
+  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -67,45 +98,8 @@ const NavDrawer = ({ handleLogout }) => {
             MM-VEIKKAUS
         </Typography>
         <List>
-          {guestPages.map(p => (
-            <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
-              <ListItemIcon>
-                <ListItemText>{p.nimi}</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          ))}
-        </List>
-        {!user
-          ? <List>
-              {logPages.map(p => (
-                <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
-                  <ListItemIcon>
-                    <ListItemText>{p.nimi}</ListItemText>
-                  </ListItemIcon>
-                </ListItemButton>
-              ))}
-            </List>
-          : <List>
-              {userPages.map(p => (
-                <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
-                  <ListItemIcon>
-                    <ListItemText>{p.nimi}</ListItemText>
-                  </ListItemIcon>
-                </ListItemButton>
-              ))}
-              {user.role === 'admin'
-                ?<List>
-                {adminPages.map(p => (
-                  <ListItemButton onClick={() => setOpenDrawer(!openDrawer)} key={p.nimi} component={Link} to={p.url}>
-                    <ListItemIcon>
-                      <ListItemText>{p.nimi}</ListItemText>
-                    </ListItemIcon>
-                  </ListItemButton>
-                ))}
-                </List>
-                : null
-              }
-            {user && user.role !== 'guest'
+          {buildUserPages(user.role)}
+          {user && user.role !== 'guest'
               ? 
                 <ListItemButton onClick={() => {
                   setOpenDrawer(!openDrawer)
@@ -142,7 +136,6 @@ const NavDrawer = ({ handleLogout }) => {
               </>
           }
           </List>
-        }
       </Drawer>
       {/* <IconButton
         align='right'
