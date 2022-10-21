@@ -6,6 +6,7 @@ import { initMatches, updateMatch } from '../reducers/matchReducer';
 import {
   Box,
   Button,
+  Checkbox,
   Container,
   CssBaseline,
   Grid,
@@ -20,6 +21,7 @@ const MatchModifier = ({ match }) => {
   const matches = useSelector(state => state.matches);
   const [homeGoals, setHomeGoals] = useState(0);
   const [awayGoals, setAwayGoals] = useState(0);
+  const [finished, setFinished] = useState(false);
 
   const { matchId } = useParams();
 
@@ -31,6 +33,9 @@ const MatchModifier = ({ match }) => {
 
   if (matchId || matchId !== undefined) {
     match = matches.find(m => m.id === matchId);
+    // setHomeGoals(match.homeGoals)
+    // setAwayGoals(match.awayGoals)
+    // setFinished(match.finished)
   }
 
   const handleUpdate = (event) => {
@@ -39,7 +44,7 @@ const MatchModifier = ({ match }) => {
       ...match,
       homeGoals: homeGoals,
       awayGoals: awayGoals,
-      finished: true,
+      finished: finished,
     }
     console.log('updatedMatch :', updatedMatch)
     dispatch(updateMatch(match.id, updatedMatch));
@@ -110,7 +115,7 @@ const MatchModifier = ({ match }) => {
             autoComplete="homeGoals"
             autoFocus
             helperText={match.homeTeam.name}
-            onChange={e => setHomeGoals(e.target.value)}
+            onChange={e => setHomeGoals(parseInt(e.target.value))}
           />
           <TextField
             required
@@ -122,12 +127,15 @@ const MatchModifier = ({ match }) => {
             autoComplete="homeGoals"
             autoFocus
             helperText={match.awayTeam.name}
-            onChange={e => setAwayGoals(e.target.value)}
+            onChange={e => setAwayGoals(parseInt(e.target.value))}
           />
+          <Checkbox checked={finished} label="Ottelu pelattu" onChange={e => setFinished(e.target.checked)} />
+          <Typography variant='button'>Ottelu pelattu</Typography>
+
         </Box>
         <Box sx={{ mt: 3, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <Button variant='contained' color='error' onClick={() => navigate('/matches')}>Peruuta</Button>
-          <Button variant='contained' color='success' type='submit' onClick={handleUpdate}>Päivitä</Button>
+          <Button variant='contained' color='success' type='submit' onClick={(e) => handleUpdate(e)}>Päivitä</Button>
         </Box>
       </Box>
     </Container>

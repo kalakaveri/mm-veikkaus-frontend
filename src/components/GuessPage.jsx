@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createGuess, initGuesses } from "../reducers/guessReducer"
+import { createGuess, initGuesses, deleteGuess } from "../reducers/guessReducer"
 import { useEffect } from "react"
 
 import GuessModifier from "./GuessModifier"
-import { 
+import {
+  Box,
   Button, 
   Container,
   Grid, 
@@ -29,30 +30,72 @@ const GuessPage = () => {
   const [guessedMatches, setGuessedMatches] = useState([])
   const [visible, setVisible] = useState(false)
 
+  useEffect(() => {
+    if (!guesses || guesses.length === 0) {
+      dispatch(initGuesses())
+    }
+    filterGuessableMatches()
+    // if (!guessedMatches || guessedMatches.length === 0) {
+    //   setGuessedMatches(guesses.filter(g => g.user.id === user.id))
+    //   console.log('guessedMatches use :', guessedMatches)
+    // }
+    // if (guessableMatches.length === 0) {
+    //   setGuessableMatches(filterGuessableMatches())
+    //   console.log('guessableMatches use :', guessableMatches)
+    // }
+  }, [])
+
   const toggleVisibility = (e) => {
     e.preventDefault()
     setVisible(!visible)
   }
 
-  const isSameMatch = (a, b) => a.id === b.id
-  const onlyInLeft = (left, right, compareFunction) => 
-    left.filter(leftValue =>
-      !right.some(rightValue => 
-        compareFunction(leftValue, rightValue)));
-  
-  useEffect(() => {
+  const handleDeleteAll = (e) => {
+    e.preventDefault()
+    if (user.role === 'admin') {
+      guesses.forEach(guess => {
+        dispatch(deleteGuess(guess.id))
+      })
+    }
+    else {
+      guessedMatches.forEach(guess => {
+        dispatch(deleteGuess(guess.id))
+      })
+    }
+    setVisible(!visible)
+  }
+
+  const filterGuessableMatches = () => {
     setGuessedMatches(guesses.filter(g => g.user.id === user.id))
-    dispatch(initGuesses())
-    setGuessableMatches(onlyInLeft(matches, guessedMatches, isSameMatch))
-  }, [])
+    const notGuessed = matches.filter(m => guessedMatches.includes(m.id))
+    setGuessableMatches(notGuessed)
+    console.log('notGuessed :>> ', notGuessed);
+    // guesses.filter(g => g.user.id !== user.id).map(g => g.match.id)
+    /*const guessedMatchIds = []
+    const filteredMatches = []
+    const arvatut = []
+    matches.forEach(match => {
+      if (!guessedMatchIds.includes(match.id) && !match.finished ) {
+        filteredMatches.push(match)
+      }
+      else {
+        arvatut.push(match)
+      }
+    })
+    console.log('arvatut :>> ', arvatut)
+    console.log('filteredMatches :>> ', filteredMatches);
+    return filteredMatches
+    */
+  }
 
   const submitGuesses = (e) => {
     e.preventDefault()
     // const data = new FormData(e.currentTarget)
-    matches.map(m => {
+    guessableMatches.forEach(m => {
       const homeTeamScore = document.getElementById(`${m.id}-homeTeamScore`).value
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
       const userId = user.id
+      console.log(m.date, '-', m.time, ': ', m.homeTeam.name, ' - ', m.awayTeam.name, ' ', homeTeamScore, ' - ', awayTeamScore);
 
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
@@ -69,11 +112,9 @@ const GuessPage = () => {
       }
     })
   }
-  console.log('guessedMatches :', guessedMatches)
-  console.log('guessableMatches :', guessableMatches)
   return (
     <Container sx={{ mt: '1px', mb: 8 }}>
-      {user && user.guesses.length > 0
+      {(user && user.guesses.length > 0) || user.role === 'admin'
         ? <Button 
             fullWidth
             variant='contained' 
@@ -85,14 +126,34 @@ const GuessPage = () => {
         : null
       }
       {visible 
-        ? (<Grid container className='page-container'>
-          {guessedMatches.map(g => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={g.id}>
-              <GuessModifier key={g.id} guess={g} user={user} />))
-            </Grid>))}
-          </Grid>)
+        ? (
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            background: 'white', 
+            opacity: '0.75',
+            borderRadius: '10px',
+            padding: '20px',
+          }}
+        >
+          {user && user.role === 'admin'
+            ? 
+            <>
+              {guesses.map(g => (<GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />))}
+              <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
+            </>
+            : 
+            <>
+              {guessedMatches.map(g => (<GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />))}
+              <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
+            </>
+            }
+            </Box>)
         : (
-        <div>
+        <div className='page-container'>
           <Typography variant='h3' align='center' color='white' paragraph>Syötä veikkaukset</Typography>
           <TableContainer component={'form'}>
             <Table aria-label='guess table' sx={{ minWidth: '820px' }}>
@@ -180,8 +241,8 @@ const GuessPage = () => {
                       <TableCell align='right'>
                         <Typography sx={{ mr: 3 }} variant='button' align='center' color='white'>
                           {m.awayTeam.name}
-                          <img src={m.awayTeam.url} alt='' width={'35px'} height={'20px'} />
                         </Typography>
+                        <img src={m.awayTeam.url} alt='' width={'35px'} height={'20px'} />
                       </TableCell>
                     </TableRow>
                   ))

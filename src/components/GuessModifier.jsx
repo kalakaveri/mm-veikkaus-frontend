@@ -1,19 +1,23 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import {
+    Box,
+    Button,
+    Grid,
+    TextField,
+    Typography 
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { deleteGuess, updateGuess } from '../reducers/guessReducer';
 
-const GuessModifier = ({ guess, user }) => {
+const GuessModifier = ({ guess, user, handleDeleteAll }) => {
     const dispatch = useDispatch()
+    const [homeGoals, setHomeGoals] = useState(0);
+    const [awayGoals, setAwayGoals] = useState(0);
 
     const guesses = useSelector(state => state.guesses);
     const matches = useSelector(state => state.matches);
-    const teams = useSelector(state => state.teams);
-    const theme = createTheme();
-    const [homeTeamScore, setHomeTeamScore] = useState(guess.homeTeamScore);
-    const [awayTeamScore, setAwayTeamScore] = useState(guess.awayTeamScore);
 
     const { guessId } = useParams();
     if (guessId || guessId !== undefined) {
@@ -21,87 +25,122 @@ const GuessModifier = ({ guess, user }) => {
     }
 
     const handleDelete = (e) => {
-        e.preventDefault();
         dispatch(deleteGuess(guess.id));
     }
 
     const handleGuessUpdate = (e) => {
         e.preventDefault()
-        const userGuesses = [ ...user.guesses ]
-        // get all the data from the form
-        // get data from all the input fields using ids 'match.id' + '-homeTeamScore' and 'match.id' + '-awayTeamScore'
-        // create a new guess object with gathered data
-        // append the new guess object to the userGuesses array, replace the old guess object with the new one if exists
-        // dispatch updateGuess action with the new guess array containing all the guess data
+
         const updatedGuess = {
             ...guess,
-            homeTeamScore: homeTeamScore,
-            awayTeamScore: awayTeamScore,
+            homeTeamScore: homeGoals,
+            awayTeamScore: awayGoals,
         }
-
-        console.log('userGuesses :', userGuesses)
-        dispatch(updateGuess(userGuesses))
+        console.log('updatedGuess :>> ', updatedGuess);
+        //dispatch(updateGuess(updatedGuess.id, updatedGuess));
     }
 
-    const filterteam = (guess, side) => {
+    const filterTeamData = (guess) => {
+        const match = matches.find(m => m.id === guess.match.id);
+        return (
+            <>
+                <TextField
+                    required
+                    sx={{ width: '160px'}}
+                    id='homeGoals'
+                    type='number'
+                    label={<img src={match.homeTeam.url} alt='hometeam-flag' width="35" height="20" />}
+                    name="homeGoals"
+                    autoComplete="homeGoals"
+                    autoFocus
+                    helperText={match.homeTeam.name}
+                    onChange={e => setHomeGoals(e.target.value)}
+                />
+                <TextField
+                    required
+                    sx={{ width: '160px', ml: 1 }}
+                    id='awayGoals'
+                    type='number'
+                    label={<img src={match.awayTeam.url} alt='awayteam-flag' width="35" height="20" />}
+                    name="awayGoals"
+                    autoComplete="awayGoals"
+                    autoFocus
+                    helperText={match.awayTeam.name}
+                    onChange={e => setAwayGoals(e.target.value)}
+                />
+            </>
+        )
+    }
+
+    const filterTeamGrid = (guess, side) => {
         const match = matches.find(m => m.id === guess.match.id)
-        const team = teams.find(t => t.id === match[`${side}`].id)
-        if (side === 'homeTeam') {
-            return (<><img src={team.url} alt={team.name} width={'35px'} height={'20px'} />{team.name}</>)
-        }
-        return (<>{team.name}<img src={team.url} alt={team.name} width={'35px'} height={'20px'} /></>)
+        return (
+            <Grid item>
+                <img src={match[`${side}`].url} alt={match[`${side}`].name} width={'35px'} height={'20px'} />
+                <Typography variant='h6' sx={{ ml: 1 }}>
+                    {match[[`${side}`]].name}
+                </Typography>
+            </Grid>
+        )
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            {user && user.role === 'admin' 
-            ? (
-                <div className='match-modifier'>
-                </div>
-            )
-            : null
-            }
-            <form className='match-modifier-form' key={guess.id}>
-                <label htmlFor='homeTeamScore'>{filterteam(guess, 'homeTeam')}</label>
-                <input
-                    id={`${guess.id}-homeTeamScore`}
-                    className='homeTeamScore'
-                    type='number'
-                    name='homeTeamScore'
-                    defaultValue={homeTeamScore}
-                    onChange={e => setHomeTeamScore(e.target.value)}
-                    min={0}
-                    max={20}
-                />
-                <label htmlFor='awayTeamScore'>{filterteam(guess, 'awayTeam')}</label>
-                <input
-                    id={`${guess.id}-awayTeamScore`}
-                    className='awayTeamScore'
-                    type='number'
-                    name='awayTeamScore'
-                    defaultValue={awayTeamScore}
-                    onChange={e => setAwayTeamScore(e.target.value)}
-                    min={0}
-                    max={20}
-                />
-                <>
-                <button
-                    className='cancel-button'
-                    type='button'
+        <Box 
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                background: 'white', 
+                opacity: '0.9',
+                borderRadius: '10px',
+                padding: '20px'
+            }}
+        >
+            <Grid 
+                container 
+                xm={6}
+                sx={{
+                    border: '1px solid black',
+                    mt: 3,
+                    '& .MuiTypography-root': {
+                        textAlign: 'center'
+                    },
+                    '& .MuiGrid-root': {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center'
+                    }
+                }}
+            >
+                {filterTeamGrid(guess, 'homeTeam')}
+                {filterTeamGrid(guess, 'awayTeam')}
+                <Typography variant='button' fullwidth="true" align='center' marginLeft={15}>Syötä päivitetty arvaus</Typography>
+            </Grid>
+            <Box 
+                component="form" 
+                align='center'
+                noValidate
+                onSubmit={updateGuess} 
+            >
+                {filterTeamData(guess)}
+                <Button
+                    variant='contained'
+                    color='error'
                     onClick={e => handleDelete}
                 >
                     Poista arvaus
-                </button>
-                <button
-                    className='submit-button'
+                </Button>
+                <Button
+                    variant='contained'
+                    color='success'
                     type='submit'
                     onSubmit={e => handleGuessUpdate}
                 >
                     Päivitä arvaus
-                </button>
-                </>
-            </form>
-        </ThemeProvider>
+                </Button>
+            </Box>
+        </Box>
     );
 }
 

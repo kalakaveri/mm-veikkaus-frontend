@@ -36,13 +36,20 @@ const Navbar = () => {
 
 	const handleLogout = async (event) => {
     dispatch(logout())
-    dispatch(setNotification(`Logged out`, 'success'))
+	dispatch(navigate('/'))
+    dispatch(setNotification('Kirjauduit ulos', 'success'))
   }
 
 	return (
 		<AppBar className='navbar-container'>
 			<Toolbar className='navbar'>
-				<SportsSoccerIcon sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }} />
+				<SportsSoccerIcon 
+					sx={{ 
+						display: { xs: 'flex', md: 'flex' },
+						mr: 1,
+						position: "fixed", top: 12, left: 35, zIndex: 2000,
+					}} 
+				/>
 				<Typography
 						className='navbar-title'
             			variant="h8"
@@ -50,9 +57,10 @@ const Navbar = () => {
             			component="a"
             			href="/"
             			sx={{
+							position: "fixed", top: 18, left: 80, zIndex: 2000,
             			  	display: { xs: 'flex', md: 'flex' },
             			  	fontFamily: 'monospace',
-            			  	fontWeight: 700,
+            			  	fontWeight: 10,
             			  	letterSpacing: '.1rem',
             			  	color: 'inherit',
             			  	textDecoration: 'none',
@@ -104,7 +112,7 @@ const Navbar = () => {
 						</ButtonGroup>
 						</>
 						)
-					: <NavDrawer handleLogout={handleLogout} />
+					: <NavDrawer fullwidth={'true'} handleLogout={handleLogout} />
 				}
 					
 			</Toolbar>

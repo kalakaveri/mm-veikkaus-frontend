@@ -45,7 +45,7 @@ const NavDrawer = ({ handleLogout }) => {
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
       >
-        <SportsSoccerIcon className='svg_icons' sx={{ size: 'small', display: { xs: 'flex', md: 'flex' }, ml: 10, mt: 5, mb: 3, }} />
+        <SportsSoccerIcon className='svg_icons' sx={{ size: 'small', display: { xs: 'flex', md: 'flex' }, ml: 10, mt: 5, mb: 5, }} />
 				<Typography
 						className='navbar-title'
             variant="h8"
@@ -144,23 +144,23 @@ const NavDrawer = ({ handleLogout }) => {
           </List>
         }
       </Drawer>
-      <IconButton
-        sx={{ color: "white", marginLeft: "15px" }}
+      {/* <IconButton
+        align='right'
+        sx={{ color: "white", position: "fixed", top: 5, right: , zIndex: 2000 }}
         onClick={() => setOpenDrawer(!openDrawer)}
       >
         <MenuIcon color="white" />
-      </IconButton>
-      <Box sx={{ flexGrow: 0 }}>
+      </IconButton> */}
+      <Box sx={{ color: 'white', flexGrow: 0, position: "fixed", top: 5, right: 12, zIndex: 2000 }}>
           {user && user.role !== 'guest'
           ? 
           <>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu}>
                 <Icon />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -174,8 +174,9 @@ const NavDrawer = ({ handleLogout }) => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
+              sx={{ mt: '45px' }}
             >
-              <MenuItem key={user.id} onClick={handleCloseUserMenu}>
+              <MenuItem key={user.id} onClick={handleCloseUserMenu} >
                 <Typography textAlign="center">
                   {user.username} - {isNaN(parseInt(user.points)) ? 0 : parseInt(user.points)} pistettä
                 </Typography>
@@ -191,9 +192,22 @@ const NavDrawer = ({ handleLogout }) => {
                 </Typography>
               </MenuItem>
             </Menu>
+            <IconButton
+              align='right'
+              sx={{ color: "white", position: "fixed", top: 5, right: 45, zIndex: 2000 }}
+              onClick={() => setOpenDrawer(!openDrawer)}
+            >
+              <MenuIcon color="white" />
+            </IconButton>
             </>
           : 
-            null
+          <IconButton
+            align='right'
+            sx={{ color: "white", position: "fixed", top: 5, right: 12, zIndex: 2000 }}
+            onClick={() => setOpenDrawer(!openDrawer)}
+          >
+            <MenuIcon color="white" />
+          </IconButton>
           }
       </Box>
     </Toolbar>

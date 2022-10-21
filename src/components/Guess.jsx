@@ -15,8 +15,8 @@ const Guess = ({ guess, onGuessClick }) => {
 
         const updatedGuess = {
           ...guess,
-          homeTeamScore: homeTeamScore,
-          awayTeamScore: awayTeamScore
+          homeTeamScore: homeGoals,
+          awayTeamScore: awayGoals
         }
         console.log('updatedGuess :>> ', updatedGuess);
         //dispatch(updateGuess(updatedGuess))

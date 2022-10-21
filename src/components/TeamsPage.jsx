@@ -21,13 +21,10 @@ const TeamsPage = () => {
   }, [dispatch])
 
   return (
-    <Container className='page-container' align='center'>
-        <Typography variant='button' align='center' sx={{ mb: 5 }}>
-          Teams
-        </Typography>
+    <Container align='center' sx={{ mb: 7,  }} minWidth='400px'>
         {GROUPS.map(group => (
             <Box
-                width={{ xs: '75%', sm: '50%', md: '33%', lg: '25%' }}
+                width={{ md: '45%', lg: '35%' }}
                 key={group}
                 sx={{
                     borderRadius: 8,
@@ -40,7 +37,7 @@ const TeamsPage = () => {
                     mt: 2,
                 }}
             >
-                <List>
+                <List >
                     <Typography variant='h6' align='center'>Lohko {group}</Typography>
                     {teams.filter(team => team.group === group).map(team => (
                         <Team key={team.id} team={team} />
