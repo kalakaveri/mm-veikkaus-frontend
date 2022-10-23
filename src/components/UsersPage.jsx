@@ -3,6 +3,11 @@ import { getAll } from '../reducers/usersReducer';
 import { useDispatch, useSelector } from 'react-redux'
 
 import User from './User';
+import { 
+  Container,
+  List, 
+  Typography 
+} from '@mui/material';
 
 const UsersPage = () => {
   const dispatch = useDispatch()
@@ -15,16 +20,16 @@ const UsersPage = () => {
   }, [dispatch, users])
 
   return (
-    <div id='usersPage-container'>
-      <h2 id='user-heading'>Users</h2>
+    <Container component='main' maxWidth="xs" className='page-container'>
+      <Typography variant='h5' color='white' align='center'>Users</Typography>
+      <List key='users'>
       {users && users.length > 0 
         ? users.map(user => (
-          <ul id='userslist'>
             <User key={user.id} user={user} />
-          </ul>
-          ))
-        : <p>No users found</p>}
-    </div>
+            ))
+            : <p>No users found</p>}
+      </List>
+    </Container>
   )
 }
 

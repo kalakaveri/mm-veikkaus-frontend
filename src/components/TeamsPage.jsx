@@ -23,7 +23,7 @@ const TeamsPage = () => {
   }, [dispatch, teams])
 
   return (
-    <Container align='center' sx={{ mb: 7,  }} minWidth='400px'>
+    <Container align='center' sx={{ mb: 7,  }} minwidth='400px'>
         {GROUPS.map(group => (
             <Box
                 width={{ md: '45%', lg: '35%' }}

@@ -6,7 +6,16 @@ import { updateUser } from '../reducers/usersReducer';
 import { deleteGuess } from '../reducers/guessReducer';
 
 import {
+  Box,
   Button,
+  Container,
+  CssBaseline,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography
 } from '@mui/material';
 
 const UserModifier = () => {
@@ -39,36 +48,51 @@ const UserModifier = () => {
   
   if (user) {
     return (
-      <div id='user-modifier-container'>
-        <form id='user-modifier-role-container'>
-          <h3 data-testid='user-heading'>{user.username}</h3>
-          <label htmlFor='role-select'>Rooli</label>
-          <select
-            id='select-element'
-            name='role-select'
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value='guesser'>regular</option>
-            <option value='admin'>admin</option>
-          </select>
-          <button
-            id='update-button'
-            type='submit'
-            onClick={(e) => handleUserUpdate(e)}
-            disabled={user.role === role ? true : false}
-          >
-            Update
-          </button>
-        </form>
-        <div id='user-modifier-guesses-container'>
-          <h3>Veikatut ottelut</h3>
-          {user.guesses.length > 0
-            ? <Button variant='contained' color='error' onClick={handleDeleteAll}>Poista käyttäjän arvaukset</Button>
-            : <p>Ei vielä veikattuja otteluita</p>
-          }
-          </div>
-      </div>
+      <Container component='main' maxWidth="xs" className='page-container'>
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+				  	opacity: '0.9',
+				  	borderRadius: '10px',
+				  	padding: '20px',
+            backgroundColor: 'rgba(255,255,255,0.4)'
+          }}
+        >
+        <Typography color='white' variant='h5'>Muokkaa käyttäjää</Typography>
+          <Box component='form'>
+            <Typography variant='button' color='white' sx={{ ml: 8 }}>{user.username}</Typography>
+            <InputLabel htmlFor='role-select'>Rooli</InputLabel>
+            <Select
+              name='role-select'
+              value={role}
+              label='Rooli'
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <MenuItem value='guesser'>Arvaaja</MenuItem>
+              <MenuItem value='admin'>Admin</MenuItem>
+            </Select>
+            <Button
+              type='submit'
+              variant='contained'
+              color='success'
+              onClick={(e) => handleUserUpdate(e)}
+              disabled={user.role === role ? true : false}
+            >
+              Update
+            </Button>
+          </Box>
+          <Box sx={{ mt: 5 }} align='center'>
+            {user.guesses.length > 0
+              ? <Button variant='contained' color='error' onClick={handleDeleteAll} sx={{ mt: 3 }}>Poista kaikki {user.guesses.length} arvausta</Button>
+              : <p>Ei vielä veikattuja otteluita</p>
+            }
+          </Box>
+        </Box>
+      </Container>
     );
   }
 };

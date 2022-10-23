@@ -42,7 +42,7 @@ const Standings = () => {
     }
     
     return (
-        <Container>
+        <Container sx={{ mb: 5 }}>
             <Typography variant='h5' color='white' align='center' sx={{ mb: 1 }}>Lohkovaiheen sarjataulukot</Typography>
             <Grid container spacing={3} justifyContent='center'>
             {groups.map(group => (

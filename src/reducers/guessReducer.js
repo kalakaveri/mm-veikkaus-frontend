@@ -60,7 +60,7 @@ export const deleteGuess = (id) => {
             type: 'DELETE_GUESS',
             data: id
         })
-        dispatch(setNotification('Guess poistettiin', 'success'))
+        dispatch(setNotification('Poisto onnistui', 'success'))
         } catch (error) {
         dispatch(setNotification('Jotain meni pieleen', 'error'))
         }

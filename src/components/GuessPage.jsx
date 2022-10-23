@@ -25,7 +25,7 @@ const GuessPage = () => {
   const guesses = useSelector(state => state.guesses)
   const matches = useSelector(state => state.matches)
   const user = useSelector(state => state.auth)
-  const [guessableMatches, setGuessableMatches] = useState([])
+  const [guessableMatches, setGuessableMatches] = useState(null)
   const [guessedMatches, setGuessedMatches] = useState([])
   const [visible, setVisible] = useState(false)
 
@@ -33,7 +33,9 @@ const GuessPage = () => {
     if (!guesses || guesses.length === 0) {
       dispatch(initGuesses())
     }
-    setGuessableMatches(filterMatches())
+    if (!guessableMatches || guessableMatches === null) {
+      setGuessableMatches(filterMatches())
+    }
   }, [dispatch, guesses])
 
   const toggleVisibility = (e) => {

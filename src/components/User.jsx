@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { deleteUser } from '../reducers/usersReducer';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -36,27 +36,39 @@ const User = ({ user }) => {
   };
 
   return (
-    <ListItem id='user-container' key={user.id}>
-      {!userId ? <Link data-testid='inspect-link' to={`${user.id}/modify`} /> : null}
-      <Typography className='user-heading' variant='h5'>{user.username}</Typography>
-      <Typography variant='button'>role: {user.role}</Typography>
-      {auth.id === user.id
-        ? null
-        : (
-          <Box sx={{ margin: 2 }}>
-            <Button
-              variant='outlined'
-              color='error'
-              startIcon={<DeleteIcon />}
-              onClick={(e) => handleDelete(e)}
-            >Delete</Button>
-            <Button
-              variant='contained'
-              onClick={(e) => handleModify(e)}
-              endIcon={<EditIcon />}
-            >Modify</Button>
-          </Box>
-        )}
+    <ListItem key={user.id}>
+      <Box
+        minWidth={'380px'}
+        sx={{
+            mt: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            borderRadius: '10px',
+            padding: '20px',
+        }}
+      >
+        <Typography className='user-heading' variant='h5' color='white'>{user.username}</Typography>
+        <Typography variant='button' color='white'>Rooli: {user.role}</Typography>
+        {auth.id === user.id
+          ? null
+          : (
+            <Box sx={{ margin: 2 }}>
+              <Button
+                variant='contained'
+                color='error'
+                startIcon={<DeleteIcon />}
+                onClick={(e) => handleDelete(e)}
+              >Delete</Button>
+              <Button
+                variant='contained'
+                onClick={(e) => handleModify(e)}
+                endIcon={<EditIcon />}
+              >Modify</Button>
+            </Box>
+          )
+        }
+      </Box>
     </ListItem>
   );
 }

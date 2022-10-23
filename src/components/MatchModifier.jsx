@@ -52,7 +52,7 @@ const MatchModifier = ({ match }) => {
   }
 
   return (
-    <Container className='page-container' component='main' maxWidth="xs">
+    <Container className='page-container' component='main' maxWidth="xs" minwidth='xs'>
       <CssBaseline />
       <Box
         sx={{
@@ -60,13 +60,11 @@ const MatchModifier = ({ match }) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-					background: 'white', 
-					opacity: '0.9',
 					borderRadius: '10px',
 					padding: '20px'
         }}
       >
-        <Typography variant='h5'>Muokkaa ottelua</Typography>
+        <Typography color='white' variant='h5'>Muokkaa ottelua</Typography>
         <Grid 
           container 
           xm={6}
@@ -82,28 +80,28 @@ const MatchModifier = ({ match }) => {
             }
           }}
         >
-          <Grid item>
+          <Grid item sx={{ position: 'fixed', top: 60, left: 60 }}>
             <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" />
-            <Typography variant='h6' sx={{ ml: 1 }}>
+            <Typography color='white' variant='h6' sx={{ ml: 1 }}>
               {match.homeTeam.name}
             </Typography>
           </Grid>
           <Grid item>
-            <Typography variant='h6'>   -   </Typography>
           </Grid>
-          <Grid item>
-            <Typography variant='h6' sx={{ mr: 1 }}>
+          <Grid sx={{ position: 'fixed', top: 60, right: 60 }} item>
+            <Typography color='white' variant='h6' sx={{ mr: 1 }}>
               {match.awayTeam.name}
             </Typography>
             <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" />
           </Grid>
-          <Typography variant='button' fullwidth="true" align='center' marginLeft={15}>Syötä lopputulos</Typography>
+          <Typography color='white' variant='button' fullwidth="true" align='center' sx={{ mt: 3, ml: 12 }}>Syötä lopputulos</Typography>
         </Grid>
         <Box 
           component="form" 
           align='center'
           noValidate
-          onSubmit={handleUpdate} 
+          onSubmit={handleUpdate}
+          sx={{ backgroundColor: 'rgba(255,255,255,0.4)', mt: 1, borderRadius: '10px', pt: '15px' }}
         >
           <TextField
             required
@@ -119,7 +117,7 @@ const MatchModifier = ({ match }) => {
           />
           <TextField
             required
-            sx={{ width: '160px', ml: 1 }}
+            sx={{ width: '160px', ml: 1, input: { color: 'red' }, root: { background: "white" }}}
             id='awayGoals'
             type='number'
             label={<img src={match.awayTeam.url} alt='awayteam-flag' width="35" height="20" />}
