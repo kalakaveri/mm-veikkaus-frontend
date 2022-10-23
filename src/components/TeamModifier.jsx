@@ -4,6 +4,15 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import { updateTeam } from "../reducers/teamReducer"
 
+import { 
+  Box,
+  Button,
+  Container, 
+  Grid, 
+  TextField, 
+  Typography 
+} from "@mui/material"
+
 const TeamModifier = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -46,40 +55,111 @@ const TeamModifier = () => {
   }
 
   return (
-    <div className='teamModifier-container'>
-      <h2 className='teamModifier-header'>Team Modifier</h2>
-      <form className='teamModifier-form'>
-        <div className='teamModifier-form-group'>
-          <div className='teamModifier-name-header'>
-            <img src={team.url} alt={team.name} width="35" height="20" />
-            {team.name}
-          </div>
-          <label htmlFor="team-games">Ottelut</label>
-          <input className='teamModifier-games-input' type='number' name='team-games' value={games} 
-            onChange={({target}) => setGames(target.value)} min={0} max={25} />
-          <label htmlFor="team-wins">Voitot</label>
-          <input className='teamModifier-wins-input' type='number' name='team-wins' value={wins} 
-            onChange={({target}) => setWins(target.value)} min={0} max={25} />
-          <label htmlFor="team-draws">Tasapelit</label>
-          <input className='teamModifier-draws-input' type='number' name='team-draws' value={draws}
-            onChange={({target}) => setDraws(target.value)} min={0} max={25} />
-          <label htmlFor="team-losses">Häviöt</label>
-          <input className='teamModifier-losses-input' type='number' name='team-losses' value={losses}
-            onChange={({target}) => setLosses(target.value)} min={0} max={25} />
-          <label htmlFor="team-goalsFor">Tehdyt maalit</label>
-          <input className='teamModifier-goalsFor-input' type='number' name='team-goalsFor' value={goalsFor}
-            onChange={({target}) => setGoalsFor(target.value)} min={0} max={55} />
-          <label htmlFor="team-goalsAgainst">Päästetyt maalit</label>
-          <input className='teamModifier-goalsAgainst-input' type='number' name='team-goalsAgainst' value={goalsAgainst}
-            onChange={({target}) => setGoalsAgainst(target.value)} min={0} max={55} />
-          <label htmlFor="team-points">Pisteet</label>
-          <input className='teamModifier-points-input' type='number' name='team-points' value={points}
-            onChange={({target}) => setPoints(target.value)} min={0} max={55} />
-        </div>
-        <button className='teamModifier-cancel-button' onClick={(e) => navigate('/teams')}>Cancel</button>
-        <button className='teamModifier-submit-button' onClick={(e) => handleModify(e)}>Modify team</button>
-      </form>
-    </div>
+    <Container component='main' className='page-container'>
+      <Box 
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+				  borderRadius: '10px',
+				  padding: '15px',
+          backgroundColor: 'rgba(155,155,155,0.5)'
+        }}
+      >
+        <Typography variant='h5' color='white' align='center'>Muokkaa joukkuetta</Typography>
+        <Box component='form' noValidate onSubmit={handleModify} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item sx={12} sm={6}>
+              <img src={team.url} alt={team.name} width="35" height="20" />
+              <Typography sx={{ ml: 1 }} variant='button' color='white'>{team.name}</Typography>
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField 
+                autoComplete='games' 
+                type='number' 
+                name='games' 
+                value={games}
+                sx={{ width: '75px'}}
+                autofocus
+                helperText='Ottelut'
+                onChange={({target}) => setGames(target.value)} min={0} max={25} 
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='wins'
+                type='number'
+                name='wins'
+                value={wins}
+                sx={{ width: '75px'}}
+                helperText='Voitot'
+                onChange={({target}) => setWins(target.value)} min={0} max={25}
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='draws'
+                type='number'
+                name='draws'
+                value={draws}
+                sx={{ width: '75px'}}
+                helperText='Tasapelit'
+                onChange={({target}) => setDraws(target.value)} min={0} max={25}
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='losses'
+                type='number'
+                name='losses'
+                value={losses}
+                sx={{ width: '75px'}}
+                helperText='Tappiot'
+                onChange={({target}) => setLosses(target.value)} min={0} max={25}
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='goalsFor'
+                type='number'
+                name='goalsFor'
+                value={goalsFor}
+                sx={{ width: '100px'}}
+                helperText='Tehdyt maalit'
+                onChange={({target}) => setGoalsFor(target.value)} min={0} max={100}
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='goalsAgainst'
+                type='number'
+                name='goalsAgainst'
+                value={goalsAgainst}
+                sx={{ width: '100px'}}
+                helperText='Päästetyt maalit'
+                onChange={({target}) => setGoalsAgainst(target.value)} min={0} max={100}
+              />
+            </Grid>
+            <Grid item sx={12} sm={6}>
+              <TextField
+                autoComplete='points'
+                type='number'
+                name='points'
+                value={points}
+                sx={{ width: '75px'}}
+                helperText='Pisteet'
+                onChange={({target}) => setPoints(target.value)} min={0} max={100}
+              />
+            </Grid>
+          </Grid>
+          <Box sx={{ mt: 2 }}>
+            <Button variant='outlined' color='error' onClick={(e) => navigate('/teams')}>Cancel</Button>
+            <Button variant='contained' color='success' onClick={(e) => handleModify(e)}>Modify team</Button>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   )
 }
 

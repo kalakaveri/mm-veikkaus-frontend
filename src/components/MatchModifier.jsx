@@ -105,7 +105,7 @@ const MatchModifier = ({ match }) => {
         >
           <TextField
             required
-            sx={{ width: '160px'}}
+            sx={{ width: '160px', input: { color: 'white' }}}
             id='homeGoals'
             type='number'
             label={<img src={match.homeTeam.url} alt='hometeam-flag' width="35" height="20" />}
@@ -117,7 +117,7 @@ const MatchModifier = ({ match }) => {
           />
           <TextField
             required
-            sx={{ width: '160px', ml: 1, input: { color: 'red' }, root: { background: "white" }}}
+            sx={{ width: '160px', ml: 1, input: { color: 'white' } }}
             id='awayGoals'
             type='number'
             label={<img src={match.awayTeam.url} alt='awayteam-flag' width="35" height="20" />}
