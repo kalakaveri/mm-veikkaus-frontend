@@ -22,10 +22,8 @@ const MatchPage = () => {
   const user = useSelector(state => state.auth)
 
   useEffect(() => {
-    if (!matches || matches.length === 0) {
-      dispatch(initMatches())
-    }
-  }, [dispatch, matches])
+    dispatch(initMatches())
+  }, [])
 
   const toggleVisibility = (e) => {
     e.preventDefault()
@@ -82,7 +80,7 @@ const MatchPage = () => {
                     </Typography>
                 </TableCell>
             {user && user.role === 'admin'
-              ? <TableCell>Muokkaa</TableCell>
+              ? <TableCell><Typography variant='button' align='center' color='white'>Muokkaa</Typography></TableCell>
               : null
             }
           </TableRow>

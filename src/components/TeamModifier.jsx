@@ -20,7 +20,6 @@ const TeamModifier = () => {
   const { teamId } = useParams()
   const team = useSelector(state => state.teams.find(t => t.id === teamId))
 
-  const [games, setGames] = useState(team.games)
   const [wins, setWins] = useState(team.wins)
   const [draws, setDraws] = useState(team.draws)
   const [losses, setLosses] = useState(team.losses)
@@ -33,25 +32,23 @@ const TeamModifier = () => {
 
     let teamData = team
 
-    if (games !== team.games) { teamData = { ...teamData, games: games } }
-    if (wins !== team.wins) { teamData = { ...teamData, wins: wins }}
-    if (draws !== team.draws) { teamData = { ...teamData, draws: draws }}
-    if (losses !== team.losses) { teamData = { ...teamData, losses: losses }}
-    if (goalsFor !== team.goalsFor) { teamData = { ...teamData, goalsFor: goalsFor }}
-    if (goalsAgainst !== team.goalsAgainst) { teamData = { ...teamData, goalsAgainst: goalsAgainst }}
-    if (points !== team.points) { teamData = { ...teamData, points: points } }
-    teamData = { ...teamData, goaldifference: goalsFor - goalsAgainst }
+    if (wins !== team.wins) { teamData = { ...teamData, wins: parseInt(wins) }}
+    if (draws !== team.draws) { teamData = { ...teamData, draws: parseInt(draws) }}
+    if (losses !== team.losses) { teamData = { ...teamData, losses: parseInt(losses) }}
+    if (goalsFor !== team.goalsFor) { teamData = { ...teamData, goalsFor: parseInt(goalsFor) }}
+    if (goalsAgainst !== team.goalsAgainst) { teamData = { ...teamData, goalsAgainst: parseInt(goalsAgainst) }}
+    if (points !== team.points) { teamData = { ...teamData, points: parseInt(points) } }
+    teamData = { ...teamData, goalDifference: parseInt(goalsFor) - parseInt(goalsAgainst) }
 
-    if (!(wins + draws + losses) === games) {
-      alert("Games played must equal wins + draws + losses")
-    }
     if (!points === ((wins * 3) + draws)) {
       alert("Points must equal (wins * 3) + draws")
     }
     else {
+      console.log('teamData @else :>> ', teamData);
       dispatch(updateTeam(teamData))
       navigate(`/teams`)
     }
+    console.log('teamData @end:>> ', teamData);
   }
 
   return (
@@ -73,18 +70,6 @@ const TeamModifier = () => {
         <Typography sx={{ ml: 1 }} variant='button' color='white'>{team.name}</Typography>
         <Box component='form' noValidate onSubmit={handleModify} sx={{ mt: 3, }}>
           <Grid container spacing={5} justifyItems="center">
-            <Grid item>
-              <TextField 
-                autoComplete='games' 
-                type='number' 
-                name='games' 
-                value={games}
-                // sx={{ width: 'auto' }}
-                autoFocus
-                helperText='Ottelut'
-                onChange={({target}) => setGames(target.value)} min={0} max={25} 
-              />
-            </Grid>
             <Grid item>
               <TextField
                 autoComplete='wins'

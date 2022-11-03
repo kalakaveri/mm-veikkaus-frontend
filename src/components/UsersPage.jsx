@@ -14,10 +14,8 @@ const UsersPage = () => {
   const users = useSelector(state => state.users)
 
   useEffect(() => {
-    if (!users || users.length === 0) {
-      dispatch(getAll())
-    }
-  }, [dispatch, users])
+    dispatch(getAll())
+  }, [])
 
   return (
     <Container component='main' maxWidth="xs" className='page-container'>

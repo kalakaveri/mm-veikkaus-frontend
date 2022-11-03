@@ -30,13 +30,9 @@ const GuessPage = () => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (!guesses || guesses.length === 0) {
-      dispatch(initGuesses())
-    }
-    if (!guessableMatches || guessableMatches === null) {
-      setGuessableMatches(filterMatches())
-    }
-  }, [dispatch, guesses])
+    dispatch(initGuesses())
+    setGuessableMatches(filterMatches())
+  }, [])
 
   const toggleVisibility = (e) => {
     e.preventDefault()
@@ -67,7 +63,6 @@ const GuessPage = () => {
       }
     })
     setGuessedMatches(guesses.filter(guess => guess.user.username === user.username))
-    console.log('guessableMatches :', list)
     return list
   }
 
@@ -77,7 +72,6 @@ const GuessPage = () => {
       const homeTeamScore = document.getElementById(`${m.id}-homeTeamScore`).value
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
       const userId = user.id
-      console.log(m.date, '-', m.time, ': ', m.homeTeam.name, ' - ', m.awayTeam.name, ' ', homeTeamScore, ' - ', awayTeamScore);
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
           const guess = {
@@ -86,12 +80,11 @@ const GuessPage = () => {
             matchId: m.id,
             userId: userId
           }
-          console.log('guess :', guess)
           dispatch(createGuess(guess))
-          navigate('/')
         }
       }
     })
+    navigate('/')
   }
   return (
     <Container className='page-container' sx={{ mt: '1px', mb: 8 }} >

@@ -35,9 +35,9 @@ const Match = ({ match }) => {
     <TableRow key={match.id}>
         <TableCell><Typography variant='button' align='center' color='white'>{match.date}</Typography></TableCell>
         <TableCell><Typography variant='button' align='center' color='white'>{match.time}</Typography></TableCell>
-        <TableCell align='right'>
-          <Typography variant='button' align='center' color='white'>
-            <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" align='left' />
+        <TableCell align='left'>
+          <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" align='left' />
+          <Typography variant='button' color='white'>
             {match.homeTeam.name}
           </Typography>
         </TableCell>
@@ -55,10 +55,10 @@ const Match = ({ match }) => {
             </>
           )}
         <TableCell>
-          <Typography variant='button' align='center' color='white'>
+          <Typography variant='button' align='center' color='white' sx={{ mr: 10 }}>
             {match.awayTeam.name}
-            <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" margin-left='30px' align='right' />
           </Typography>
+          <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" margin-left='30px' align='right' />
         </TableCell>
         {auth && auth.role === 'admin' 
           ? (

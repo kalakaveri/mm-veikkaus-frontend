@@ -46,7 +46,6 @@ const MatchModifier = ({ match }) => {
       awayGoals: awayGoals,
       finished: finished,
     }
-    console.log('updatedMatch :', updatedMatch)
     dispatch(updateMatch(match.id, updatedMatch));
     navigate('/matches');
   }
@@ -61,13 +60,16 @@ const MatchModifier = ({ match }) => {
           flexDirection: 'column',
           alignItems: 'center',
 					borderRadius: '10px',
-					padding: '20px'
+					padding: '20px',
+          backgroundColor: 'rgba(155,155,155,0.5)'
         }}
       >
         <Typography color='white' variant='h5'>Muokkaa ottelua</Typography>
         <Grid 
-          container 
-          xm={6}
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
           sx={{ 
             mt: 3,
             '& .MuiTypography-root': {
@@ -76,32 +78,26 @@ const MatchModifier = ({ match }) => {
             '& .MuiGrid-root': {
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              alignItems: 'center'
             }
           }}
         >
-          <Grid item sx={{ position: 'fixed', top: 60, left: 60 }}>
-            <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" />
-            <Typography color='white' variant='h6' sx={{ ml: 1 }}>
-              {match.homeTeam.name}
-            </Typography>
-          </Grid>
           <Grid item>
-          </Grid>
-          <Grid sx={{ position: 'fixed', top: 60, right: 60 }} item>
-            <Typography color='white' variant='h6' sx={{ mr: 1 }}>
-              {match.awayTeam.name}
+            <img src={match.homeTeam.url} alt={match.homeTeam.name} width="35" height="20" />
+            <Typography color='white' variant='button' sx={{ ml: 2, mr: 2 }}>
+              {match.homeTeam.name} vs {match.awayTeam.name}
             </Typography>
             <img src={match.awayTeam.url} alt={match.awayTeam.name} width="35" height="20" />
           </Grid>
-          <Typography color='white' variant='button' fullwidth="true" align='center' sx={{ mt: 3, ml: 12 }}>Syötä lopputulos</Typography>
         </Grid>
+        <Typography color='white' variant='button' fullwidth="true" align='center' sx={{ mt: 1 }}>Syötä lopputulos</Typography>
         <Box 
           component="form" 
           align='center'
           noValidate
           onSubmit={handleUpdate}
-          sx={{ backgroundColor: 'rgba(255,255,255,0.4)', mt: 1, borderRadius: '10px', pt: '15px' }}
+          sx={{ mt: 3, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
         >
           <TextField
             required
@@ -123,14 +119,16 @@ const MatchModifier = ({ match }) => {
             label={<img src={match.awayTeam.url} alt='awayteam-flag' width="35" height="20" />}
             name="homeGoals"
             autoComplete="homeGoals"
-            autoFocus
             helperText={match.awayTeam.name}
             onChange={e => setAwayGoals(parseInt(e.target.value))}
           />
-          <Checkbox checked={finished} label="Ottelu pelattu" onChange={e => setFinished(e.target.checked)} />
-          <Typography variant='button'>Ottelu pelattu</Typography>
 
         </Box>
+        
+        <Typography variant='button' color='white'>
+          <Checkbox checked={finished} label="Ottelu pelattu" onChange={e => setFinished(e.target.checked)} />
+          Ottelu pelattu
+        </Typography>
         <Box sx={{ mt: 3, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <Button variant='contained' color='error' onClick={() => navigate('/matches')}>Peruuta</Button>
           <Button variant='contained' color='success' type='submit' onClick={(e) => handleUpdate(e)}>Päivitä</Button>

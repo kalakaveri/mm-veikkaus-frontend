@@ -16,12 +16,9 @@ const Points = () => {
     const dispatch = useDispatch()
     const users = useSelector(state => state.users)
 
-
     useEffect(() => {
-        if (!users || users.length === 0) {
-            dispatch(getAll())
-        }
-      }, [dispatch])
+        dispatch(getAll())
+      }, [])
 
     const sortUsers = (x) => {
         return x.sort((a, b) => b.points - a.points)

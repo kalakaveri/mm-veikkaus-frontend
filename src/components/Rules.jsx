@@ -9,15 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import Typography from '@mui/material/Typography';
 
-/* <ol>
-<li>A. Ottelu päättyy 3-1, saat +4 pistettä. - +3 oikea voittajajoukkue, +1 Maltan maalimäärä)</li>
-<li>B. Ottelu päättyy 2-2, saat -1 pistettä, - Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1</li>
-<li>C. Ottelu päättyy 0-1, saat -3 pistettä. - Väärä voittaja -4, sekä Maltan maalimäärä +1</li>
-<li>D. Ottelu päättyy 1-2, saat -4 pistettä. - Väärä voittaja -4, ei plussapisteitä.</li>
-<li>E. Ottelu päättyy 2-1, saat +6 pistettä. - Täysin oikea arvaus, täydet pisteet.</li>
-</ol>
-<br /> */
-
 const createData = (id, rule, points) => {
     return { id, rule, points };
 }
@@ -111,14 +102,12 @@ const Rules = () => {
                             </TableBody>
                         </Table>
                         <br />
-                        <Typography variant='h5' color='white'>Esimerkiksi:</Typography>
-                        <Typography variant='button' color='white' paragraph>Arvauksesi on otteluun Suomi - Malta 2-1</Typography>
                         <Table sx={{ mb: 10 }}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell colSpan={4} align='center' background-color='white'>
                                         <Typography variant='h6' align='center' color='white'>
-                                            Arvauksesi on otteluun Suomi - Malta 2-1
+                                            Esimerkiksi: Arvauksesi on otteluun Suomi - Malta 2-1
                                         </Typography>
                                         </TableCell>
                                 </TableRow>
@@ -180,7 +169,7 @@ const Rules = () => {
                                         Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1</Typography>
                                     </TableCell>
                                     <TableCell><Typography variant='button' align='center' color='white'>
-                                        -1</Typography>
+                                        -2</Typography>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -188,13 +177,13 @@ const Rules = () => {
                                         C</Typography>
                                     </TableCell>
                                     <TableCell><Typography variant='button' align='center' color='white'>
-                                        Ottelu päättyy 1-1</Typography>
+                                        Ottelu päättyy 0-1</Typography>
                                     </TableCell>
                                     <TableCell><Typography variant='button' align='center' color='white'>
-                                        Veikkasit Suomen voittoa -2, Suomen maalimäärä on väärä</Typography>
+                                        Veikkasit Suomen voittoa -4, Maltan maalimäärä on oikea +1</Typography>
                                     </TableCell>
                                     <TableCell><Typography variant='button' align='center' color='white'>
-                                        -2</Typography>
+                                        -3</Typography>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
