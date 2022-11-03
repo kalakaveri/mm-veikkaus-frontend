@@ -88,7 +88,7 @@ const GuessPage = () => {
   }
   return (
     <Container className='page-container' sx={{ mt: '1px', mb: 8 }} >
-      {(guessedMatches.length > 0) || user.role === 'admin'
+      {guessedMatches.length > 0 || (user.role === 'admin' && guesses.length > 0)
         ? <Button 
             fullWidth
             variant='contained' 

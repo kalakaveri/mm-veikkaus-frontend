@@ -13,6 +13,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
   Typography
 } from '@mui/material';
 
@@ -20,6 +21,7 @@ const UserModifier = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector(state => state.users);
+  const [points, setPoints] = useState(0);
   
   const { userId } = useParams();
   const user = users.find(u => u.id === userId);
@@ -40,6 +42,7 @@ const UserModifier = () => {
       id: user.id,
       username: user.username,
       role: role,
+      points: points
     }
     dispatch(updateUser(updatedUser));
   };
@@ -54,6 +57,7 @@ const UserModifier = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
 				  	opacity: '0.9',
 				  	borderRadius: '10px',
 				  	padding: '20px',
@@ -61,24 +65,35 @@ const UserModifier = () => {
           }}
         >
         <Typography color='white' variant='h5'>Muokkaa käyttäjää</Typography>
+        <Typography variant='button' color='white'>{user.username}</Typography>
           <Box component='form'>
-            <Typography variant='button' color='white' sx={{ ml: 8 }}>{user.username}</Typography>
             <InputLabel htmlFor='role-select'>Rooli</InputLabel>
             <Select
               name='role-select'
               value={role}
-              label='Rooli'
               onChange={(e) => setRole(e.target.value)}
             >
               <MenuItem value='guesser'>Arvaaja</MenuItem>
               <MenuItem value='admin'>Admin</MenuItem>
             </Select>
+            <TextField
+              required
+              fullWidth
+              sx={{ width: '160px', ml: 2, input: { color: 'white' } }}
+              id='points'
+              type='number'
+              label='Pisteet'
+              name="points"
+              autoComplete="homeGoals"
+              onChange={e => setPoints(parseInt(e.target.value))}
+            />
             <Button
               type='submit'
+              fullWidth
               variant='contained'
               color='success'
               onClick={(e) => handleUserUpdate(e)}
-              disabled={user.role === role ? true : false}
+              sx={{ mt: 3, mb: 2 }}
             >
               Update
             </Button>

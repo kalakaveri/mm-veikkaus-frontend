@@ -30,7 +30,7 @@ const Standings = () => {
         setShowAll(!showAll)
     }
     const colspan = showAll ? 9 : 3
-    
+
     const teamRows = (list) => {
         return list
             .sort((a, b) => (b.wins*3+b.draws) - (a.wins*3+a.draws))
@@ -96,12 +96,12 @@ const Standings = () => {
     return (
         <Container sx={{ mb: 5 }}>
             <Typography variant='h5' color='white' align='center' sx={{ mb: 1 }}>Lohkovaiheen sarjataulukot</Typography>
-            <Grid container spacing={3} justifyContent='center'>
-            <Button variant='contained' onClick={toggleShowAll} sx={{ mb: 2, mt: 5, alignSelf: 'right', borderRadius: 2 }}>
+            <Button variant='contained' onClick={toggleShowAll} sx={{ mb: 2, mt: 5, borderRadius: 2 }}>
                 {showAll ? 'Näytä vain ottelut ja pisteet' : 'Näytä kaikki tilastot'}
             </Button>
+            <Grid container spacing={3} justifyContent='center'>
             {groups.map(group => (
-                <Grid sx={{ padding: '5px' }} item xs={12} sm={8} md={5} key={group} container>
+                <Grid sx={{ padding: '5px' }} item xs={12} sm={12} md={12} key={group} container>
                 <TableContainer className='page-container'>
                     <Table>
                         <TableHead>
