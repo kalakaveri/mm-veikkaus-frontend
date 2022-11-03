@@ -33,10 +33,10 @@ const MatchPage = () => {
   }
 
   return (
-    <Container>
+    <Container className='page-container'>
       {user.role === 'admin'
           ? 
-            <div className='matchPage-add-form'>
+            <Container>
               {visible
                 ? <AddMatch toggleVisibility={toggleVisibility} />
                 : <Button 
@@ -48,7 +48,7 @@ const MatchPage = () => {
                     Lisää ottelu
                   </Button>
               }
-            </div>
+            </Container>
           : null
       }
       <Table>

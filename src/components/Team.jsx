@@ -34,23 +34,20 @@ const Team = ({ team }) => {
   return (
     <ListItem key={team.id}>
         <Box
-            fullwidth='true'
             sx={{
                 width: '100%',
                 padding: 0.25,
             }}>
             <img src={team.url} alt={team.name} width="35" height="20" />
-            <Typography variant='button' sx={{ ml: 2 }}>
+            <Typography color='white' variant='button' sx={{ ml: 2 }}>
               {team.name}
             </Typography>
             {auth.role !== 'admin'
               ? null
               : 
                 <Button
-                    className='team-modify-button'
                     size='small'
                     sx={{ ml: 5,
-                        // align button right
                         position: 'absolute',
                         top: 10,
                         right: 15
