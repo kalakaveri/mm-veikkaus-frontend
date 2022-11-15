@@ -169,7 +169,7 @@ const Rules = () => {
                                         Veikkasit Suomen voittoa -2, Suomen maalimäärä on oikea +1</Typography>
                                     </TableCell>
                                     <TableCell><Typography variant='button' align='center' color='white'>
-                                        -2</Typography>
+                                        -1</Typography>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>

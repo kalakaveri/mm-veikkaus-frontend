@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 function Copyright() {
   return (
     <Typography variant="button" fontSize='small' color="white" align="right" sx={{ position: 'fixed', top: 0, left: 5 }}>
-      {'Copyright © '}
-      <Link color="inherit" to="https://github.com/kalakaveri">
+      {'Copyright ©'}
+      <a href="https://github.com/kalakaveri">
         @Topias
-      </Link>{' '}
+      </a>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>

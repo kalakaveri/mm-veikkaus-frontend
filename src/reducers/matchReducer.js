@@ -45,7 +45,6 @@ export const createMatch = (match) => {
 export const updateMatch = (id, newMatch) => {
   return async dispatch => {
     try {
-      console.log('newMatch :>> ', newMatch);
       const updatedMatch = await matchService.update(id, newMatch)
       dispatch({
         type: 'UPDATE_MATCH',

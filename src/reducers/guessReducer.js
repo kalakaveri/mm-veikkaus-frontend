@@ -23,7 +23,6 @@ export const getGuess = (id) => {
 
 export const createGuess = (guess) => {
     return async dispatch => {
-        console.log('guess @guessReducer :>> ', guess);
         try {
         const newGuess = await guessService.create(guess)
         dispatch({
