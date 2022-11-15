@@ -68,18 +68,27 @@ const GuessPage = () => {
 
   const submitGuesses = (e) => {
     e.preventDefault()
+    const userGuesses = []
     guessableMatches.forEach(m => {
       const homeTeamScore = document.getElementById(`${m.id}-homeTeamScore`).value
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
       const userId = user.id
+
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
+          /* construct new guess and add to array */
           const guess = {
             homeTeamScore: parseInt(homeTeamScore),
             awayTeamScore: parseInt(awayTeamScore),
             matchId: m.id,
             userId: userId
           }
+          userGuesses.push(guess)
+          /*
+          * TODO: send guesses to backend in a single request
+          * instead of sending them one by one
+          */
+          
           dispatch(createGuess(guess))
         }
       }
