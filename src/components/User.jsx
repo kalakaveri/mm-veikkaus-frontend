@@ -12,7 +12,6 @@ const User = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth = useSelector(state => state.auth);
   const users = useSelector(state => state.users);
   const { userId } = useParams();
 

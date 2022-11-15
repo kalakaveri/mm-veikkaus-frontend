@@ -3,7 +3,6 @@ import React  from 'react';
 import { Paper } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
