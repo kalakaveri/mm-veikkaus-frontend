@@ -28,7 +28,7 @@ const LoginForm = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid className='page-container' container component="main">
+      <Grid container component="main">
         <Grid
           item
           xs={false}
@@ -63,7 +63,7 @@ const LoginForm = () => {
                 required
                 fullWidth={true}
                 id="username"
-                label="username"
+                label="Nimi"
                 name="username"
                 autoComplete="username"
                 autoFocus
@@ -73,7 +73,7 @@ const LoginForm = () => {
                 required
                 fullWidth={true}
                 name="password"
-                label="Password"
+                label="Salasana"
                 type="password"
                 id="password"
                 autoComplete="current-password"

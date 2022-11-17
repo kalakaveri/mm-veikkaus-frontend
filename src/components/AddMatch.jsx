@@ -63,6 +63,9 @@ const AddMatch = ({ toggleVisibility }) => {
           <Typography component="h1" variant="h5">
             Lisää ottelu
           </Typography>
+          <Typography align='center' variant='button'>
+            Aikatietojen oltava esitetyssä muodossa
+          </Typography>
           <Box 
 						component="form" 
 						noValidate 

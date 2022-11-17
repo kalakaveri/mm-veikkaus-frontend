@@ -35,7 +35,7 @@ export const createMatch = (match) => {
         type: 'CREATE_MATCH',
         data: newMatch
       })
-      dispatch(setNotification(`Ottelun lisäys onnistui`, 'success'))
+      dispatch(setNotification(`Ottelu lisätty`, 'success'))
     } catch (error) {
       dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
@@ -65,7 +65,7 @@ export const deleteMatch = (id) => {
         type: 'DELETE_MATCH',
         data: id
       })
-      dispatch(setNotification('Match deleted', true))
+      dispatch(setNotification('Ottelu poistettu', true))
     }
     catch (error) {
       dispatch(setNotification('Jotain meni pieleen', false))

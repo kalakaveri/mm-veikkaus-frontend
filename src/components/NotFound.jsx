@@ -6,8 +6,8 @@ import React from 'react'
  */
  const NotFound = () => {
 	return (
-		<div className='page-container'>
-			<h1 className='not-found-header'>404 Page Not Found</h1>
+		<div>
+			<h1 className='not-found-header'>404 Sivua ei löytynyt</h1>
 		</div>
 	);
 };

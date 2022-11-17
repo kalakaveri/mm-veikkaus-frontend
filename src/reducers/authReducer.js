@@ -15,7 +15,7 @@ export const login = ({ username, password }) => {
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       authService.setToken(user.token)
       dispatch({ type: 'LOGIN', user: user })
-      dispatch(setNotification(`Lykkyä pyttyyn ${user.username}!`, 'success'))
+      dispatch(setNotification(`Lykkyä arvauksiin ${user.username}!`, 'success'))
     } catch (error) {
       dispatch(setNotification('Käyttäjä tai salasana oli väärin', 'error'))
     }

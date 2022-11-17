@@ -52,19 +52,19 @@ const User = ({ user }) => {
         }}
       >
         <Typography className='user-heading' variant='h5' color='white'>{user.username}</Typography>
-        <Typography variant='button' color='white'>Rooli: {user.role}</Typography>
+        <Typography variant='button' color='white'>Rooli: {user.role === 'admin' ? 'Ylläpitäjä' : 'Käyttäjä'}</Typography>
         <Box sx={{ margin: 2 }}>
           <Button
             variant='contained'
             color='error'
             startIcon={<DeleteIcon />}
             onClick={(e) => handleDelete(e)}
-          >Delete</Button>
+          >Poista</Button>
           <Button
             variant='contained'
             onClick={(e) => handleModify(e)}
             endIcon={<EditIcon />}
-          >Modify</Button>
+          >Muokkaa</Button>
         </Box>
       </Box>
     </ListItem>

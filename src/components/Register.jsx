@@ -6,7 +6,6 @@ import { register } from '../reducers/usersReducer'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -44,8 +43,7 @@ const LoginForm = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid className='page-container' container component="main">
-        <CssBaseline />
+      <Grid container component="main">
         <Grid
           item
           xs={false}
@@ -74,13 +72,16 @@ const LoginForm = () => {
             <Typography component="h1" variant="h5">
               Rekisteröinti
             </Typography>
+            <Typography align='center' variant="button">
+              Käytä nimenä etunimeäsi
+            </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth={true}
                 id="username"
-                label="username"
+                label="Nimi"
                 name="username"
                 autoComplete="username"
                 autoFocus
@@ -90,7 +91,7 @@ const LoginForm = () => {
                 required
                 fullWidth={true}
                 name="password"
-                label="Password"
+                label="Salasana"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -100,7 +101,7 @@ const LoginForm = () => {
                 required
                 fullWidth={true}
                 name="password2"
-                label="Password again"
+                label="Toista salasana"
                 type="password"
                 id="password2"
                 autoComplete="current-password2"

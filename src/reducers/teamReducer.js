@@ -45,9 +45,8 @@ export const updateTeam = (team) => {
         type: 'UPDATE_TEAM',
         data: updatedTeam
       })
-      dispatch(setNotification(`Joukkueen tiedon päivitettiin`, 'success'))
+      dispatch(setNotification(`Joukkueen tiedot päivitetty`, 'success'))
     } catch (error) { 
-      console.log('error :>> ', error);
       dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
   }

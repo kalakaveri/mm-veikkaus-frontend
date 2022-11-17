@@ -29,7 +29,7 @@ export const createGuess = (guess) => {
                 type: 'CREATE_GUESS',
                 data: newGuess
             })
-            dispatch(setNotification(`Lisäys onnistui`, 'success'))
+            dispatch(setNotification(`Tiedot lisätty`, 'success'))
         } catch (error) {
         dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
@@ -59,7 +59,7 @@ export const deleteGuess = (id) => {
                 type: 'DELETE_GUESS',
                 data: id
             })
-            dispatch(setNotification('Poisto onnistui', 'success'))
+            dispatch(setNotification('Arvaus poistettu', 'success'))
         } catch (error) {
             dispatch(setNotification('Jotain meni pieleen', 'error'))
         }

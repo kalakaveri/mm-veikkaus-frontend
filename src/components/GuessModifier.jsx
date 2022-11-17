@@ -12,13 +12,15 @@ import { useParams } from 'react-router-dom';
 
 import { deleteGuess, updateGuess } from '../reducers/guessReducer';
 
-const GuessModifier = ({ guess, visible, setVisible }) => {
+const GuessModifier = ({ guess }) => {
     const dispatch = useDispatch()
+    const [visible, setVisible] = useState(true)
     const [homeGoals, setHomeGoals] = useState(guess.homeGoals);
     const [awayGoals, setAwayGoals] = useState(guess.awayGoals);
 
     const guesses = useSelector(state => state.guesses);
     const matches = useSelector(state => state.matches);
+    const user = useSelector(state => state.auth);
 
     const { guessId } = useParams();
     if (guessId || guessId !== undefined) {
@@ -27,12 +29,12 @@ const GuessModifier = ({ guess, visible, setVisible }) => {
 
     const handleDelete = (e) => {
         e.preventDefault()
+        setVisible(!visible)
         dispatch(deleteGuess(guess.id));
     }
 
     const handleGuessUpdate = (e) => {
         e.preventDefault()
-        // setVisible(!visible)
         const updatedGuess = {
             ...guess,
             match: guess.match.id,
@@ -100,7 +102,9 @@ const GuessModifier = ({ guess, visible, setVisible }) => {
             </>
         )
     }
-
+    if (!visible) {
+        return null
+    }
     return (
         <Container key={`${guess.id}-container`} component='main' maxWidth="xs" className='page-container'>
             <Box className='item-container'
@@ -144,7 +148,11 @@ const GuessModifier = ({ guess, visible, setVisible }) => {
                         <Typography variant='button' fullwidth="true" align='center' marginLeft={8}>Syötä päivitetty arvaus</Typography>
                     </Grid>
                     <Grid item sx={{ mb: 1, ml: 1 }}>
-                        <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
+                        {user.role === 'admin'
+                            ?
+                            <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
+                            : null
+                        }
                     </Grid>
                 </Grid>
                 <Box 

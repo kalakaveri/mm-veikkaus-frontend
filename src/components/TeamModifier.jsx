@@ -52,7 +52,9 @@ const TeamModifier = () => {
   }
 
   return (
-    <Container component='main' className='page-container'>
+    <Container 
+      component='main'
+    >
       <Box 
         sx={{
           mt: 8,
@@ -60,15 +62,25 @@ const TeamModifier = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-				  borderRadius: '10px',
 				  padding: '15px',
-          backgroundColor: 'rgba(155,155,155,0.5)'
+          backgroundColor: 'rgba(155,155,155,0.5)',
+          borderRadius: 8,
+          boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+          border: '1px solid rgba(255,255,255,0,75)',
+          backdropFilter: 'blur(5px)',
         }}
       >
         <Typography variant='h5' color='white' align='center' sx={{ mb: 2 }}>Muokkaa joukkuetta</Typography>
         <img src={team.url} alt={team.name} width="35" height="20" />
         <Typography sx={{ ml: 1 }} variant='button' color='white'>{team.name}</Typography>
-        <Box component='form' noValidate onSubmit={handleModify} sx={{ mt: 3, }}>
+        <Box 
+          component='form'
+          noValidate
+          onSubmit={handleModify}
+          sx={{ 
+            mt: 3,
+          }}
+        >
           <Grid container spacing={5} justifyItems="center">
             <Grid item>
               <TextField
@@ -138,8 +150,8 @@ const TeamModifier = () => {
             </Grid>
           </Grid>
           <Box sx={{ mt: 2 }} justifyItems='center' align='center'>
-            <Button variant='outlined' color='error' onClick={(e) => navigate('/teams')}>Cancel</Button>
-            <Button variant='contained' color='success' onClick={(e) => handleModify(e)}>Modify team</Button>
+            <Button variant='contained' color='error' onClick={(e) => navigate('/teams')}>Peruuta</Button>
+            <Button variant='contained' color='success' onClick={(e) => handleModify(e)}>Päivitä joukkue</Button>
           </Box>
         </Box>
       </Box>

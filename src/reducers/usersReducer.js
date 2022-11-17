@@ -28,7 +28,7 @@ export const register = (username, password, password2) => {
     try {
       const user = await userService.register({ username, password, password2 })
       dispatch({ type: 'REGISTER', user: user })
-      dispatch(setNotification(`Luotiin käyttäjä`, 'success'))
+      dispatch(setNotification(`Rekisteröinti onnistui, kirjaudu sisään halutessasi`, 'success'))
     } catch (error) {
       dispatch(setNotification('Jotain meni pieleen', 'error'))
     }
