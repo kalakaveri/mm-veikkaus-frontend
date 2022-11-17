@@ -24,12 +24,12 @@ export const getGuess = (id) => {
 export const createGuess = (guess) => {
     return async dispatch => {
         try {
-        const newGuess = await guessService.create(guess)
-        dispatch({
-            type: 'CREATE_GUESS',
-            data: newGuess
-        })
-        dispatch(setNotification(`Lisäys onnistui`, 'success'))
+            const newGuess = await guessService.create(guess)
+            dispatch({
+                type: 'CREATE_GUESS',
+                data: newGuess
+            })
+            dispatch(setNotification(`Lisäys onnistui`, 'success'))
         } catch (error) {
         dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
@@ -54,14 +54,14 @@ export const updateGuess = (id, guess) => {
 export const deleteGuess = (id) => {
     return async dispatch => {
         try {
-        await guessService.remove(id)
-        dispatch({
-            type: 'DELETE_GUESS',
-            data: id
-        })
-        dispatch(setNotification('Poisto onnistui', 'success'))
+            await guessService.remove(id)
+            dispatch({
+                type: 'DELETE_GUESS',
+                data: id
+            })
+            dispatch(setNotification('Poisto onnistui', 'success'))
         } catch (error) {
-        dispatch(setNotification('Jotain meni pieleen', 'error'))
+            dispatch(setNotification('Jotain meni pieleen', 'error'))
         }
     }
 }

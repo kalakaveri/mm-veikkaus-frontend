@@ -57,7 +57,15 @@ const Rules = () => {
                         <Typography color='white' variant='subtitle1' align='inherit' ml={2}>B. Vähemmän väärin arvattuja otteluiden voittajia</Typography>
                         <br />
                         <br />
-                        <Table>
+                        <Table
+                            sx={{
+                                borderRadius: 8,
+                                boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                                background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+                                border: '1px solid rgba(255,255,255,0,75)',
+                                backdropFilter: 'blur(5px)',
+                            }}
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableCell colSpan={3} align='center'>
@@ -102,7 +110,16 @@ const Rules = () => {
                             </TableBody>
                         </Table>
                         <br />
-                        <Table sx={{ mb: 10 }}>
+                        <Table 
+                            sx={{
+                                mb: 10,
+                                borderRadius: 8,
+                                boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                                background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+                                border: '1px solid rgba(255,255,255,0,75)',
+                                backdropFilter: 'blur(5px)',
+                            }}
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableCell colSpan={4} align='center' background-color='white'>

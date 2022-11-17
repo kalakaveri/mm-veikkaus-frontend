@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { updateUser } from '../reducers/usersReducer';
-import { deleteGuess } from '../reducers/guessReducer';
 
 import {
   Box,
@@ -21,26 +20,19 @@ const UserModifier = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector(state => state.users);
-  const [points, setPoints] = useState(0);
   
   const { userId } = useParams();
   const user = users.find(u => u.id === userId);
+  const [points, setPoints] = useState(user.points);
   const [role, setRole] = useState(user.role);
-  
-
-  const handleDeleteAll = (e) => {
-    e.preventDefault()
-    user.guesses.forEach(guess => {
-      dispatch(deleteGuess(guess.id))
-    })
-  }
+  const [username, setUsername] = useState(user.username);
 
   const handleUserUpdate = (e) => {
     e.preventDefault();
     navigate('/users');
     const updatedUser = {
       id: user.id,
-      username: user.username,
+      username: username,
       role: role,
       points: points
     }
@@ -58,15 +50,30 @@ const UserModifier = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-				  	opacity: '0.9',
-				  	borderRadius: '10px',
+				    opacity: '0.9',
 				  	padding: '20px',
-            backgroundColor: 'rgba(255,255,255,0.4)'
+            backgroundColor: 'rgba(255,255,255,0.4)',
+            borderRadius: 8,
+            boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+            background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+            border: '1px solid rgba(255,255,255,0,75)',
+            backdropFilter: 'blur(5px)',
           }}
         >
         <Typography color='white' variant='h5'>Muokkaa käyttäjää</Typography>
         <Typography variant='button' color='white'>{user.username}</Typography>
           <Box component='form'>
+            <TextField
+              required
+              fullWidth
+              sx={{ width: '160px', ml: 2, input: { color: 'white' } }}
+              id='username'
+              type='text'
+              label='Käyttäjänimi'
+              name="username"
+              autoComplete="username"
+              onChange={e => setUsername(e.target.value)}
+            />
             <InputLabel htmlFor='role-select'>Rooli</InputLabel>
             <Select
               name='role-select'
@@ -84,7 +91,7 @@ const UserModifier = () => {
               type='number'
               label='Pisteet'
               name="points"
-              autoComplete="homeGoals"
+              autoComplete="points"
               onChange={e => setPoints(parseInt(e.target.value))}
             />
             <Button
@@ -100,8 +107,8 @@ const UserModifier = () => {
           </Box>
           <Box sx={{ mt: 5 }} align='center'>
             {user.guesses.length > 0
-              ? <Button variant='contained' color='error' onClick={handleDeleteAll} sx={{ mt: 3 }}>Poista kaikki {user.guesses.length} arvausta</Button>
-              : <p>Ei vielä veikattuja otteluita</p>
+              ? <Typography variant='button' color='black' sx={{ mt: 2 }}>Käyttäjällä on {user.guesses.length} arvausta</Typography>
+              : <Typography variant='button' color='black' sx={{ mt: 2 }}>Käyttäjällä ei ole arvauksia</Typography>
             }
           </Box>
         </Box>

@@ -102,7 +102,15 @@ const Standings = () => {
             <Grid container spacing={3} justifyContent='center'>
             {groups.map(group => (
                 <Grid sx={{ padding: '5px' }} item xs={12} sm={12} md={12} key={group} container>
-                <TableContainer className='page-container'>
+                <TableContainer
+                    sx={{
+                        borderRadius: 8,
+                        boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                        background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+                        border: '1px solid rgba(255,255,255,0,75)',
+                        backdropFilter: 'blur(5px)',
+                    }}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>

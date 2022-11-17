@@ -1,4 +1,3 @@
-import teams from '../services/teams'
 import teamService from '../services/teams'
 import { setNotification } from './notificationReducer'
 

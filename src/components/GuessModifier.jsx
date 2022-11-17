@@ -12,10 +12,10 @@ import { useParams } from 'react-router-dom';
 
 import { deleteGuess, updateGuess } from '../reducers/guessReducer';
 
-const GuessModifier = ({ guess, user, handleDeleteAll }) => {
+const GuessModifier = ({ guess, visible, setVisible }) => {
     const dispatch = useDispatch()
-    const [homeGoals, setHomeGoals] = useState(0);
-    const [awayGoals, setAwayGoals] = useState(0);
+    const [homeGoals, setHomeGoals] = useState(guess.homeGoals);
+    const [awayGoals, setAwayGoals] = useState(guess.awayGoals);
 
     const guesses = useSelector(state => state.guesses);
     const matches = useSelector(state => state.matches);
@@ -32,7 +32,7 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
 
     const handleGuessUpdate = (e) => {
         e.preventDefault()
-
+        // setVisible(!visible)
         const updatedGuess = {
             ...guess,
             match: guess.match.id,
@@ -75,86 +75,102 @@ const GuessModifier = ({ guess, user, handleDeleteAll }) => {
         )
     }
 
-    const filterTeamGrid = (guess, side) => {
+    const filterTeamGrid = (guess, /*side*/) => {
         const match = matches.find(m => m.id === guess.match.id)
         return (
             <>
-            <Grid item key={match[`${side}`].id}>
+            {/* <Grid item key={match[`${side}`].id}>
                 <img src={match[`${side}`].url} alt={match[`${side}`].name} width={'35px'} height={'20px'} />
                 <Typography variant='h6' sx={{ ml: 1 }}>
-                    {match[[`${side}`]].name}
+                    {match[`${side}`].name}
+                </Typography>
+            </Grid> */}
+            <Grid item key={match['homeTeam'].id}>
+                <img src={match['homeTeam'].url} alt={match['homeTeam'].name} width={'35px'} height={'20px'} />
+                <Typography variant='h6' sx={{ ml: 1 }}>
+                    {match['homeTeam'].name}
                 </Typography>
             </Grid>
-            
+            <Grid item key={match['awayTeam'].id} sx={{ ml: 8}}>
+                <Typography variant='h6' sx={{ mr: 1 }}>
+                    {match['awayTeam'].name}
+                </Typography>
+                <img src={match['awayTeam'].url} alt={match['awayTeam'].name} width={'35px'} height={'20px'} />
+            </Grid>
             </>
         )
     }
 
     return (
-        <Container component='main' maxWidth="xs" className='page-container'>
-        <Box className='item-container'
-            minWidth={'380px'}
-            sx={{
-                mt: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                borderRadius: '10px',
-                padding: '20px',
-            }}
-        >
-            <Grid 
-                container 
-                columns={2}
+        <Container key={`${guess.id}-container`} component='main' maxWidth="xs" className='page-container'>
+            <Box className='item-container'
+                minWidth={'380px'}
                 sx={{
-                    '& .MuiTypography-root': {
-                        textAlign: 'center'
-                    },
-                    '& .MuiGrid-root': {
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    },
+                    mt: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '20px',
+                    borderRadius: 8,
+                    boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                    background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+                    border: '1px solid rgba(255,255,255,0,75)',
+                    backdropFilter: 'blur(5px)',
                 }}
             >
-                <Grid item align='center' sx={{ ml: 4 }}>
-                    {filterTeamGrid(guess, 'homeTeam')}
-                </Grid>
-                <Grid item align='center' sx={{ ml: 8 }}>
-                    {filterTeamGrid(guess, 'awayTeam')}
-                </Grid>
-                <Grid item sx={{ mb: 1, ml: 1 }}>
-                    <Typography variant='button' fullwidth="true" align='center' marginLeft={8}>Syötä päivitetty arvaus</Typography>
-                </Grid>
-                <Grid item sx={{ mb: 1, ml: 1 }}>
-                    <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
-                </Grid>
-            </Grid>
-            <Box 
-                component="form" 
-                align='center'
-                noValidate
-                onSubmit={e => handleGuessUpdate(e)}
-            >
-                {filterTeamData(guess)}
-                <Button
-                    variant='contained'
-                    color='error'
-                    type='button'
-                    onClick={e => handleDelete(e)}
+                <Grid 
+                    container 
+                    columns={2}
+                    sx={{
+                        '& .MuiTypography-root': {
+                            textAlign: 'center'
+                        },
+                        '& .MuiGrid-root': {
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        },
+                    }}
                 >
-                    Poista arvaus
-                </Button>
-                <Button
-                    variant='contained'
-                    color='success'
-                    type='submit'
+                    <Grid item align='center' sx={{ ml: 4 }}>
+                        {/* {filterTeamGrid(guess, 'homeTeam')}
+                    </Grid>
+                    <Grid item align='center' sx={{ ml: 8 }}>
+                        {filterTeamGrid(guess, 'awayTeam')} */}
+                        {filterTeamGrid(guess)}
+                    </Grid>
+                    <Grid item sx={{ mb: 1, ml: 1 }}>
+                        <Typography variant='button' fullwidth="true" align='center' marginLeft={8}>Syötä päivitetty arvaus</Typography>
+                    </Grid>
+                    <Grid item sx={{ mb: 1, ml: 1 }}>
+                        <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
+                    </Grid>
+                </Grid>
+                <Box 
+                    component="form" 
+                    align='center'
+                    noValidate
+                    onSubmit={e => handleGuessUpdate(e)}
                 >
-                    Päivitä arvaus
-                </Button>
+                    {filterTeamData(guess)}
+                    <Button
+                        variant='contained'
+                        color='error'
+                        type='button'
+                        onClick={e => handleDelete(e)}
+                    >
+                        Poista arvaus
+                    </Button>
+                    <Button
+                        variant='contained'
+                        color='success'
+                        type='submit'
+                    >
+                        Päivitä arvaus
+                    </Button>
+                </Box>
             </Box>
-        </Box>
         </Container>
     );
 }

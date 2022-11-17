@@ -44,6 +44,7 @@ const App = () => {
       dispatch(initMatches());
       dispatch(initGuesses());
       dispatch(getAll());
+      console.log('init @App.jsx')
     }
   }
   , [dispatch, matches]);

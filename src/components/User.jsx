@@ -43,8 +43,12 @@ const User = ({ user }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            borderRadius: '10px',
             padding: '20px',
+            borderRadius: 8,
+            boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+            background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+            border: '1px solid rgba(255,255,255,0,75)',
+            backdropFilter: 'blur(5px)',
         }}
       >
         <Typography className='user-heading' variant='h5' color='white'>{user.username}</Typography>

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createGuess, initGuesses, deleteGuess } from "../reducers/guessReducer"
+import { createGuess, initGuesses } from "../reducers/guessReducer"
 import { useEffect } from "react"
 
 import GuessModifier from "./GuessModifier"
@@ -32,13 +32,13 @@ const GuessPage = () => {
   useEffect(() => {
     dispatch(initGuesses())
     setGuessableMatches(filterMatches())
-  }, [])
+  }, [dispatch, user.guesses])
 
   const toggleVisibility = (e) => {
     e.preventDefault()
     setVisible(!visible)
   }
-
+/*
   const handleDeleteAll = (e) => {
     e.preventDefault()
     if (user.role === 'admin') {
@@ -51,14 +51,19 @@ const GuessPage = () => {
         dispatch(deleteGuess(guess.id))
       })
     }
+    dispatch(initGuesses())
     setVisible(!visible)
   }
-
+*/
   const filterMatches = () => {
     const userGuessedIds = guesses.map(guess => guess.user.username === user.username ? guess.match.id : null)
     const list = []
     matches.forEach(match => {
-      if (!userGuessedIds.includes(match.id)) { 
+      let dateParts = match.date.split("-")
+      let timeParts = match.time.split(":")
+      let start = new Date(+dateParts[2], dateParts[1]-1, +dateParts[0], +timeParts[0], +timeParts[1])
+      let now = new Date()
+      if (!userGuessedIds.includes(match.id) && start > now) {
         list.push(match)
       }
     })
@@ -68,7 +73,6 @@ const GuessPage = () => {
 
   const submitGuesses = (e) => {
     e.preventDefault()
-    const userGuesses = []
     guessableMatches.forEach(m => {
       const homeTeamScore = document.getElementById(`${m.id}-homeTeamScore`).value
       const awayTeamScore = document.getElementById(`${m.id}-awayTeamScore`).value
@@ -76,19 +80,12 @@ const GuessPage = () => {
 
       if (homeTeamScore && awayTeamScore) {
         if (user.guesses.find(g => g.matchId === m.id) === undefined) {
-          /* construct new guess and add to array */
           const guess = {
             homeTeamScore: parseInt(homeTeamScore),
             awayTeamScore: parseInt(awayTeamScore),
             matchId: m.id,
             userId: userId
           }
-          userGuesses.push(guess)
-          /*
-          * TODO: send guesses to backend in a single request
-          * instead of sending them one by one
-          */
-          
           dispatch(createGuess(guess))
         }
       }
@@ -96,7 +93,7 @@ const GuessPage = () => {
     navigate('/')
   }
   return (
-    <Container className='page-container' sx={{ mt: '1px', mb: 8 }} >
+    <Container sx={{ mt: '1px', mb: 8 }} >
       {guessedMatches.length > 0 || (user.role === 'admin' && guesses.length > 0)
         ? <Button 
             fullWidth
@@ -104,36 +101,43 @@ const GuessPage = () => {
             color={visible === true ? 'error' : 'success'}
             onClick={toggleVisibility}
           >
-            {visible ? 'Peruuta muutokset' : 'Muokkaa arvauksia'}
+            {visible ? 'Lopeta muokkaus' : 'Muokkaa arvauksia'}
           </Button>
         : null
       }
-      {visible 
+      {visible
         ? (
         <>
           {user && user.role === 'admin'
             ? 
-            <Box direction='column' sm='auto'>
+            <Box key='admin-box' direction='column' sm='auto'>
               {guesses.map(g => (
                 <>
-                <GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />
+                <GuessModifier visible={visible} setVisible={setVisible} key={g.id} guess={g} />
                 </>
               ))}
-              <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
             </Box>
             : 
-            <Box>
+            <Box key='non-admin-box'>
               {guessedMatches.map(g => (
-                <GuessModifier key={g.id} guess={g} user={user} handleDeleteAll={handleDeleteAll} />
+                <GuessModifier visible={visible} setVisible={setVisible} key={g.id} guess={g} />
               ))}
-              <Button sx={{ mt: 5 }} fullWidth variant='contained' color='success' onClick={handleDeleteAll}>Poista kaikki arvaukset</Button>
             </Box>
             }
             </>)
         : (
-        <div className='page-container'>
+        <div>
           <Typography variant='h3' align='center' color='white' paragraph>Syötä veikkaukset</Typography>
-          <TableContainer component={'form'}>
+          <TableContainer
+            component={'form'}
+            sx={{
+              borderRadius: 8,
+              boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+              background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+              border: '1px solid rgba(255,255,255,0,75)',
+              backdropFilter: 'blur(5px)',
+            }}
+          >
             <Table aria-label='guess table' sx={{ minWidth: '820px' }}>
               <TableHead>
                 <TableRow>

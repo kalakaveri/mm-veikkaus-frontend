@@ -31,7 +31,7 @@ const MatchPage = () => {
   }
 
   return (
-    <Container className='page-container'>
+    <Container>
       {user.role === 'admin'
           ? 
             <Container>
@@ -49,7 +49,16 @@ const MatchPage = () => {
             </Container>
           : null
       }
-      <Table>
+      <Table
+        sx={{
+          mt: 2,
+          borderRadius: 8,
+          boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+          background: 'linear-gradient(135deg, rgba(160,159,159,0.4), rgba(160,159,159,0.2))',
+          border: '1px solid rgba(255,255,255,0,75)',
+          backdropFilter: 'blur(5px)',
+        }}
+      >
         <TableHead>
             <TableRow>
                 <TableCell colSpan={7} align='center' background-color='white'>

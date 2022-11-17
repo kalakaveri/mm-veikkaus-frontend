@@ -18,7 +18,7 @@ const UsersPage = () => {
   }, [])
 
   return (
-    <Container component='main' maxWidth="xs" className='page-container'>
+    <Container component='main' maxWidth="xs">
       <Typography variant='h5' color='white' align='center'>Users</Typography>
       <List key='users'>
       {users && users.length > 0 
