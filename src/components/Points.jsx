@@ -16,7 +16,6 @@ const Points = () => {
     const dispatch = useDispatch()
     const guesses = useSelector(state => state.guesses)
     const matches = useSelector(state => state.matches)
-    const teams = useSelector(state => state.teams)
     const users = useSelector(state => state.users)
 
     useEffect(() => {
@@ -195,7 +194,9 @@ const Points = () => {
                 : 'Ei löytynyt käyttäjiä'
             }
             <Typography variant='h6' align='center' color='white' sx={{ mt: 5 }}>
-                Alla näkyvät kaikkien käyttäjien arvaukset jo pelattuihin otteluihin sekä otteluiden tulokset, kunhan ottelut on pelattu ja päivitetty.
+                Alla näkyvät kaikkien käyttäjien veikkaukset otteluittain.
+                <br />
+                <Typography variant='button' align='center' color='white'>(Kun ottelu on pelattu ja päivitetty)</Typography>
             </Typography>
             {constructGuessShowcase()}
         </Container>
