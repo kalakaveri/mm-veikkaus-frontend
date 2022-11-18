@@ -149,9 +149,8 @@ const GuessModifier = ({ guess }) => {
                     </Grid>
                     <Grid item sx={{ mb: 1, ml: 1 }}>
                         {user.role === 'admin'
-                            ?
-                            <Typography variant='button' fullwidth="true" align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
-                            : null
+                            ? <Typography variant='button' align='center' marginLeft={12}>Arvaaja: {guess.user.username}:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
+                            : <Typography variant='button' align='center' marginLeft={12}>Nykyinen arvaus:  {guess.homeTeamScore}  -  {guess.awayTeamScore}</Typography>
                         }
                     </Grid>
                 </Grid>

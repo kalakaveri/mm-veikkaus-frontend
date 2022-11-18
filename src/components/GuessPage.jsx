@@ -55,19 +55,24 @@ const GuessPage = () => {
     setVisible(!visible)
   }
 */
+  const dateInFuture = (date, time) => {
+    const now = new Date()
+    const dateParts = date.split('-')
+    const timeParts = time.split(':')
+    const dateToComp = new Date(+dateParts[2], dateParts[1]-1, +dateParts[0], +timeParts[0], +timeParts[1])
+    return dateToComp > now
+  }
+
   const filterMatches = () => {
     const userGuessedIds = guesses.map(guess => guess.user.username === user.username ? guess.match.id : null)
     const list = []
     matches.forEach(match => {
-      let dateParts = match.date.split("-")
-      let timeParts = match.time.split(":")
-      let start = new Date(+dateParts[2], dateParts[1]-1, +dateParts[0], +timeParts[0], +timeParts[1])
-      let now = new Date()
-      if (!userGuessedIds.includes(match.id) && start > now) {
+      if (!userGuessedIds.includes(match.id) && dateInFuture(match.date, match.time)) {
         list.push(match)
       }
     })
-    setGuessedMatches(guesses.filter(guess => guess.user.username === user.username))
+    setGuessedMatches(guesses.filter(guess => guess.user.username === user.username && (dateInFuture(guess.match.date, guess.match.time))))
+    console.log('guessedMatches :>> ', guessedMatches);
     return list
   }
 
