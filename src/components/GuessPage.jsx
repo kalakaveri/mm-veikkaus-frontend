@@ -31,12 +31,14 @@ const GuessPage = () => {
 
   useEffect(() => {
     dispatch(initGuesses())
+    console.log('initGuesses')
     setGuessableMatches(filterMatches())
   }, [dispatch, user.guesses])
 
   const toggleVisibility = (e) => {
     e.preventDefault()
     setVisible(!visible)
+    filterMatches()
   }
 /*
   const handleDeleteAll = (e) => {
@@ -72,7 +74,6 @@ const GuessPage = () => {
       }
     })
     setGuessedMatches(guesses.filter(guess => guess.user.username === user.username && (dateInFuture(guess.match.date, guess.match.time))))
-    console.log('guessedMatches :>> ', guessedMatches);
     return list
   }
 
