@@ -171,7 +171,7 @@ const NavDrawer = ({ handleLogout }) => {
             >
               <MenuItem key={user.id} onClick={handleCloseUserMenu} >
                 <Typography textAlign="center">
-                  {user.username} - {isNaN(parseInt(user.points)) ? 0 : parseInt(user.points)} pistettä
+                  {user.username} - {parseInt(user.points)} pistettä
                 </Typography>
               </MenuItem>
               <MenuItem onClick={() => {

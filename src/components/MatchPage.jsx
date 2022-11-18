@@ -31,7 +31,7 @@ const MatchPage = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{ minWidth: '600px', maxWidth: '100%' }}>
       {user.role === 'admin'
           ? 
             <Container>
@@ -51,6 +51,7 @@ const MatchPage = () => {
       }
       <Table
         sx={{
+          minWidth: '800px',
           mt: 2,
           borderRadius: 8,
           boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',

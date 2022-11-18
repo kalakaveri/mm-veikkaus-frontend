@@ -33,6 +33,7 @@ const GuessPage = () => {
     dispatch(initGuesses())
     console.log('initGuesses')
     setGuessableMatches(filterMatches())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, user.guesses])
 
   const toggleVisibility = (e) => {
